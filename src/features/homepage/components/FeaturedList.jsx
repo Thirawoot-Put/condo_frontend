@@ -1,5 +1,5 @@
 import React from 'react';
-import Carousel from './Carousel';
+import MediumCardCarousel from '../../../components/MediumCardCarousel';
 import MediumPostCard from '../../../components/MediumPostCard';
 
 const mock = [
@@ -69,12 +69,11 @@ function FeaturedList() {
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
       </div>
       <div className='w-[90rem] py-5'>
-        <Carousel>
-          {' '}
+        <MediumCardCarousel>
           {mock.map((card) => (
             <MediumPostCard data={card} />
           ))}
-        </Carousel>
+        </MediumCardCarousel>
       </div>
     </div>
   );
