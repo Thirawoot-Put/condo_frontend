@@ -1,10 +1,9 @@
 import React from 'react';
 
 function MediumPostCard({ data }) {
-  console.log(data);
   return (
-    <div className='shadow-xl'>
-      <div className='w-80 rounded-xl'>
+    <div className='shadow-xl w-60'>
+      <div className='rounded-xl'>
         <img
           className='aspect-[3/2] rounded-t-xl'
           src={data.img}
