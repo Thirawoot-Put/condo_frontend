@@ -32,7 +32,7 @@ const contact = [
 export default function Container() {
   return (
     <div className=''>
-      <div className='w-[80%] mx-auto flex flex-col gap-14'>
+      <div className='w-[80%] mx-auto flex flex-col gap-14 mt-10'>
         <div className='flex justify-between min-h-[160px]'>
           <div className=' '>
             <MenuList menu={about} />
