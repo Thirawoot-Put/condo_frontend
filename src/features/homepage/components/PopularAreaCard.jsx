@@ -16,7 +16,9 @@ function PopularAreaCard({ data }) {
           <div className='font-semibold'>{data.districtName}</div>
           <div className='text-sm text-gray-500'>{data.districtDetail}</div>
         </div>
-        <Button>Select</Button>
+        <Button bg='gray' width='full'>
+          Select
+        </Button>
       </div>
     </div>
   );

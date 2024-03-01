@@ -18,6 +18,8 @@ import EditPostPage from '../pages/EditPostPage';
 import PaymentPage from '../pages/PaymentPage';
 import SearchMapPage from '../pages/SearchMapPage';
 import PostContextProvider from '../features/homepage/context/PostContext';
+import CheckoutForm from '../features/payment/creditcard/CheckoutForm';
+import Return from '../features/payment/creditcard/Return';
 
 const router = createBrowserRouter([
   // Guest เข้าได้ทุกคน
@@ -79,6 +81,14 @@ const router = createBrowserRouter([
       {
         path: 'user/payment',
         element: <PaymentPage />,
+      },
+      {
+        path: 'checkout',
+        element: <CheckoutForm />,
+      },
+      {
+        path: 'return',
+        element: <Return />,
       },
     ],
   },
