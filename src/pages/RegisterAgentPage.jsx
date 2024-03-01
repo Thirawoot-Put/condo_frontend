@@ -4,10 +4,9 @@ import RegisterForm from '../features/auth/components/RegisterForm';
 function RegisterAgentPage() {
   return (
     <>
-            <div>RegisterAgentPage</div>;
-            <RegisterForm />
+      <RegisterForm />
     </>
-  )
+  );
 }
 
 export default RegisterAgentPage;

@@ -59,6 +59,9 @@ dependencies:
   slick-carousel:
     specifier: ^1.8.1
     version: 1.8.1(jquery@3.7.1)
+  template-starter:
+    specifier: 'link:'
+    version: 'link:'
 
 devDependencies:
   '@types/react':

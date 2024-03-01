@@ -28,7 +28,8 @@
     "react-slick": "^0.30.2",
     "react-thailand-address-typeahead": "^2.0.1",
     "react-toastify": "^10.0.4",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "template-starter": "link:"
   },
   "devDependencies": {
     "@types/react": "^18.2.56",

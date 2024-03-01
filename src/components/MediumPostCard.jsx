@@ -6,13 +6,15 @@ function MediumPostCard({ data }) {
       <div className='rounded-xl'>
         <img
           className='aspect-[3/2] rounded-t-xl'
-          src={data.img}
+          src={data.condo.condoImage}
           alt='condo_img'
         />
       </div>
       <div className='bg-white px-4 py-2 rounded-b-xl'>
-        <div>{data.roomDetail}</div>
-        <div>{data.condoName}</div>
+        <div>
+          {data.roomNumber}/{data.floor}
+        </div>
+        <div>{data.condo.nameEn}</div>
         <div>{data.price}</div>
       </div>
     </div>

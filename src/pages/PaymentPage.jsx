@@ -5,8 +5,7 @@ function PaymentPage() {
   return (
     <div className='min-h-[500px] w-full'>
       <div className=''>
-
-      <Payment />
+        <Payment />
       </div>
     </div>
   );
