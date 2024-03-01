@@ -15,7 +15,7 @@ export default function Input({
     ? 'border-red-500 focus:ring-red-500'
     : ' border-gray-300 focus:border-blue-500 focus:ring-blue-300';
   return (
-    <div className='flex flex-col gap-2 pb-2'>
+    <div className='flex flex-col gap-2 pb-2 w-full'>
       <label htmlFor={id}>{label}</label>
       <input
         className={`${defaultClasses} ${extendedClasses}`}

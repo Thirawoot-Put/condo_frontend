@@ -3,7 +3,7 @@ import PostForm from '../features/post/components/PostForm';
 
 function CreatePostPage() {
   return (
-    <div>
+    <div className='p-9'>
       <PostForm />
     </div>
   );
