@@ -44,6 +44,9 @@ dependencies:
   react-slick:
     specifier: ^0.30.2
     version: 0.30.2(react-dom@18.2.0)(react@18.2.0)
+  react-thailand-address-typeahead:
+    specifier: ^2.0.1
+    version: 2.0.1(react-dom@18.2.0)(react@18.2.0)
   react-toastify:
     specifier: ^10.0.4
     version: 10.0.4(react-dom@18.2.0)(react@18.2.0)
@@ -3268,6 +3271,16 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       resize-observer-polyfill: 1.5.1
+    dev: false
+
+  /react-thailand-address-typeahead@2.0.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-8e0KK0B5fJFLJf6USRqJ/73HEepXV/n4wlIuf3KzgGtjPFx/sQ8TahXVv4Q6UKHhB8B52cJFePNaFj75RrfvlQ==}
+    peerDependencies:
+      react: ^18.2.0
+      react-dom: ^18.2.0
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /react-toastify@10.0.4(react-dom@18.2.0)(react@18.2.0):
