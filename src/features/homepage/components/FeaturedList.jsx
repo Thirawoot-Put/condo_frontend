@@ -1,65 +1,7 @@
 import React from 'react';
 import MediumCardCarousel from '../../../components/MediumCardCarousel';
 import MediumPostCard from '../../../components/MediumPostCard';
-
-const mock = [
-  {
-    id: 1,
-    img: 'https://www.99acres.com/microsite/articles/files/2023/02/condo.jpg',
-    roomDetail: '111/A',
-    condoName: 'Condo name',
-    price: '999',
-  },
-  {
-    id: 2,
-    img: 'https://www.99acres.com/microsite/articles/files/2023/02/condo.jpg',
-    roomDetail: '222/A',
-    condoName: 'Condo name',
-    price: '999',
-  },
-  {
-    id: 3,
-    img: 'https://www.99acres.com/microsite/articles/files/2023/02/condo.jpg',
-    roomDetail: '333/A',
-    condoName: 'Condo name',
-    price: '999',
-  },
-  {
-    id: 4,
-    img: 'https://www.99acres.com/microsite/articles/files/2023/02/condo.jpg',
-    roomDetail: '444/A',
-    condoName: 'Condo name',
-    price: '999',
-  },
-  {
-    id: 5,
-    img: 'https://www.99acres.com/microsite/articles/files/2023/02/condo.jpg',
-    roomDetail: '111/A',
-    condoName: 'Condo name',
-    price: '999',
-  },
-  {
-    id: 6,
-    img: 'https://www.99acres.com/microsite/articles/files/2023/02/condo.jpg',
-    roomDetail: '222/A',
-    condoName: 'Condo name',
-    price: '999',
-  },
-  {
-    id: 7,
-    img: 'https://www.99acres.com/microsite/articles/files/2023/02/condo.jpg',
-    roomDetail: '333/A',
-    condoName: 'Condo name',
-    price: '999',
-  },
-  {
-    id: 8,
-    img: 'https://www.99acres.com/microsite/articles/files/2023/02/condo.jpg',
-    roomDetail: '444/A',
-    condoName: 'Condo name',
-    price: '999',
-  },
-];
+import * as mockData from '../../../mock';
 
 function FeaturedList() {
   return (
@@ -70,7 +12,7 @@ function FeaturedList() {
       </div>
       <div className='w-[90rem] py-5'>
         <MediumCardCarousel>
-          {mock.map((card) => (
+          {mockData.featuredLists.map((card) => (
             <MediumPostCard data={card} />
           ))}
         </MediumCardCarousel>
