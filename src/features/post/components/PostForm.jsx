@@ -1,7 +1,7 @@
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
 import PostFormContent from './PostFormContent';
-import SelectInput from './SelectInput';
+import SelectOption from './SelectOption';
 import UtilsCheckbox from './UtilsCheckbox';
 
 export default function PostForm() {
@@ -12,15 +12,19 @@ export default function PostForm() {
       <div className='flex flex-col gap-3'>
         <div>1. Name and location</div>
         <PostFormContent title='Name'>
-          <Input label='Name in Thai' />
-          <Input label='Name in English' />
+          <div className='flex flex-col gap-2'>
+            <Input label='Name in Thai' />
+            <Input label='Name in English' />
+          </div>
         </PostFormContent>
         <PostFormContent title='Address'>
           <Input label='Address' />
-          <div className='flex'>
-            <SelectInput title='District' />
-            <SelectInput title='Province' />
-            <Input label='Postal Code' />
+          <div className='flex gap-3'>
+            <SelectOption title='District' />
+            <SelectOption title='Province' />
+            <div className='w-full'>
+              <Input label='Postal Code' />
+            </div>
           </div>
           This place is for MAPPPPPPPPPPPP
         </PostFormContent>
@@ -53,15 +57,23 @@ export default function PostForm() {
       <div className='flex flex-col gap-3'>
         <div>3. Room details</div>
         <PostFormContent title='Details'>
-          <div className='flex'>
-            <Input label='Room No.' />
-            <Input label='Floor' />
-            <Input label='Building' />
+          <div className='flex gap-3'>
+            <div className='w-full'>
+              <Input label='Room No.' />
+            </div>
+            <div className='w-full'>
+              <Input label='Floor' />
+            </div>
+            <div className='w-full'>
+              <Input label='Building' />
+            </div>
           </div>
-          <div className='flex'>
-            <Input label='Size (m&#178;)' />
-            <SelectInput title='Bedroom' />
-            <SelectInput title='Bathroom' />
+          <div className='flex gap-3'>
+            <div className='w-full'>
+              <Input label='Size (m&#178;)' />
+            </div>
+            <SelectOption title='Bedroom' />
+            <SelectOption title='Bathroom' />
           </div>
         </PostFormContent>
       </div>
@@ -72,19 +84,19 @@ export default function PostForm() {
           <Input label='Monthly rental price (Baht / month)' />
         </PostFormContent>
         <PostFormContent title='Contract'>
-          <SelectInput title='Month' />
+          <SelectOption title='Month' />
         </PostFormContent>
       </div>
       {/* --------5. Property description--------- */}
       <div className='flex flex-col gap-3'>
         <div>5. Property description</div>
         <PostFormContent>
-          <div class='relative w-full min-w-[200px]'>
+          <div className='relative w-full min-w-[200px]'>
             <textarea
               placeholder='Please type description'
-              className='peer h-full min-h-[100px] w-full resize-none border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-900 focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50'
+              className='h-full min-h-[200px] w-full resize-none border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-900 focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50'
             ></textarea>
-            <label className="after:content[' '] pointer-events-none absolute left-0 -top-2.5 flex h-full w-full select-none text-sm font-normal leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-1 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-900 after:transition-transform after:duration-300 peer-placeholder-shown:leading-tight peer-placeholder-shown:text-blue-gray-500 peer-focus:text-sm peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:after:scale-x-100 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+            <label className="after:content[' '] pointer-events-none absolute left-0 -top-2.5 flex h-full w-full select-none leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-1 after:block after:w-full after:border-b-2 after:border-gray-900 ">
               Description
             </label>
           </div>
