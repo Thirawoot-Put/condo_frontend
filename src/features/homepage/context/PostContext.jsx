@@ -6,8 +6,12 @@ export const PostContext = createContext();
 
 export default function PostContextProvider({ children }) {
   const getAllPosts = async () => {
-    const result = await postApi.fetchAllPost();
-    console.log(result);
+    try {
+      const result = await postApi.fetchAllPost();
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
