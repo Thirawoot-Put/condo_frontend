@@ -1,7 +1,13 @@
 import React from 'react';
 import RatingStarDisplay from './RatingStarDisplay';
 
-function ReviewCard({ data }) {
+const initialReview = {
+  agentName: 'John Doe',
+  description: 'something',
+  rating: 5,
+};
+
+function ReviewCard({ data = initialReview }) {
   return (
     <div className='card w-60 bg-base-100 shadow-xl'>
       <div className='card-body gap-4'>
