@@ -10,8 +10,8 @@ function PopularArea() {
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
       </div>
       <div className='w-screen flex gap-4 px-14 flex-wrap'>
-        {mockData.popularAreas.map((area) => (
-          <PopularAreaCard data={area} />
+        {mockData.popularAreas.map((area, index) => (
+          <PopularAreaCard key={index} data={area} />
         ))}
       </div>
     </div>

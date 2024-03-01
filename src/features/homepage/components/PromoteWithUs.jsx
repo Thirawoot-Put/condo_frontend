@@ -16,7 +16,7 @@ function PromoteWithUs() {
       </div>
       <div className='flex gap-4'>
         {mockData.sampleReviews.map((review) => (
-          <ReviewCard data={review} />
+          <ReviewCard key={review.id} data={review} />
         ))}
       </div>
     </div>

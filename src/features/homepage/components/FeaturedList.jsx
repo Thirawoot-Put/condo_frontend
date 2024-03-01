@@ -13,7 +13,7 @@ function FeaturedList() {
       <div className='w-[90rem] py-5'>
         <MediumCardCarousel>
           {mockData.featuredLists.map((card) => (
-            <MediumPostCard data={card} />
+            <MediumPostCard key={card.id} data={card} />
           ))}
         </MediumCardCarousel>
       </div>

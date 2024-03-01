@@ -17,12 +17,17 @@ import UserProfilePage from '../pages/UserProfilePage';
 import EditPostPage from '../pages/EditPostPage';
 import PaymentPage from '../pages/PaymentPage';
 import SearchMapPage from '../pages/SearchMapPage';
+import PostContextProvider from '../features/homepage/context/PostContext';
 
 const router = createBrowserRouter([
   // Guest เข้าได้ทุกคน
   {
     path: '/',
-    element: <Container />,
+    element: (
+      <PostContextProvider>
+        <Container />
+      </PostContextProvider>
+    ),
     children: [
       {
         path: '',
