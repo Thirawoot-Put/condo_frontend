@@ -1,3 +1,9 @@
+import React, { useState } from 'react';
+import {
+  ThailandAddressTypeahead,
+  ThailandAddressValue,
+} from 'react-thailand-address-typeahead';
+
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
 import PostFormContent from './PostFormContent';
@@ -5,6 +11,7 @@ import SelectOption from './SelectOption';
 import UtilsCheckbox from './UtilsCheckbox';
 
 export default function PostForm() {
+  const [val, setVal] = useState(ThailandAddressValue.empty());
   return (
     <form className=' flex flex-col gap-5 p-10 rounded-lg shadow-lg'>
       <div>Property Sign Up</div>
