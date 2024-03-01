@@ -3,7 +3,7 @@ import SearchBar from '../../../components/SearchBar';
 
 function Hero() {
   return (
-    <div className='hero h-[30rem] bg-base-200 '>
+    <div className='hero h-[25rem] bg-base-200 '>
       <div className='hero-content text-center'>
         <div className='max-w-md flex flex-col items-center'>
           <h1 className='text-5xl font-semibold'>Headline</h1>
