@@ -14,7 +14,7 @@ const Input = ({
     <>
       <label htmlFor={name}>{label}</label>
       <input
-        className='w-full border-0 border-b-2 border-black py-1.5 mt-1'
+        className='w-full border-0 border-b-2 border-gray-400 py-1.5 mt-1 focus:outline-none focus:border-b-black'
         type={type}
         placeholder={placeholder}
         value={value}

@@ -50,7 +50,7 @@ function LoginForm() {
             <Input
               label='Username'
               type='text'
-              placeholder='JohnD'
+              placeholder='example: JohnD'
               onChange={handleChange}
               id='username'
               name='username'
