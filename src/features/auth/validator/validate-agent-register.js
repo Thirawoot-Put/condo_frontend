@@ -1,7 +1,7 @@
 import Joi from 'joi';
 import validate from '../../../ultils/validate';
 
-const userRegisterSchema = Joi.object({
+const agentRegisterSchema = Joi.object({
   username: Joi.string()
     .required()
     .trim()
@@ -50,13 +50,14 @@ const userRegisterSchema = Joi.object({
     'any.required': 'Last name is required',
   }),
   mobile: Joi.string()
-    .allow('', null)
+    .required()
     .pattern(/^[0-9]{10}$/)
     .messages({
+      'string.empty': 'Mobile number is required',
       'string.pattern.base': 'Mobile number must be 10 characters',
     }),
 });
 
-const validateUserRegister = (input) => validate(userRegisterSchema)(input);
+const validateAgentRegister = (input) => validate(agentRegisterSchema)(input);
 
-export default validateUserRegister;
+export default validateAgentRegister;
