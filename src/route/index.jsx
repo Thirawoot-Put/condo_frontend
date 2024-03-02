@@ -19,6 +19,7 @@ import SearchMapPage from '../pages/SearchMapPage';
 import PostContextProvider from '../features/homepage/context/PostContext';
 import CheckoutForm from '../features/payment/creditcard/CheckoutForm';
 import Return from '../features/payment/creditcard/Return';
+import SelectPackagePage from '../pages/SelectPackagePage';
 
 const router = createBrowserRouter([
   // Guest เข้าได้ทุกคน
@@ -99,6 +100,10 @@ const router = createBrowserRouter([
       {
         path: 'agent/post',
         element: <CreatePostPage />,
+      },
+      {
+        path: 'agent/package',
+        element: <SelectPackagePage />,
       },
     ],
   },
