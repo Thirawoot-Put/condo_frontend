@@ -14,7 +14,6 @@ import UserContainer from '../layouts/UserContainer';
 import ChatPage from '../pages/ChatPage';
 import CreateReviewsPage from '../pages/CreateReviewsPage';
 import UserProfilePage from '../pages/UserProfilePage';
-import EditPostPage from '../pages/EditPostPage';
 import PaymentPage from '../pages/PaymentPage';
 import SearchMapPage from '../pages/SearchMapPage';
 import PostContextProvider from '../features/homepage/context/PostContext';
@@ -100,10 +99,6 @@ const router = createBrowserRouter([
       {
         path: 'agent/post',
         element: <CreatePostPage />,
-      },
-      {
-        path: 'agent/post/:postId',
-        element: <EditPostPage />,
       },
     ],
   },
