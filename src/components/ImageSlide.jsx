@@ -53,7 +53,7 @@ function ImageSlide() {
             <div className='flex top-4 justify-center py-2'>
                 {slides.map((slide, slideIndex) => (
                     <div key={slideIndex} onClick={() => dotSlide(slideIndex)} className='text-3xl cursor-pointer'>
-                        <RxDotFilled />
+                        <RxDotFilled className='text-white'/>
                     </div>
                 ))}
             </div>
