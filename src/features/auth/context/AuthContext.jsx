@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 import * as authApi from '../../../api/auth-api';
 import * as store from '../../../ultils/local-store';
+import { toast } from 'react-toastify';
 
 export const AuthContext = createContext();
 
