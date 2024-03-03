@@ -7,6 +7,7 @@ import { useState } from 'react';
 
 function FeaturedList() {
   const { allPosts } = usePost();
+  console.log('allPosts in fl', allPosts);
 
   return (
     <div className='bg-blue-300 py-10 flex flex-col gap-2 items-center justify-center'>

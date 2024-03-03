@@ -14,12 +14,12 @@ import UserContainer from '../layouts/UserContainer';
 import ChatPage from '../pages/ChatPage';
 import CreateReviewsPage from '../pages/CreateReviewsPage';
 import UserProfilePage from '../pages/UserProfilePage';
-import EditPostPage from '../pages/EditPostPage';
 import PaymentPage from '../pages/PaymentPage';
 import SearchMapPage from '../pages/SearchMapPage';
 import PostContextProvider from '../features/homepage/context/PostContext';
 import CheckoutForm from '../features/payment/creditcard/CheckoutForm';
 import Return from '../features/payment/creditcard/Return';
+import SelectPackagePage from '../pages/SelectPackagePage';
 
 const router = createBrowserRouter([
   // Guest เข้าได้ทุกคน
@@ -67,7 +67,7 @@ const router = createBrowserRouter([
     element: <UserContainer />,
     children: [
       {
-        path: 'user/chat',
+        path: 'user/chat/:userId',
         element: <ChatPage />,
       },
       {
@@ -102,8 +102,8 @@ const router = createBrowserRouter([
         element: <CreatePostPage />,
       },
       {
-        path: 'agent/post/:postId',
-        element: <EditPostPage />,
+        path: 'agent/package',
+        element: <SelectPackagePage />,
       },
     ],
   },
