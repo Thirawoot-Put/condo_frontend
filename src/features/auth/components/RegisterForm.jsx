@@ -1,36 +1,74 @@
 import { useState } from 'react';
 import Input from '../../../components/Input';
+import { Link } from 'react-router-dom';
+import Button from '../../../components/Button';
+import { toast } from 'react-toastify';
 
-function RegisterForm() {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [mobile, setMobile] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+function RegisterForm({ register, validator }) {
+  const [input, setInput] = useState({
+    username: '',
+    password: '',
+    confirmPassword: '',
+    email: '',
+    firstName: '',
+    lastName: '',
+    mobile: '',
+  });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const [error, setError] = useState({});
+
+  const handleChange = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+    setError({});
+  };
+
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      const validateError = validator(input);
+      if (validateError) {
+        setError(validateError);
+      }
+      if (input.mobile === '') {
+        const newState = { ...input };
+        delete newState.mobile;
+        setInput(newState);
+      }
+      if (!validateError) {
+        await register(input);
+        toast.success('Register success');
+      }
+    } catch (error) {
+      console.log(error);
+      if (error.response?.data.message === 'USERNAME_IN_USE') {
+        toast.error('Username is already in use');
+        return;
+      }
+      if (error.response?.data.message === 'MOBILE_IN_USE')
+        toast.error('Mobile number is already in use');
+      if (error.response?.data.message === 'EMAIL_IN_USE')
+        toast.error('Email address is already in use');
+    }
   };
 
   return (
-    <>
-      <div className='w-[40vh] h-[100vh] m-auto flex flex-col justify-around items-center'>
-        <h1 className='text-4xl'>Register</h1>
+    <div className='py-6'>
+      <div className='m-auto flex flex-col gap-4 justify-around px-6 py-6 items-center w-[65vh] border border-gray-100 rounded-lg shadow-lg'>
+        <h1 className='font-semibold text-3xl'>Welcome to Condrent</h1>
         <form
-          className='w-full h-5/6 flex flex-col justify-around'
+          className='w-full h-5/6 flex flex-col gap-4 justify-around'
           onSubmit={handleSubmit}
         >
           <div>
             <Input
               label='Username'
               type='text'
-              placeholder='Input Username'
-              onChange={(e) => setUsername(e.target.value)}
+              placeholder='example: JohnD'
+              onChange={handleChange}
               id='username'
               name='username'
-              value={username}
+              value={input.username}
+              errorMsg={error.username}
             />
           </div>
 
@@ -38,23 +76,25 @@ function RegisterForm() {
             <Input
               label='Password'
               type='password'
-              placeholder='Input Password'
-              onChange={(e) => setPassword(e.target.value)}
+              placeholder='password'
+              onChange={handleChange}
               id='password'
               name='password'
-              value={password}
+              value={input.password}
+              errorMsg={error.password}
             />
           </div>
 
           <div>
             <Input
-              label='Confirm Password'
+              label='Confirm password'
               type='password'
-              placeholder='Confirm Password'
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder='confirm password'
+              onChange={handleChange}
               id='confirmPassword'
               name='confirmPassword'
-              value={confirmPassword}
+              value={input.confirmPassword}
+              errorMsg={error.confirmPassword}
             />
           </div>
 
@@ -62,62 +102,65 @@ function RegisterForm() {
             <Input
               label='E-mail'
               type='email'
-              placeholder='Input Email'
-              onChange={(e) => setEmail(e.target.value)}
+              placeholder='example: john@gmail.com'
+              onChange={handleChange}
               id='email'
               name='email'
-              value={email}
+              value={input.email}
+              errorMsg={error.email}
             />
           </div>
 
-          <div>
-            <Input
-              label='Firstname'
-              type='text'
-              placeholder='Input First name'
-              onChange={(e) => setFirstName(e.target.value)}
-              id='firstname'
-              name='firstname'
-              value={firstName}
-            />
-          </div>
+          <div className='flex gap-2'>
+            <div>
+              <Input
+                label='First name'
+                type='text'
+                placeholder='example: John'
+                onChange={handleChange}
+                id='firstName'
+                name='firstName'
+                value={input.firstName}
+                errorMsg={error.firstName}
+              />
+            </div>
 
-          <div>
-            <Input
-              label='Lastname'
-              type='text'
-              placeholder='Input Last name'
-              onChange={(e) => setLastName(e.target.value)}
-              id='lastname'
-              name='lastname'
-              value={lastName}
-            />
+            <div>
+              <Input
+                label='Last name'
+                type='text'
+                placeholder='example: Doe'
+                onChange={handleChange}
+                id='lastName'
+                name='lastName'
+                value={input.lastName}
+                errorMsg={error.lastName}
+              />
+            </div>
           </div>
 
           <div>
             <Input
               label='Moblie'
               type='text'
-              placeholder='Input Mobile'
-              onChange={(e) => setMobile(e.target.value)}
+              placeholder='example: 0892346789 (10 digits)'
+              onChange={handleChange}
               id='mobile'
               name='mobile'
-              value={mobile}
+              value={input.mobile}
+              errorMsg={error.mobile}
             />
           </div>
 
-          <div className='flex justify-between'>
-            <button className='border p-4 rounded-2xl' type='submit'>
-              Register for User
-            </button>
-            <button className='border p-4 rounded-2xl' type='submit'>
-              Register for Agent
-            </button>
-          </div>
-          <button>Or Login</button>
+          <Button bg='blue' color='white' type='submit'>
+            Register for User
+          </Button>
+          <Link to={'/login'} className='text-center'>
+            Or Login
+          </Link>
         </form>
       </div>
-    </>
+    </div>
   );
 }
 
