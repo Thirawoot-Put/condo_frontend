@@ -9,7 +9,9 @@ function AgentContainer() {
     <div>
       <Header />
       <PostFormContextProvider>
-        <Outlet />
+        <div className='pt-16'>
+          <Outlet />
+        </div>
       </PostFormContextProvider>
       <Footer />
     </div>

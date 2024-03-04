@@ -196,3 +196,21 @@ export const sampleReviews = [
       'Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.',
   },
 ];
+
+export const imageSlides = [
+  {
+    url: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?q=80&w=3570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=3000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1613575831056-0acd5da8f085?q=80&w=3570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  },
+  {
+    url: 'https://images.unsplash.com/photo-1621891333819-00c206ec8994?q=80&w=3570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  },
+  {
+    url: 'https://plus.unsplash.com/premium_photo-1674676471417-07f613528a94?q=80&w=3545&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  },
+];

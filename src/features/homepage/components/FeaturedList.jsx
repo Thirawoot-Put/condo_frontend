@@ -2,12 +2,14 @@ import React from 'react';
 import MediumCardCarousel from '../../../components/MediumCardCarousel';
 import MediumPostCard from '../../../components/MediumPostCard';
 import usePost from '../hook/usePost';
-import * as mockData from '../../../mock';
-import { useState } from 'react';
+import { useEffect } from 'react';
 
 function FeaturedList() {
-  const { allPosts } = usePost();
-  console.log('allPosts in fl', allPosts);
+  const { allPosts, getAllPosts } = usePost();
+
+  useEffect(() => {
+    getAllPosts();
+  }, []);
 
   return (
     <div className='bg-blue-300 py-10 flex flex-col gap-2 items-center justify-center'>
