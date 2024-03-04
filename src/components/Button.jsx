@@ -6,6 +6,7 @@ const bgClass = {
 
 const colorClass = {
   white: 'text-white',
+  black: 'text-black',
 };
 
 const widthClass = {

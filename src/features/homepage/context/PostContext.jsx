@@ -13,7 +13,7 @@ export default function PostContextProvider({ children }) {
       const {
         data: { posts },
       } = await postApi.fetchAllPost();
-      console.log('posts', posts);
+    
       setAllPosts(posts);
     } catch (error) {
       console.log(error);
@@ -23,7 +23,7 @@ export default function PostContextProvider({ children }) {
   useEffect(() => {
     getAllPosts();
 
-    console.log('allPosts', allPosts);
+    
   }, []);
 
   return (

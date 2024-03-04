@@ -6,4 +6,4 @@ export const registerAgent = (agentObj) =>
 
 export const userLogin = (user) => axios.post('/auth/login', user);
 
-export const fetchMe = () => axios.get('/auth/me')
+export const fetchMe = () => axios.get('/auth/me');
