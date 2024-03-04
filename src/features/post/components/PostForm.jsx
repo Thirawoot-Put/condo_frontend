@@ -13,6 +13,8 @@ import usePostForm from '../hook/usePostForm';
 import ImageCard from './ImageCard';
 import { useRef } from 'react';
 import RoomImagesContainer from './RoomImagesContainer';
+import SearchBarWithOption from '../../../components/SearchBarWithOption';
+import { useEffect } from 'react';
 
 export default function PostForm() {
   // const [val, setVal] = useState(ThailandAddressValue.empty());
@@ -24,10 +26,19 @@ export default function PostForm() {
     handleRoomImageAdd,
     handlePostFormSubmit,
     error,
+    handleSearchChange,
+    handleSearchSelected,
+    condos,
+    fetchCondos,
+    disabled,
   } = usePostForm();
 
   const condoImageFileEl = useRef(null);
   const roomImageFileEl = useRef(null);
+
+  useEffect(() => {
+    fetchCondos();
+  }, []);
 
   return (
     <form className=' flex flex-col gap-5 p-10 rounded-lg shadow-lg'>
@@ -37,20 +48,28 @@ export default function PostForm() {
         <div>1. Name and location</div>
         <PostFormContent title='Name'>
           <div className='flex flex-col gap-2'>
-            <Input
-              label='Name in Thai'
-              name='nameTh'
+            <SearchBarWithOption
               value={postFormObj.nameTh}
-              onChange={handleInputChange}
-              errorMsg={error.nameTh}
+              onChange={handleSearchChange}
+              onSelect={handleSearchSelected}
+              name='nameTh'
+              label='Name in Thai'
+              list={condos.map((condo) => condo.nameTh)}
             />
-            <Input
-              label='Name in English'
-              name='nameEn'
+            {error.nameTh && (
+              <small className='text-red-500'>{error.nameTh}</small>
+            )}
+            <SearchBarWithOption
               value={postFormObj.nameEn}
-              onChange={handleInputChange}
-              errorMsg={error.nameEn}
+              onChange={handleSearchChange}
+              onSelect={handleSearchSelected}
+              name='nameEn'
+              label='Name in English'
+              list={condos.map((condo) => condo.nameEn)}
             />
+            {error.nameEn && (
+              <small className='text-red-500'>{error.nameEn}</small>
+            )}
           </div>
         </PostFormContent>
         <PostFormContent title='Address'>
@@ -60,6 +79,7 @@ export default function PostForm() {
             value={postFormObj.location}
             onChange={handleInputChange}
             errorMsg={error.location}
+            disabled={disabled}
           />
           <div className='flex gap-3'>
             <SelectOption
@@ -70,6 +90,7 @@ export default function PostForm() {
               valueOption={{ 1: 1, 2: 2, 3: 3 }}
               onChange={handleInputChange}
               errorMsg={error.districtId}
+              disabled={disabled}
             />
             <SelectOption
               title='Province'
@@ -79,6 +100,7 @@ export default function PostForm() {
               valueOption={{ 1: 1, 2: 2, 3: 3 }}
               onChange={handleInputChange}
               errorMsg={error.provinceId}
+              disabled={disabled}
             />
             <div className='w-full'>
               <Input
@@ -87,6 +109,7 @@ export default function PostForm() {
                 value={postFormObj.postCode}
                 onChange={handleInputChange}
                 errorMsg={error.postCode}
+                disabled={disabled}
               />
             </div>
           </div>
@@ -237,6 +260,7 @@ export default function PostForm() {
             onChange={handleCondoImageChange}
             onClear={handleCondoImageClear}
             errorMsg={error.condoImageForValidate}
+            disabled={disabled}
           />
           {!postFormObj.condoImage.url && (
             <Button
