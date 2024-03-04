@@ -30,8 +30,8 @@ export default function Hero() {
     <>
       <div className='max-w-[1400px] h-[780px] w-full m-auto py-16  relative group'>
         <div
-          style={{ backgroundImage: `url(${slides[currentSlide].url})` }}
-          className='w-full h-full rounded-2xl bg-center bg-cover duration-500'
+          style={{ backgroundImage: `url(${slides[currentSlide]?.url})` }}
+          className='w-full h-full rounded-2xl bg-center bg-cover duration-500 shadow-md'
         ></div>
         <div className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer'>
           <BsChevronCompactLeft size={30} onClick={previousSlide} />
