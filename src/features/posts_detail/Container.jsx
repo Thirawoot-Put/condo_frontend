@@ -3,11 +3,15 @@ import Hero from './component/Hero';
 import useDetail from './context/PostDetailContext';
 import DetailLeft from './component/DetailLeft';
 import DetailRight from './component/DetailRight';
-import CardAgent from './component/CardAgent';
+
 import Spinner from '../../components/Spinner';
+import ProfileCard from '../../components/ProfileCard';
+import { Button } from '@mui/material';
+
 
 export default function Container() {
   const { loading, postDetail } = useDetail();
+
   return (
     <>
       {loading ? (
@@ -27,7 +31,9 @@ export default function Container() {
                 <div>Google Map</div>
                 <div>nearest essentials</div>
               </div>
-              <CardAgent />
+              <ProfileCard user={postDetail?.user} title='Hosted by'>
+                <Button variant='outlined'>Contact Host</Button>
+              </ProfileCard>
             </>
           )}
         </div>
