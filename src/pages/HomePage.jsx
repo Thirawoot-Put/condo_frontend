@@ -4,12 +4,13 @@ import FeaturedList from '../features/homepage/components/FeaturedList';
 import PopularArea from '../features/homepage/components/PopularArea';
 import PromoteWithUs from '../features/homepage/components/PromoteWithUs';
 import ImageSlide from '../components/ImageSlide';
+import { imageSlides } from '../mock';
 
 function HomePage() {
   return (
     <div>
       <Hero />
-      <ImageSlide />
+      <ImageSlide slides={imageSlides} />
       <FeaturedList />
       <PopularArea />
       <PromoteWithUs />
