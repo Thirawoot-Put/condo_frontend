@@ -11,7 +11,7 @@ export function ProfileContextProvider({ children }) {
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState(null);
   const { userId } = useParams();
-
+   
   const fetchProfileUser = async (id) => {
     const response = await userApi.fetchUserByUserId(id);
     setUser(response.data.user);

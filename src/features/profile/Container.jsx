@@ -5,16 +5,16 @@ import PostIProfileList from './agent/PostIProfileList';
 import useProfile from './context/ProfileContext';
 
 export default function Container() {
-  const { posts } = useProfile();
-  const Active = posts.filter((item) => item.postStatus == false);
-  const Inactive = posts.filter((item) => item.postStatus == false);
+  const {
+    posts: { active, inactive },
+  } = useProfile();
 
   return (
     <div className='min-h-[500px] '>
       <Profiles />
 
-      <PostIProfileList title='Active' items={Active} />
-      <PostIProfileList title='Inactive' items={Inactive} />
+      <PostIProfileList title='Active' items={active} />
+      <PostIProfileList title='Inactive' items={inactive} />
       <div>in active</div>
     </div>
   );

@@ -52,7 +52,7 @@ function RegisterForm({ register, validator }) {
   };
 
   return (
-    <>
+    <div className='py-6'>
       <div className='m-auto flex flex-col gap-4 justify-around px-6 py-6 items-center w-[65vh] border border-gray-100 rounded-lg shadow-lg'>
         <h1 className='font-semibold text-3xl'>Welcome to Condrent</h1>
         <form
@@ -160,7 +160,7 @@ function RegisterForm({ register, validator }) {
           </Link>
         </form>
       </div>
-    </>
+    </div>
   );
 }
 
