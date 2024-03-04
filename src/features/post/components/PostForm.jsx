@@ -5,12 +5,29 @@ import Input from '../../../components/Input';
 import PostFormContent from './PostFormContent';
 import SelectOption from './SelectOption';
 import UtilsCheckbox from './UtilsCheckbox';
+import usePostForm from '../hook/usePostForm';
+import ImageCard from './ImageCard';
+import { useRef } from 'react';
+import RoomImagesContainer from './RoomImagesContainer';
 
 import * as selectApi from '../../../api/select-api';
 
 export default function PostForm() {
   const [districts, setDistricts] = useState([]);
   const [provinces, setProvinces] = useState([]);
+
+  const {
+    postFormObj,
+    handleInputChange,
+    handleCondoImageChange,
+    handleCondoImageClear,
+    handleRoomImageAdd,
+    handlePostFormSubmit,
+    error,
+  } = usePostForm();
+
+  const condoImageFileEl = useRef(null);
+  const roomImageFileEl = useRef(null);
 
   useEffect(() => {
     const get = async () => {
@@ -38,8 +55,26 @@ export default function PostForm() {
         <PostFormContent title='Address'>
           <Input label='Address' />
           <div className='flex gap-3'>
-            <SelectOption title='District' dataToMap={districts} />
-            <SelectOption title='Province' dataToMap={provinces} />
+            <SelectOption title='District' dataToMap='district' />
+            <SelectOption title='Province' dataToMap='province' />
+            {/* <SelectOption
+              title='District'
+              name='districtId'
+              id='districtId'
+              value={postFormObj.districtId}
+              valueOption={{ 1: 1, 2: 2, 3: 3 }}
+              onChange={handleInputChange}
+              errorMsg={error.districtId}
+            />
+            <SelectOption
+              title='Province'
+              name='provinceId'
+              id='provinceId'
+              value={postFormObj.provinceId}
+              valueOption={{ 1: 1, 2: 2, 3: 3 }}
+              onChange={handleInputChange}
+              errorMsg={error.provinceId}
+            /> */}
             <div className='w-full'>
               <Input label='Postal Code' />
             </div>
@@ -90,8 +125,8 @@ export default function PostForm() {
             <div className='w-full'>
               <Input label='Size (m&#178;)' />
             </div>
-            <SelectOption title='Bedroom' />
-            <SelectOption title='Bathroom' />
+            <SelectOption title='Bedroom' dataToMap='10' />
+            <SelectOption title='Bathroom' dataToMap='10' />
           </div>
         </PostFormContent>
       </div>
@@ -102,7 +137,7 @@ export default function PostForm() {
           <Input label='Monthly rental price (Baht / month)' />
         </PostFormContent>
         <PostFormContent title='Contract'>
-          <SelectOption title='Month' />
+          <SelectOption title='Month' dataToMap='12' />
         </PostFormContent>
       </div>
       {/* --------5. Property description--------- */}
@@ -113,6 +148,9 @@ export default function PostForm() {
             <textarea
               placeholder='Please type description'
               className='h-full min-h-[200px] w-full resize-none border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-900 focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50'
+              name='description'
+              value={postFormObj.description}
+              onChange={handleInputChange}
             ></textarea>
             <label className="after:content[' '] pointer-events-none absolute left-0 -top-2.5 flex h-full w-full select-none leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-1 after:block after:w-full after:border-b-2 after:border-gray-900 ">
               Description
@@ -125,7 +163,49 @@ export default function PostForm() {
         <div>6. Photos</div>
         <PostFormContent title='Photo'>
           <div>Condo image</div>
+          <input
+            type='file'
+            className='hidden'
+            ref={condoImageFileEl}
+            onChange={handleCondoImageChange}
+          />
+          <ImageCard
+            src={postFormObj.condoImage.url}
+            alt='condo_image'
+            onChange={handleCondoImageChange}
+            onClear={handleCondoImageClear}
+            errorMsg={error.condoImageForValidate}
+          />
+          {!postFormObj.condoImage.url && (
+            <Button
+              bg='blue'
+              color='white'
+              onClick={() => {
+                condoImageFileEl.current.value = '';
+                condoImageFileEl.current.click();
+              }}
+            >
+              Add photo
+            </Button>
+          )}
           <div>Room image</div>
+          <input
+            type='file'
+            className='hidden'
+            ref={roomImageFileEl}
+            onChange={handleRoomImageAdd}
+          />
+          <RoomImagesContainer />
+          <Button
+            bg='blue'
+            color='white'
+            onClick={() => {
+              roomImageFileEl.current.value = '';
+              roomImageFileEl.current.click();
+            }}
+          >
+            Add photo
+          </Button>
         </PostFormContent>
       </div>
       <Button bg='blue' width='full' color='white'>
