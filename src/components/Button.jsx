@@ -13,12 +13,23 @@ const widthClass = {
   full: 'w-full',
 };
 
-export default function Button({ children, bg, color, width, onClick }) {
+export default function Button({
+  children,
+  bg,
+  color,
+  width,
+  onClick,
+  type = 'button',
+}) {
   let classes = bg ? bgClass[bg] : '';
   classes += color ? ' ' + colorClass[color] : '';
   classes += width ? ' ' + widthClass[width] : '';
   return (
-    <button className={` px-3 py-2 rounded-md ${classes}`} onClick={onClick}>
+    <button
+      className={` px-3 py-2 rounded-md ${classes}`}
+      onClick={onClick}
+      type={type}
+    >
       {children}
     </button>
   );
