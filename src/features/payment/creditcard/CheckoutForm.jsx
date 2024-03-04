@@ -5,10 +5,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 
-const stripePromise = loadStripe(
-    import.meta.env.VITE_STRIPE_API
-  );
-
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_API);
 
 export default function CheckoutForm() {
   const [clientSecret, setClientSecret] = useState('');
