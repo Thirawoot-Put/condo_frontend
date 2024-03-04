@@ -13,20 +13,16 @@ export default function PostContextProvider({ children }) {
       const {
         data: { posts },
       } = await postApi.fetchAllPost();
-    
+
       setAllPosts(posts);
     } catch (error) {
       console.log(error);
     }
   };
 
-  useEffect(() => {
-    getAllPosts();
-
-    
-  }, []);
-
   return (
-    <PostContext.Provider value={{ allPosts }}>{children}</PostContext.Provider>
+    <PostContext.Provider value={{ allPosts, getAllPosts }}>
+      {children}
+    </PostContext.Provider>
   );
 }

@@ -1,22 +1,17 @@
-import React from 'react';
-import useProfile from './context/ProfileContext';
-import useAuth from '../../features/auth/hook/useAuth';
-import { Button } from '@mui/material';
 import { useState } from 'react';
 
-export default function Profiles() {
+export default function ProfileCard({ children, user, title = '' }) {
   const [isShow, setIsShow] = useState(false);
-  const { user } = useProfile();
-  const { authUser } = useAuth();
+    console.log(user)
   const date = new Date(user?.createdAt).toString().slice(4, 15);
 
   return (
-    <div className='bg-gray-100  h-[320px] flex justify-center'>
-      <div className='bg-white  w-full sm:w-[60%] shadow-sm hover:shadow-lg transition sm:rounded-md my-[30px]'>
+    <div className=' h-[320px] flex justify-center'>
+      <div className='bg-white  w-full sm:w-[60%] shadow-md hover:shadow-lg transition sm:rounded-md my-[30px]'>
         <div className='flex flex-col h-[100%] items-center justify-center'>
           <div className='mx-auto flex flex-col justify-center items-center gap-4'>
             <h1 className='text-3xl'>
-              {user?.firstName} {user?.lastName}
+              {title} {user?.firstName} {user?.lastName}
             </h1>
 
             <p className='text-gray-400 font-medium text-sm'>
@@ -41,8 +36,7 @@ export default function Profiles() {
                 <p>{user?.mobile}</p>
               </div>
             )}
-            {/* user?.id == authUser?.id */}
-            {true ? <Button variant='contained'>Edit Profile</Button> : null}
+            {children}
           </div>
         </div>
       </div>

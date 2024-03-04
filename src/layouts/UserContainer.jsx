@@ -7,7 +7,9 @@ function UserContainer() {
   return (
     <div>
       <Header />
-      <Outlet />
+      <div className='pt-16'>
+        <Outlet />
+      </div>
       <Footer />
     </div>
   );
