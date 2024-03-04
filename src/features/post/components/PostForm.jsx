@@ -1,8 +1,4 @@
-import React, { useState } from 'react';
-import {
-  ThailandAddressTypeahead,
-  ThailandAddressValue,
-} from 'react-thailand-address-typeahead';
+import { useEffect, useState } from 'react';
 
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
@@ -10,8 +6,23 @@ import PostFormContent from './PostFormContent';
 import SelectOption from './SelectOption';
 import UtilsCheckbox from './UtilsCheckbox';
 
+import * as selectApi from '../../../api/select-api';
+
 export default function PostForm() {
-  const [val, setVal] = useState(ThailandAddressValue.empty());
+  const [districts, setDistricts] = useState([]);
+  const [provinces, setProvinces] = useState([]);
+
+  useEffect(() => {
+    const get = async () => {
+      const getDistrictsOption = await selectApi.getDistricts();
+      console.log(getDistrictsOption);
+      setDistricts(getDistrictsOption.data.districts);
+      const getProvincesOption = await selectApi.getProvinces();
+      setProvinces(getProvincesOption.data.provinces);
+    };
+    get();
+  }, []);
+
   return (
     <form className=' flex flex-col gap-5 p-10 rounded-lg shadow-lg'>
       <div>Property Sign Up</div>
@@ -27,8 +38,8 @@ export default function PostForm() {
         <PostFormContent title='Address'>
           <Input label='Address' />
           <div className='flex gap-3'>
-            <SelectOption title='District' />
-            <SelectOption title='Province' />
+            <SelectOption title='District' dataToMap={districts} />
+            <SelectOption title='Province' dataToMap={provinces} />
             <div className='w-full'>
               <Input label='Postal Code' />
             </div>

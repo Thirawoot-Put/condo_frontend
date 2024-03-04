@@ -11,7 +11,7 @@ export default function SelectInput({
       <label htmlFor={htmlFor}>{title}</label>
       <select
         id={id}
-        className='block py-1 w-full bg-transparent border-0 border-b-2 border-black appearance-none'
+        className='block py-1 w-full bg-transparent border-0 border-b-2 border-black'
         value={value}
         name={name}
 
@@ -21,14 +21,15 @@ export default function SelectInput({
           --select--
         </option>
         {/* This must be conditional rendering if have data from api to map */}
+        {/* 
         <option>1</option>
         <option>2</option>
-        <option>3</option>
-        {/* {dataToMap.map((el) => (
-                <option key={el.id} value={el.id}>
-                  {el.____}
-                </option>
-              ))} */}
+        <option>3</option> */}
+        {dataToMap?.map((el) => (
+          <option key={el.id} value={el.id}>
+            {el.district}
+          </option>
+        ))}
       </select>
     </div>
   );
