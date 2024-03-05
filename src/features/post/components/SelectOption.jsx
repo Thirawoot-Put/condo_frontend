@@ -19,7 +19,6 @@ export default function SelectInput({
   useEffect(() => {
     const get = async () => {
       const getDistrictsOption = await selectApi.getDistricts();
-      console.log(getDistrictsOption);
       setDistricts(getDistrictsOption.data.districts);
       const getProvincesOption = await selectApi.getProvinces();
       setProvinces(getProvincesOption.data.provinces);
@@ -32,7 +31,7 @@ export default function SelectInput({
       <label htmlFor={htmlFor}>{title}</label>
       <select
         id={id}
-        className='block py-1 w-full bg-transparent border-0 border-b-2 border-gray-400 mt-1 focus:outline-none focus:border-b-black'
+        className='block py-1 w-full bg-transparent border-0 border-b-2 border-gray-400 focus:outline-none focus:border-b-black'
         value={value}
         name={name}
         onChange={onChange}

@@ -11,7 +11,7 @@ const Input = ({
   errorMsg,
 }) => {
   return (
-    <>
+    <div>
       <label htmlFor={name}>{label}</label>
       <input
         className='w-full border-0 border-b-2 border-gray-400 py-1.5 mt-1 focus:outline-none focus:border-b-black'
@@ -23,7 +23,7 @@ const Input = ({
         onChange={onChange}
       />
       {errorMsg && <small className='text-red-500'>{errorMsg}</small>}
-    </>
+    </div>
   );
 };
 

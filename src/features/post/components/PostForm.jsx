@@ -4,7 +4,7 @@ import Button from '../../../components/Button';
 import Input from '../../../components/Input';
 import PostFormContent from './PostFormContent';
 import SelectOption from './SelectOption';
-import UtilsCheckbox from './UtilsCheckbox';
+import FacilitiesCheckbox from './FacilitiesCheckbox';
 import usePostForm from '../hook/usePostForm';
 import ImageCard from './ImageCard';
 import { useRef } from 'react';
@@ -13,8 +13,9 @@ import RoomImagesContainer from './RoomImagesContainer';
 import * as selectApi from '../../../api/select-api';
 
 export default function PostForm() {
-  const [districts, setDistricts] = useState([]);
-  const [provinces, setProvinces] = useState([]);
+  // const [districts, setDistricts] = useState([]);
+  // const [provinces, setProvinces] = useState([]);
+  const [facilities, setFacilities] = useState([]);
 
   const {
     postFormObj,
@@ -31,21 +32,24 @@ export default function PostForm() {
 
   useEffect(() => {
     const get = async () => {
-      const getDistrictsOption = await selectApi.getDistricts();
-      console.log(getDistrictsOption);
-      setDistricts(getDistrictsOption.data.districts);
-      const getProvincesOption = await selectApi.getProvinces();
-      setProvinces(getProvincesOption.data.provinces);
+      const getFacilitiesCheckBoxed = await selectApi.getFacilities();
+      console.log(getFacilitiesCheckBoxed.data.facilities);
+      setFacilities(getFacilitiesCheckBoxed.data.facilities);
+      // const getDistrictsOption = await selectApi.getDistricts();
+      // console.log(getDistrictsOption);
+      // setDistricts(getDistrictsOption.data.districts);
+      // const getProvincesOption = await selectApi.getProvinces();
+      // setProvinces(getProvincesOption.data.provinces);
     };
     get();
   }, []);
 
   return (
-    <form className=' flex flex-col gap-5 p-10 rounded-lg shadow-lg'>
-      <div>Property Sign Up</div>
+    <form className=' flex flex-col gap-10 p-10 rounded-lg shadow-lg'>
+      <div className='font-semibold text-center text-2xl'>Property Sign Up</div>
       {/* --------1. Name and location--------- */}
       <div className='flex flex-col gap-3'>
-        <div>1. Name and location</div>
+        <div className='font-semibold'>1. Name and location</div>
         <PostFormContent title='Name'>
           <div className='flex flex-col gap-2'>
             <Input label='Name in Thai' />
@@ -54,9 +58,25 @@ export default function PostForm() {
         </PostFormContent>
         <PostFormContent title='Address'>
           <Input label='Address' />
-          <div className='flex gap-3'>
-            <SelectOption title='District' dataToMap='district' />
-            <SelectOption title='Province' dataToMap='province' />
+          <div className='flex gap-5'>
+            <SelectOption
+              title='District'
+              dataToMap='district'
+              name='districtId'
+              id='districtId'
+              value={postFormObj.districtId}
+              onChange={handleInputChange}
+              errorMsg={error.districtId}
+            />
+            <SelectOption
+              title='Province'
+              dataToMap='province'
+              name='provinceId'
+              id='provinceId'
+              value={postFormObj.provinceId}
+              onChange={handleInputChange}
+              errorMsg={error.provinceId}
+            />
             {/* <SelectOption
               title='District'
               name='districtId'
@@ -84,31 +104,19 @@ export default function PostForm() {
       </div>
       {/* --------2. Utilities--------- */}
       <div className='flex flex-col gap-3'>
-        <div>2. Utilities</div>
-        <PostFormContent title='List of utilities'>
+        <div className='font-semibold'>2. Facilities</div>
+        <PostFormContent title='List of facilities'>
           <div className='grid grid-cols-3'>
-            <UtilsCheckbox name='Swimming pool' />
-            <UtilsCheckbox name='Fitness' />
-            <UtilsCheckbox name='Park' />
-            <UtilsCheckbox name='Parking' />
-            <UtilsCheckbox name='Swimming pool' />
-            <UtilsCheckbox name='Fitness' />
-            <UtilsCheckbox name='Park' />
-            <UtilsCheckbox name='Parking' />
-            <UtilsCheckbox name='Swimming pool' />
-            <UtilsCheckbox name='Fitness' />
-            <UtilsCheckbox name='Park' />
-            <UtilsCheckbox name='Parking' />
-            <UtilsCheckbox name='Swimming pool' />
-            <UtilsCheckbox name='Fitness' />
-            <UtilsCheckbox name='Park' />
-            <UtilsCheckbox name='Parking' />
+            {facilities.map(({ id, name }) => (
+              <FacilitiesCheckbox key={id} name={name} value={id} />
+            ))}
+            {/* <FacilitiesCheckbox name='Swimming pool' /> */}
           </div>
         </PostFormContent>
       </div>
       {/* --------3. Room details--------- */}
       <div className='flex flex-col gap-3'>
-        <div>3. Room details</div>
+        <div className='font-semibold'>3. Room details</div>
         <PostFormContent title='Details'>
           <div className='flex gap-3'>
             <div className='w-full'>
@@ -121,7 +129,7 @@ export default function PostForm() {
               <Input label='Building' />
             </div>
           </div>
-          <div className='flex gap-3'>
+          <div className='flex gap-3 align-bottom'>
             <div className='w-full'>
               <Input label='Size (m&#178;)' />
             </div>
@@ -132,7 +140,7 @@ export default function PostForm() {
       </div>
       {/* --------4. Price--------- */}
       <div className='flex flex-col gap-3'>
-        <div>4. Price and contract</div>
+        <div className='font-semibold'>4. Price and contract</div>
         <PostFormContent title='Rent'>
           <Input label='Monthly rental price (Baht / month)' />
         </PostFormContent>
@@ -142,25 +150,25 @@ export default function PostForm() {
       </div>
       {/* --------5. Property description--------- */}
       <div className='flex flex-col gap-3'>
-        <div>5. Property description</div>
+        <div className='font-semibold'>5. Property description</div>
         <PostFormContent>
           <div className='relative w-full min-w-[200px]'>
+            <label className="after:content[' '] pointer-events-none absolute left-0 -top-8 flex h-full w-full select-none leading-tight text-blue-gray-500 transition-all ">
+              Description
+            </label>
             <textarea
               placeholder='Please type description'
-              className='h-full min-h-[200px] w-full resize-none border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-900 focus:outline-0 disabled:resize-none disabled:border-0 disabled:bg-blue-gray-50'
+              className='h-full min-h-[200px] w-full bg-transparent border-0 border-b-2 border-gray-400 focus:outline-none focus:border-b-black'
               name='description'
               value={postFormObj.description}
               onChange={handleInputChange}
             ></textarea>
-            <label className="after:content[' '] pointer-events-none absolute left-0 -top-2.5 flex h-full w-full select-none leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-1 after:block after:w-full after:border-b-2 after:border-gray-900 ">
-              Description
-            </label>
           </div>
         </PostFormContent>
       </div>
       {/* --------6. Photos--------- */}
       <div className='flex flex-col gap-3'>
-        <div>6. Photos</div>
+        <div className='font-semibold'>6. Photos</div>
         <PostFormContent title='Photo'>
           <div>Condo image</div>
           <input
@@ -177,16 +185,18 @@ export default function PostForm() {
             errorMsg={error.condoImageForValidate}
           />
           {!postFormObj.condoImage.url && (
-            <Button
-              bg='blue'
-              color='white'
-              onClick={() => {
-                condoImageFileEl.current.value = '';
-                condoImageFileEl.current.click();
-              }}
-            >
-              Add photo
-            </Button>
+            <div>
+              <Button
+                bg='blue'
+                color='white'
+                onClick={() => {
+                  condoImageFileEl.current.value = '';
+                  condoImageFileEl.current.click();
+                }}
+              >
+                Add photo
+              </Button>
+            </div>
           )}
           <div>Room image</div>
           <input
@@ -196,21 +206,25 @@ export default function PostForm() {
             onChange={handleRoomImageAdd}
           />
           <RoomImagesContainer />
-          <Button
-            bg='blue'
-            color='white'
-            onClick={() => {
-              roomImageFileEl.current.value = '';
-              roomImageFileEl.current.click();
-            }}
-          >
-            Add photo
-          </Button>
+          <div>
+            <Button
+              bg='blue'
+              color='white'
+              onClick={() => {
+                roomImageFileEl.current.value = '';
+                roomImageFileEl.current.click();
+              }}
+            >
+              Add photo
+            </Button>
+          </div>
         </PostFormContent>
       </div>
-      <Button bg='blue' width='full' color='white'>
-        Submit
-      </Button>
+      <div className='flex justify-center'>
+        <Button bg='blue' color='white'>
+          Submit
+        </Button>
+      </div>
       {/* <Input /> */}
     </form>
   );
