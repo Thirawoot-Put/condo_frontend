@@ -47,6 +47,7 @@ const iconFacilitie = [
 export default function Facilities() {
   const { postDetail } = useDetail();
  
+//   comment hello
   const finalIcon = postDetail?.room?.roomFacilities.map((el) => el?.id);
 
   return (
