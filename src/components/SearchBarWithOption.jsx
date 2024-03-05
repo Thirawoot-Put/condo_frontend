@@ -14,7 +14,7 @@ export default function SearchBarWithOption({
   //   const [value, setValue] = React.useState('');
 
   return (
-    <Stack sx={{ width: 300 }}>
+    <Stack sx={{ width: 600 }}>
       <Autocomplete
         freeSolo
         id='searchBarWithOption'
@@ -22,9 +22,11 @@ export default function SearchBarWithOption({
         options={list}
         value={value}
         onChange={(event, newValue) => {
+          console.log(newValue, 'click');
           onSelect(newValue);
         }}
         onInputChange={(event, newValue) => {
+          console.log(newValue, 'change');
           onChange(name, newValue);
         }}
         renderInput={(params) => (

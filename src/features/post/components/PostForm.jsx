@@ -8,7 +8,7 @@ import Button from '../../../components/Button';
 import Input from '../../../components/Input';
 import PostFormContent from './PostFormContent';
 import SelectOption from './SelectOption';
-import UtilsCheckbox from './UtilsCheckbox';
+import FacilitiesCheckbox from './FacilitiesCheckbox';
 import usePostForm from '../hook/usePostForm';
 import ImageCard from './ImageCard';
 import { useRef } from 'react';
@@ -116,27 +116,21 @@ export default function PostForm() {
           This place is for MAPPPPPPPPPPPP
         </PostFormContent>
       </div>
-      {/* --------2. Utilities--------- */}
+      {/* --------2. Facilities --------- */}
       <div className='flex flex-col gap-3'>
-        <div>2. Utilities</div>
-        <PostFormContent title='List of utilities'>
+        <div>2. Facilities</div>
+        <PostFormContent title='List of facilities'>
           <div className='grid grid-cols-3'>
-            <UtilsCheckbox name='Swimming pool' value={1} />
-            <UtilsCheckbox name='Fitness' value={2} />
-            <UtilsCheckbox name='Park' value={3} />
-            <UtilsCheckbox name='Parking' value={4} />
-            <UtilsCheckbox name='Swimming pool' value={5} />
-            <UtilsCheckbox name='Fitness' value={6} />
-            <UtilsCheckbox name='Park' value={7} />
-            <UtilsCheckbox name='Parking' value={8} />
-            <UtilsCheckbox name='Swimming pool' value={9} />
-            <UtilsCheckbox name='Fitness' value={10} />
-            {/* <UtilsCheckbox name='Park' />
-            <UtilsCheckbox name='Parking' />
-            <UtilsCheckbox name='Swimming pool' />
-            <UtilsCheckbox name='Fitness' />
-            <UtilsCheckbox name='Park' />
-            <UtilsCheckbox name='Parking' /> */}
+            <FacilitiesCheckbox name='Swimming pool' value={1} />
+            <FacilitiesCheckbox name='Fitness' value={2} />
+            <FacilitiesCheckbox name='Park' value={3} />
+            <FacilitiesCheckbox name='Parking' value={4} />
+            <FacilitiesCheckbox name='Swimming pool' value={5} />
+            <FacilitiesCheckbox name='Fitness' value={6} />
+            <FacilitiesCheckbox name='Park' value={7} />
+            <FacilitiesCheckbox name='Parking' value={8} />
+            <FacilitiesCheckbox name='Swimming pool' value={9} />
+            <FacilitiesCheckbox name='Fitness' value={10} />
           </div>
         </PostFormContent>
       </div>

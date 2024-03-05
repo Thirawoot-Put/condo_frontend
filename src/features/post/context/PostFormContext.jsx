@@ -32,7 +32,7 @@ export default function PostFormContextProvider({ children }) {
     building: '',
     isAvailable: true,
     description: '',
-    roomUtilList: [],
+    roomFacilityList: [],
     condoImage: { url: '', file: '' },
     roomImageList: [],
   };
@@ -41,11 +41,14 @@ export default function PostFormContextProvider({ children }) {
   const [condos, setCondos] = useState([]);
   const [disabled, setDisabled] = useState(false);
   const [isJustSelected, setIsJustSelected] = useState(false);
+  const [latestFetchedCondo, setLatestFetchedCondo] = useState({});
 
   const handleSearchSelected = (name) => {
+    console.log('in selected');
     const condoObj = condos.find(
       (condo) => condo.nameTh === name || condo.nameEn === name
     );
+
     if (condoObj) {
       setPostFormObj({
         ...postFormObj,
@@ -59,19 +62,27 @@ export default function PostFormContextProvider({ children }) {
   };
 
   const handleSearchChange = (name, value) => {
+    console.log('name', name);
+    console.log('value', value);
     setPostFormObj({ ...postFormObj, [name]: value });
     setError({ ...error, [name]: '' });
-    if (!isJustSelected) {
-      setDisabled(false);
-      setPostFormObj({
-        ...postFormObj,
-        location: '',
-        districtId: '',
-        provinceId: '',
-        postCode: '',
-        condoImage: { url: '', file: '' },
-      });
-    }
+
+    const myTimeout = setTimeout(() => handleSearchSelected(name), 5000);
+
+    // if (!isJustSelected) {
+    //   console.log('clearing');
+    //   setDisabled(false);
+    //   setPostFormObj({
+    //     ...postFormObj,
+    //     location: 'test',
+    //     districtId: '',
+    //     provinceId: '',
+    //     postCode: '',
+    //     condoImage: { url: '', file: '' },
+    //   });
+    // }
+
+    console.log('after', postFormObj);
     setIsJustSelected(false);
   };
 
@@ -80,24 +91,24 @@ export default function PostFormContextProvider({ children }) {
     setError({ ...error, [e.target.name]: '' });
   };
 
-  const handleClickRoomUtil = (utilId) => {
-    const utilIndex = postFormObj.roomUtilList.findIndex(
-      (util) => util === +utilId
+  const handleClickRoomFacility = (facilityId) => {
+    const facilityIndex = postFormObj.roomFacilityList.findIndex(
+      (facility) => facility === +facilityId
     );
-    const newRoomUtilList = [...postFormObj.roomUtilList];
-    if (utilIndex < 0) {
-      newRoomUtilList.push(+utilId);
+    const newRoomFacilityList = [...postFormObj.roomFacilityList];
+    if (facilityIndex < 0) {
+      newRoomFacilityList.push(+facilityId);
       setPostFormObj({
         ...postFormObj,
-        roomUtilList: newRoomUtilList,
+        roomFacilityList: newRoomFacilityList,
       });
     } else {
-      const filteredRoomUtilList = newRoomUtilList.filter(
-        (util) => util !== +utilId
+      const filteredRoomFacilityList = newRoomFacilityList.filter(
+        (facility) => facility !== +facilityId
       );
       setPostFormObj({
         ...postFormObj,
-        roomUtilList: filteredRoomUtilList,
+        roomFacilityList: filteredRoomFacilityList,
       });
     }
   };
@@ -191,7 +202,7 @@ export default function PostFormContextProvider({ children }) {
       }
 
       for (let [key, value] of Object.entries(newPostFormObj)) {
-        if (key === 'roomUtilList' || key === 'roomImageList') {
+        if (key === 'roomFacilityList' || key === 'roomImageList') {
           value = JSON.stringify(value);
         }
         formData.append(key, value);
@@ -233,7 +244,7 @@ export default function PostFormContextProvider({ children }) {
       value={{
         postFormObj,
         handleInputChange,
-        handleClickRoomUtil,
+        handleClickRoomFacility,
         handleCondoImageChange,
         handleCondoImageClear,
         handleRoomImageAdd,
