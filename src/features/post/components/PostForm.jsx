@@ -5,10 +5,13 @@ import Input from '../../../components/Input';
 import PostFormContent from './PostFormContent';
 import SelectOption from './SelectOption';
 import FacilitiesCheckbox from './FacilitiesCheckbox';
+import FacilitiesCheckbox from './FacilitiesCheckbox';
 import usePostForm from '../hook/usePostForm';
 import ImageCard from './ImageCard';
 import { useRef } from 'react';
 import RoomImagesContainer from './RoomImagesContainer';
+import SearchBarWithOption from '../../../components/SearchBarWithOption';
+import { useEffect } from 'react';
 
 import * as selectApi from '../../../api/select-api';
 
@@ -25,6 +28,11 @@ export default function PostForm() {
     handleRoomImageAdd,
     handlePostFormSubmit,
     error,
+    handleSearchChange,
+    handleSearchSelected,
+    condos,
+    fetchCondos,
+    disabled,
   } = usePostForm();
 
   const condoImageFileEl = useRef(null);
@@ -42,7 +50,11 @@ export default function PostForm() {
       // setProvinces(getProvincesOption.data.provinces);
     };
     get();
+    fetchCondos();
   }, []);
+
+  // useEffect(() => {
+  // }, []);
 
   return (
     <form className=' flex flex-col gap-10 p-10 rounded-lg shadow-lg'>
@@ -52,8 +64,28 @@ export default function PostForm() {
         <div className='font-semibold'>1. Name and location</div>
         <PostFormContent title='Name'>
           <div className='flex flex-col gap-2'>
-            <Input label='Name in Thai' />
-            <Input label='Name in English' />
+            <SearchBarWithOption
+              value={postFormObj.nameTh}
+              onChange={handleSearchChange}
+              onSelect={handleSearchSelected}
+              name='nameTh'
+              label='Name in Thai'
+              list={condos.map((condo) => condo.nameTh)}
+            />
+            {error.nameTh && (
+              <small className='text-red-500'>{error.nameTh}</small>
+            )}
+            <SearchBarWithOption
+              value={postFormObj.nameEn}
+              onChange={handleSearchChange}
+              onSelect={handleSearchSelected}
+              name='nameEn'
+              label='Name in English'
+              list={condos.map((condo) => condo.nameEn)}
+            />
+            {error.nameEn && (
+              <small className='text-red-500'>{error.nameEn}</small>
+            )}
           </div>
         </PostFormContent>
         <PostFormContent title='Address'>
@@ -67,6 +99,7 @@ export default function PostForm() {
               value={postFormObj.districtId}
               onChange={handleInputChange}
               errorMsg={error.districtId}
+              disabled={disabled}
             />
             <SelectOption
               title='Province'
@@ -85,6 +118,7 @@ export default function PostForm() {
               valueOption={{ 1: 1, 2: 2, 3: 3 }}
               onChange={handleInputChange}
               errorMsg={error.districtId}
+              disabled={disabled}
             />
             <SelectOption
               title='Province'
@@ -94,15 +128,23 @@ export default function PostForm() {
               valueOption={{ 1: 1, 2: 2, 3: 3 }}
               onChange={handleInputChange}
               errorMsg={error.provinceId}
-            /> */}
+              disabled={disabled}
+            />*/}
             <div className='w-full'>
-              <Input label='Postal Code' />
+              <Input
+                label='Postal Code'
+                name='postCode'
+                value={postFormObj.postCode}
+                onChange={handleInputChange}
+                errorMsg={error.postCode}
+                disabled={disabled}
+              />
             </div>
           </div>
           This place is for MAPPPPPPPPPPPP
         </PostFormContent>
       </div>
-      {/* --------2. Utilities--------- */}
+      {/* --------2. Facilities --------- */}
       <div className='flex flex-col gap-3'>
         <div className='font-semibold'>2. Facilities</div>
         <PostFormContent title='List of facilities'>
@@ -183,6 +225,7 @@ export default function PostForm() {
             onChange={handleCondoImageChange}
             onClear={handleCondoImageClear}
             errorMsg={error.condoImageForValidate}
+            disabled={disabled}
           />
           {!postFormObj.condoImage.url && (
             <div>

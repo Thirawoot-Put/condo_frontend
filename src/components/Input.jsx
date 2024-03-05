@@ -9,6 +9,7 @@ const Input = ({
   onChange,
   label,
   errorMsg,
+  disabled = false,
 }) => {
   return (
     <div>
@@ -21,6 +22,7 @@ const Input = ({
         name={name}
         id={id}
         onChange={onChange}
+        disabled={disabled}
       />
       {errorMsg && <small className='text-red-500'>{errorMsg}</small>}
     </div>

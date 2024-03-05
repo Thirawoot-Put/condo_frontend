@@ -12,6 +12,7 @@ export default function SelectInput({
   dataToMap,
   onChange,
   errorMsg,
+  disabled = false,
 }) {
   const [districts, setDistricts] = useState([]);
   const [provinces, setProvinces] = useState([]);
@@ -35,6 +36,7 @@ export default function SelectInput({
         value={value}
         name={name}
         onChange={onChange}
+        disabled={disabled}
       >
         <option defaultValue>--select--</option>
         {/* This must be conditional rendering if have data from api to map */}

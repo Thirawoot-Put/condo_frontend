@@ -1,13 +1,13 @@
 import usePostForm from '../hook/usePostForm';
 
-export default function UtilsCheckbox({ name, value }) {
-  const { handleClickRoomUtil } = usePostForm();
+export default function FacilitiesCheckbox({ name, value }) {
+  const { handleClickRoomFacility } = usePostForm();
   return (
     <div>
       <div className='flex items-center'>
         <input
           onClick={() => {
-            handleClickRoomUtil(value);
+            handleClickRoomFacility(value);
             console.log('value', value);
           }}
           //   checked
