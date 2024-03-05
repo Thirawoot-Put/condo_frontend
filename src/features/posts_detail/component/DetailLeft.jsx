@@ -7,7 +7,7 @@ export default function DetailLeft() {
   return (
     <div className='col-span-8  flex flex-col gap-4'>
       <div>
-        <h1 className='text-2xl'>
+        <h1 className='font-semibold text-2xl'>
           {postDetail.room.roomNumber} Building {postDetail.room.floor}
         </h1>
       </div>
