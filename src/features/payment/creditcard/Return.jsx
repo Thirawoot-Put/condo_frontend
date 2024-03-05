@@ -12,7 +12,7 @@ export default function Return() {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const sessionId = urlParams.get('session_id');
-
+    console.log(sessionId);
     fetch(
       `http://localhost:8080/transaction/session-status?session_id=${sessionId}`
     )
@@ -28,9 +28,10 @@ export default function Return() {
   }
 
   if (status === 'complete') {
-    setTimeout(() => {
-      navigate('/');
-    }, 3000);
+    // setTimeout(() => {
+    //   navigate('/');
+    // }, 3000);
+
     return (
       <section id='success' className='min-h-[500px]'>
         <p>

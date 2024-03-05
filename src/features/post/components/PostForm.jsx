@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
@@ -32,6 +33,8 @@ export default function PostForm() {
 
   const condoImageFileEl = useRef(null);
   const roomImageFileEl = useRef(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const get = async () => {
@@ -251,7 +254,13 @@ export default function PostForm() {
         </PostFormContent>
       </div>
       <div className='flex justify-center'>
-        <Button bg='blue' color='white'>
+        <Button
+          bg='blue'
+          color='white'
+          onClick={() => {
+            navigate('/agent/package');
+          }}
+        >
           Submit
         </Button>
       </div>
