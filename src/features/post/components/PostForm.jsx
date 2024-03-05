@@ -1,23 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
 import PostFormContent from './PostFormContent';
 import SelectOption from './SelectOption';
 import FacilitiesCheckbox from './FacilitiesCheckbox';
-import FacilitiesCheckbox from './FacilitiesCheckbox';
 import usePostForm from '../hook/usePostForm';
 import ImageCard from './ImageCard';
-import { useRef } from 'react';
 import RoomImagesContainer from './RoomImagesContainer';
 import SearchBarWithOption from '../../../components/SearchBarWithOption';
-import { useEffect } from 'react';
 
 import * as selectApi from '../../../api/select-api';
 
 export default function PostForm() {
-  // const [districts, setDistricts] = useState([]);
-  // const [provinces, setProvinces] = useState([]);
   const [facilities, setFacilities] = useState([]);
 
   const {
@@ -43,18 +38,10 @@ export default function PostForm() {
       const getFacilitiesCheckBoxed = await selectApi.getFacilities();
       console.log(getFacilitiesCheckBoxed.data.facilities);
       setFacilities(getFacilitiesCheckBoxed.data.facilities);
-      // const getDistrictsOption = await selectApi.getDistricts();
-      // console.log(getDistrictsOption);
-      // setDistricts(getDistrictsOption.data.districts);
-      // const getProvincesOption = await selectApi.getProvinces();
-      // setProvinces(getProvincesOption.data.provinces);
     };
     get();
     fetchCondos();
   }, []);
-
-  // useEffect(() => {
-  // }, []);
 
   return (
     <form className=' flex flex-col gap-10 p-10 rounded-lg shadow-lg'>
