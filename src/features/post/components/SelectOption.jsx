@@ -8,6 +8,7 @@ export default function SelectInput({
   dataToMap,
   onChange,
   errorMsg,
+  disabled = false,
 }) {
   return (
     <div className='flex flex-col gap-2 pb-2 w-full'>
@@ -18,6 +19,7 @@ export default function SelectInput({
         value={value}
         name={name}
         onChange={onChange}
+        disabled={disabled}
       >
         <option defaultValue>--select--</option>
         {/* This must be conditional rendering if have data from api to map */}

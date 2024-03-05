@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid';
 import { toast } from 'react-toastify';
 import { createContext } from 'react';
 import * as postApi from '../../../api/post-api';
+import * as condoApi from '../../../api/condo-api';
 import { useState } from 'react';
 import validatePostForm from '../validators/validate-postForm';
 import { useNavigate } from 'react-router-dom';
@@ -37,6 +38,42 @@ export default function PostFormContextProvider({ children }) {
   };
   const [postFormObj, setPostFormObj] = useState(initialPostFormObj);
   const [error, setError] = useState({});
+  const [condos, setCondos] = useState([]);
+  const [disabled, setDisabled] = useState(false);
+  const [isJustSelected, setIsJustSelected] = useState(false);
+
+  const handleSearchSelected = (name) => {
+    const condoObj = condos.find(
+      (condo) => condo.nameTh === name || condo.nameEn === name
+    );
+    if (condoObj) {
+      setPostFormObj({
+        ...postFormObj,
+        ...condoObj,
+        condoImage: { url: condoObj.condoImage, file: condoObj.condoImage },
+      });
+      setDisabled(true);
+      setIsJustSelected(true);
+      console.log('disabled', disabled);
+    }
+  };
+
+  const handleSearchChange = (name, value) => {
+    setPostFormObj({ ...postFormObj, [name]: value });
+    setError({ ...error, [name]: '' });
+    if (!isJustSelected) {
+      setDisabled(false);
+      setPostFormObj({
+        ...postFormObj,
+        location: '',
+        districtId: '',
+        provinceId: '',
+        postCode: '',
+        condoImage: { url: '', file: '' },
+      });
+    }
+    setIsJustSelected(false);
+  };
 
   const handleInputChange = (e) => {
     setPostFormObj({ ...postFormObj, [e.target.name]: e.target.value });
@@ -168,7 +205,23 @@ export default function PostFormContextProvider({ children }) {
 
       const result = await postApi.createPost(formData);
       console.log(result);
+      toast.success('Successfully posted');
       // navigate(`post/${result.post.id}`)
+    } catch (err) {
+      console.log(err);
+      if (err.response?.data?.message === 'ROOM_EXISTED') {
+        toast.error(
+          'This room has already been posted, please check condo name, room No., floor, and building'
+        );
+      }
+    } finally {
+    }
+  };
+
+  const fetchCondos = async () => {
+    try {
+      const res = await condoApi.getCondos();
+      setCondos(res.data.condos);
     } catch (err) {
       console.log(err);
     } finally {
@@ -188,6 +241,11 @@ export default function PostFormContextProvider({ children }) {
         handleRoomImageClear,
         handlePostFormSubmit,
         error,
+        handleSearchChange,
+        handleSearchSelected,
+        condos,
+        fetchCondos,
+        disabled,
       }}
     >
       {children}
