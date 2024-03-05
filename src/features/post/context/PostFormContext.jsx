@@ -40,11 +40,9 @@ export default function PostFormContextProvider({ children }) {
   const [error, setError] = useState({});
   const [condos, setCondos] = useState([]);
   const [disabled, setDisabled] = useState(false);
-  const [isJustSelected, setIsJustSelected] = useState(false);
-  const [latestFetchedCondo, setLatestFetchedCondo] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const handleSearchSelected = (name) => {
-    console.log('in selected');
     const condoObj = condos.find(
       (condo) => condo.nameTh === name || condo.nameEn === name
     );
@@ -55,35 +53,26 @@ export default function PostFormContextProvider({ children }) {
         ...condoObj,
         condoImage: { url: condoObj.condoImage, file: condoObj.condoImage },
       });
+      setError({
+        ...error,
+        nameTh: '',
+        nameEn: '',
+        location: '',
+        districtId: '',
+        provinceId: '',
+        postCode: '',
+        lat: '',
+        long: '',
+        condoImageForValidate: '',
+      });
       setDisabled(true);
-      setIsJustSelected(true);
-      console.log('disabled', disabled);
     }
   };
 
   const handleSearchChange = (name, value) => {
-    console.log('name', name);
-    console.log('value', value);
     setPostFormObj({ ...postFormObj, [name]: value });
     setError({ ...error, [name]: '' });
-
-    const myTimeout = setTimeout(() => handleSearchSelected(name), 5000);
-
-    // if (!isJustSelected) {
-    //   console.log('clearing');
-    //   setDisabled(false);
-    //   setPostFormObj({
-    //     ...postFormObj,
-    //     location: 'test',
-    //     districtId: '',
-    //     provinceId: '',
-    //     postCode: '',
-    //     condoImage: { url: '', file: '' },
-    //   });
-    // }
-
-    console.log('after', postFormObj);
-    setIsJustSelected(false);
+    setDisabled(false);
   };
 
   const handleInputChange = (e) => {
@@ -179,6 +168,7 @@ export default function PostFormContextProvider({ children }) {
     try {
       console.log('submit');
       e.preventDefault();
+      setLoading(true);
 
       const newPostFormObj = { ...postFormObj };
       const formData = new FormData();
@@ -216,6 +206,7 @@ export default function PostFormContextProvider({ children }) {
 
       const result = await postApi.createPost(formData);
       console.log(result);
+      setLoading(false);
       toast.success('Successfully posted');
       // navigate(`post/${result.post.id}`)
     } catch (err) {
@@ -226,6 +217,7 @@ export default function PostFormContextProvider({ children }) {
         );
       }
     } finally {
+      setLoading(false);
     }
   };
 
@@ -257,6 +249,7 @@ export default function PostFormContextProvider({ children }) {
         condos,
         fetchCondos,
         disabled,
+        loading,
       }}
     >
       {children}
