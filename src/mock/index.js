@@ -214,3 +214,26 @@ export const imageSlides = [
     url: 'https://plus.unsplash.com/premium_photo-1674676471417-07f613528a94?q=80&w=3545&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   },
 ];
+
+export const markersMap = [
+  {
+    id: 1,
+    name: 'The Crest Sukumvite 34',
+    position: { lat: 13.7251833, lng: 100.576598 },
+  },
+  {
+    id: 2,
+    name: 'Kyen Sansiri',
+    position: { lat: 13.7250967, lng: 100.5769418 },
+  },
+  {
+    id: 3,
+    name: 'The Estelle Phrom Phong',
+    position: { lat: 13.728581, lng: 100.5704874 },
+  },
+  {
+    id: 4,
+    name: 'The Medison',
+    position: { lat: 13.7290801, lng: 100.5715923 },
+  },
+];
