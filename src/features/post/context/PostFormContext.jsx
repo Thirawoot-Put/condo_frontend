@@ -40,6 +40,7 @@ export default function PostFormContextProvider({ children }) {
   const [error, setError] = useState({});
   const [condos, setCondos] = useState([]);
   const [disabled, setDisabled] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSearchSelected = (name) => {
     const condoObj = condos.find(
@@ -167,6 +168,7 @@ export default function PostFormContextProvider({ children }) {
     try {
       console.log('submit');
       e.preventDefault();
+      setLoading(true);
 
       const newPostFormObj = { ...postFormObj };
       const formData = new FormData();
@@ -204,6 +206,7 @@ export default function PostFormContextProvider({ children }) {
 
       const result = await postApi.createPost(formData);
       console.log(result);
+      setLoading(false);
       toast.success('Successfully posted');
       // navigate(`post/${result.post.id}`)
     } catch (err) {
@@ -214,6 +217,7 @@ export default function PostFormContextProvider({ children }) {
         );
       }
     } finally {
+      setLoading(false);
     }
   };
 
@@ -245,6 +249,7 @@ export default function PostFormContextProvider({ children }) {
         condos,
         fetchCondos,
         disabled,
+        loading,
       }}
     >
       {children}
