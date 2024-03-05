@@ -78,18 +78,6 @@ const router = createBrowserRouter([
         path: 'user/profile/:userId',
         element: <UserProfilePage />,
       },
-      {
-        path: 'user/payment',
-        element: <PaymentPage />,
-      },
-      {
-        path: 'checkout',
-        element: <CheckoutForm />,
-      },
-      {
-        path: 'return',
-        element: <Return />,
-      },
     ],
   },
   //   Agent only
@@ -104,6 +92,18 @@ const router = createBrowserRouter([
       {
         path: 'agent/package',
         element: <SelectPackagePage />,
+      },
+      {
+        path: 'agent/payment',
+        element: <PaymentPage />,
+      },
+      {
+        path: 'checkout',
+        element: <CheckoutForm />,
+      },
+      {
+        path: 'return',
+        element: <Return />,
       },
     ],
   },

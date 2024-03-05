@@ -11,7 +11,7 @@ export default function InputSlider({ days, setDays, total, setTotal }) {
 
   const handleLabelClick = (index) => {
     setDays(index);
-    setTotal(index);
+    setTotal(index * 5);
   };
   return (
     <div className='w-full mt-8 flex flex-col gap-3'>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import InputSlider from './InputSlider';
 import PaymentContainer from './PaymentContainer';
 import visaCard from '/asset/Visa_logo.png';
@@ -7,6 +8,8 @@ import qrPayment from '/asset/qrpayment.jpg';
 import Button from '../../../components/Button';
 
 export default function SelectPackageForm() {
+  const navigate = useNavigate();
+
   const [selectedPayment, setSelectedPayment] = useState(null);
   const [days, setDays] = useState(1);
   const [total, setTotal] = useState(days * 5);
@@ -15,6 +18,7 @@ export default function SelectPackageForm() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    navigate('/checkout', { state: { selectedPayment, days, total } });
   };
   return (
     <form className='px-20 py-20 flex flex-col gap-20' onSubmit={handleSubmit}>
@@ -53,7 +57,7 @@ export default function SelectPackageForm() {
           </PaymentContainer>
         </div>
       </div>
-      <Button bg='blue' color='white'>
+      <Button bg='blue' color='white' type='submit'>
         Confirm
       </Button>
     </form>
