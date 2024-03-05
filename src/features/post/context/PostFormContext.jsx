@@ -32,7 +32,7 @@ export default function PostFormContextProvider({ children }) {
     building: '',
     isAvailable: true,
     description: '',
-    roomUtilList: [],
+    roomFacilityList: [],
     condoImage: { url: '', file: '' },
     roomImageList: [],
   };
@@ -40,39 +40,39 @@ export default function PostFormContextProvider({ children }) {
   const [error, setError] = useState({});
   const [condos, setCondos] = useState([]);
   const [disabled, setDisabled] = useState(false);
-  const [isJustSelected, setIsJustSelected] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSearchSelected = (name) => {
     const condoObj = condos.find(
       (condo) => condo.nameTh === name || condo.nameEn === name
     );
+
     if (condoObj) {
       setPostFormObj({
         ...postFormObj,
         ...condoObj,
         condoImage: { url: condoObj.condoImage, file: condoObj.condoImage },
       });
+      setError({
+        ...error,
+        nameTh: '',
+        nameEn: '',
+        location: '',
+        districtId: '',
+        provinceId: '',
+        postCode: '',
+        lat: '',
+        long: '',
+        condoImageForValidate: '',
+      });
       setDisabled(true);
-      setIsJustSelected(true);
-      console.log('disabled', disabled);
     }
   };
 
   const handleSearchChange = (name, value) => {
     setPostFormObj({ ...postFormObj, [name]: value });
     setError({ ...error, [name]: '' });
-    if (!isJustSelected) {
-      setDisabled(false);
-      setPostFormObj({
-        ...postFormObj,
-        location: '',
-        districtId: '',
-        provinceId: '',
-        postCode: '',
-        condoImage: { url: '', file: '' },
-      });
-    }
-    setIsJustSelected(false);
+    setDisabled(false);
   };
 
   const handleInputChange = (e) => {
@@ -80,24 +80,24 @@ export default function PostFormContextProvider({ children }) {
     setError({ ...error, [e.target.name]: '' });
   };
 
-  const handleClickRoomUtil = (utilId) => {
-    const utilIndex = postFormObj.roomUtilList.findIndex(
-      (util) => util === +utilId
+  const handleClickRoomFacility = (facilityId) => {
+    const facilityIndex = postFormObj.roomFacilityList.findIndex(
+      (facility) => facility === +facilityId
     );
-    const newRoomUtilList = [...postFormObj.roomUtilList];
-    if (utilIndex < 0) {
-      newRoomUtilList.push(+utilId);
+    const newRoomFacilityList = [...postFormObj.roomFacilityList];
+    if (facilityIndex < 0) {
+      newRoomFacilityList.push(+facilityId);
       setPostFormObj({
         ...postFormObj,
-        roomUtilList: newRoomUtilList,
+        roomFacilityList: newRoomFacilityList,
       });
     } else {
-      const filteredRoomUtilList = newRoomUtilList.filter(
-        (util) => util !== +utilId
+      const filteredRoomFacilityList = newRoomFacilityList.filter(
+        (facility) => facility !== +facilityId
       );
       setPostFormObj({
         ...postFormObj,
-        roomUtilList: filteredRoomUtilList,
+        roomFacilityList: filteredRoomFacilityList,
       });
     }
   };
@@ -168,6 +168,7 @@ export default function PostFormContextProvider({ children }) {
     try {
       console.log('submit');
       e.preventDefault();
+      setLoading(true);
 
       const newPostFormObj = { ...postFormObj };
       const formData = new FormData();
@@ -191,7 +192,7 @@ export default function PostFormContextProvider({ children }) {
       }
 
       for (let [key, value] of Object.entries(newPostFormObj)) {
-        if (key === 'roomUtilList' || key === 'roomImageList') {
+        if (key === 'roomFacilityList' || key === 'roomImageList') {
           value = JSON.stringify(value);
         }
         formData.append(key, value);
@@ -205,6 +206,7 @@ export default function PostFormContextProvider({ children }) {
 
       const result = await postApi.createPost(formData);
       console.log(result);
+      setLoading(false);
       toast.success('Successfully posted');
       // navigate(`post/${result.post.id}`)
     } catch (err) {
@@ -215,6 +217,7 @@ export default function PostFormContextProvider({ children }) {
         );
       }
     } finally {
+      setLoading(false);
     }
   };
 
@@ -233,7 +236,7 @@ export default function PostFormContextProvider({ children }) {
       value={{
         postFormObj,
         handleInputChange,
-        handleClickRoomUtil,
+        handleClickRoomFacility,
         handleCondoImageChange,
         handleCondoImageClear,
         handleRoomImageAdd,
@@ -246,6 +249,7 @@ export default function PostFormContextProvider({ children }) {
         condos,
         fetchCondos,
         disabled,
+        loading,
       }}
     >
       {children}

@@ -29,8 +29,6 @@ const PlacesAutocomplete = ({ setSelect }) => {
     setSelect({ lat, lng });
   };
 
-  console.log(ready);
-
   return (
     <Combobox onSelect={handleSelect}>
       <ComboboxInput
