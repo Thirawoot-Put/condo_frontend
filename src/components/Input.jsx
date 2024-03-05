@@ -9,9 +9,10 @@ const Input = ({
   onChange,
   label,
   errorMsg,
+  disabled = false,
 }) => {
   return (
-    <>
+    <div>
       <label htmlFor={name}>{label}</label>
       <input
         className='w-full border-0 border-b-2 border-gray-400 py-1.5 mt-1 focus:outline-none focus:border-b-black'
@@ -21,9 +22,10 @@ const Input = ({
         name={name}
         id={id}
         onChange={onChange}
+        disabled={disabled}
       />
       {errorMsg && <small className='text-red-500'>{errorMsg}</small>}
-    </>
+    </div>
   );
 };
 

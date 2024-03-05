@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid';
 import { toast } from 'react-toastify';
 import { createContext } from 'react';
 import * as postApi from '../../../api/post-api';
+import * as condoApi from '../../../api/condo-api';
 import { useState } from 'react';
 import validatePostForm from '../validators/validate-postForm';
 import { useNavigate } from 'react-router-dom';
@@ -31,36 +32,83 @@ export default function PostFormContextProvider({ children }) {
     building: '',
     isAvailable: true,
     description: '',
-    roomUtilList: [],
+    roomFacilityList: [],
     condoImage: { url: '', file: '' },
     roomImageList: [],
   };
   const [postFormObj, setPostFormObj] = useState(initialPostFormObj);
   const [error, setError] = useState({});
+  const [condos, setCondos] = useState([]);
+  const [disabled, setDisabled] = useState(false);
+  const [isJustSelected, setIsJustSelected] = useState(false);
+  const [latestFetchedCondo, setLatestFetchedCondo] = useState({});
+
+  const handleSearchSelected = (name) => {
+    console.log('in selected');
+    const condoObj = condos.find(
+      (condo) => condo.nameTh === name || condo.nameEn === name
+    );
+
+    if (condoObj) {
+      setPostFormObj({
+        ...postFormObj,
+        ...condoObj,
+        condoImage: { url: condoObj.condoImage, file: condoObj.condoImage },
+      });
+      setDisabled(true);
+      setIsJustSelected(true);
+      console.log('disabled', disabled);
+    }
+  };
+
+  const handleSearchChange = (name, value) => {
+    console.log('name', name);
+    console.log('value', value);
+    setPostFormObj({ ...postFormObj, [name]: value });
+    setError({ ...error, [name]: '' });
+
+    const myTimeout = setTimeout(() => handleSearchSelected(name), 5000);
+
+    // if (!isJustSelected) {
+    //   console.log('clearing');
+    //   setDisabled(false);
+    //   setPostFormObj({
+    //     ...postFormObj,
+    //     location: 'test',
+    //     districtId: '',
+    //     provinceId: '',
+    //     postCode: '',
+    //     condoImage: { url: '', file: '' },
+    //   });
+    // }
+
+    console.log('after', postFormObj);
+    setIsJustSelected(false);
+  };
 
   const handleInputChange = (e) => {
     setPostFormObj({ ...postFormObj, [e.target.name]: e.target.value });
     setError({ ...error, [e.target.name]: '' });
   };
 
-  const handleClickRoomUtil = (utilId) => {
-    const utilIndex = postFormObj.roomUtilList.findIndex(
-      (util) => util === +utilId
+  const handleClickRoomFacility = (facilityId) => {
+    const facilityIndex = postFormObj.roomFacilityList.findIndex(
+      (facility) => facility === +facilityId
     );
-    const newRoomUtilList = [...postFormObj.roomUtilList];
-    if (utilIndex < 0) {
-      newRoomUtilList.push(+utilId);
+    const newRoomFacilityList = [...postFormObj.roomFacilityList];
+    if (facilityIndex < 0) {
+      newRoomFacilityList.push(+facilityId);
       setPostFormObj({
         ...postFormObj,
-        roomUtilList: newRoomUtilList,
+        roomFacilityList: newRoomFacilityList,
       });
     } else {
-      const filteredRoomUtilList = newRoomUtilList.filter(
-        (util) => util !== +utilId
+      const filteredRoomFacilityList = newRoomFacilityList.filter(
+        (facility) => facility !== +facilityId
       );
       setPostFormObj({
         ...postFormObj,
-        roomUtilList: filteredRoomUtilList,
+        roomFacilityList: filteredRoomFacilityList,
       });
     }
   };
@@ -154,7 +202,7 @@ export default function PostFormContextProvider({ children }) {
       }
 
       for (let [key, value] of Object.entries(newPostFormObj)) {
-        if (key === 'roomUtilList' || key === 'roomImageList') {
+        if (key === 'roomFacilityList' || key === 'roomImageList') {
           value = JSON.stringify(value);
         }
         formData.append(key, value);
@@ -168,7 +216,23 @@ export default function PostFormContextProvider({ children }) {
 
       const result = await postApi.createPost(formData);
       console.log(result);
+      toast.success('Successfully posted');
       // navigate(`post/${result.post.id}`)
+    } catch (err) {
+      console.log(err);
+      if (err.response?.data?.message === 'ROOM_EXISTED') {
+        toast.error(
+          'This room has already been posted, please check condo name, room No., floor, and building'
+        );
+      }
+    } finally {
+    }
+  };
+
+  const fetchCondos = async () => {
+    try {
+      const res = await condoApi.getCondos();
+      setCondos(res.data.condos);
     } catch (err) {
       console.log(err);
     } finally {
@@ -180,7 +244,7 @@ export default function PostFormContextProvider({ children }) {
       value={{
         postFormObj,
         handleInputChange,
-        handleClickRoomUtil,
+        handleClickRoomFacility,
         handleCondoImageChange,
         handleCondoImageClear,
         handleRoomImageAdd,
@@ -188,6 +252,11 @@ export default function PostFormContextProvider({ children }) {
         handleRoomImageClear,
         handlePostFormSubmit,
         error,
+        handleSearchChange,
+        handleSearchSelected,
+        condos,
+        fetchCondos,
+        disabled,
       }}
     >
       {children}

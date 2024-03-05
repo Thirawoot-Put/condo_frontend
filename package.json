@@ -15,6 +15,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.11",
     "@mui/material": "^5.15.11",
+    "@react-google-maps/api": "^2.19.3",
     "@rollup/rollup-darwin-x64": "^4.12.0",
     "@stripe/react-stripe-js": "^2.5.1",
     "@stripe/stripe-js": "^3.0.6",
@@ -30,7 +31,8 @@
     "react-thailand-address-typeahead": "^2.0.1",
     "react-toastify": "^10.0.4",
     "slick-carousel": "^1.8.1",
-    "template-starter": "link:"
+    "template-starter": "link:",
+    "use-places-autocomplete": "^4.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.56",
