@@ -16,7 +16,7 @@ export default function Container() {
     lat: +postDetail?.room?.condo?.lat,
     lng: +postDetail?.room?.condo?.long,
   };
-  console.log(postDetail);
+  // commit
 
   return (
     <>
