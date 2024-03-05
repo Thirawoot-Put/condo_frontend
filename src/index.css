@@ -5,5 +5,5 @@
 @tailwind utilities;
 
 body * {
-    font-family: "Quicksand", "Prompt";
+  font-family: 'Quicksand', 'Prompt';
 }
