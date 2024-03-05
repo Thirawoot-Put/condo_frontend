@@ -13,13 +13,6 @@ function MapDisplayOnePin({ zoom = 20, marker }) {
 
   const [activeMarker, setActiveMarker] = useState(null);
 
-  const handleActiveMarker = (marker) => {
-    if (marker === activeMarker) {
-      return;
-    }
-    setActiveMarker(marker);
-  };
-
   console.log(activeMarker);
 
   return (
@@ -34,8 +27,8 @@ function MapDisplayOnePin({ zoom = 20, marker }) {
               }}
               //Default map position on first display
               center={{
-                lat: marker.lat,
-                lng: marker.lng,
+                lat: marker?.lat,
+                lng: marker?.lng,
               }}
               zoom={zoom}
             >
