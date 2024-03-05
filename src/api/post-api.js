@@ -6,4 +6,4 @@ export const fetchPostByUserId = (userId) =>
 export const createPost = (postFormObj) => axios.post('/post', postFormObj);
 export const fetchPostByPostId = (postId) => axios.get(`/post/${postId}`);
 export const payByCreditCard = (paymentData) =>
-  axios.post(`/transaction/create-checkout-session`);
+  axios.post(`/transaction/create-checkout-session`, paymentData);

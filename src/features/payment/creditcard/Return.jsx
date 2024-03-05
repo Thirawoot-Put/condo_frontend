@@ -1,11 +1,12 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 export default function Return() {
   const [status, setStatus] = useState(null);
   const [customerEmail, setCustomerEmail] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const queryString = window.location.search;
@@ -27,6 +28,9 @@ export default function Return() {
   }
 
   if (status === 'complete') {
+    setTimeout(() => {
+      navigate('/');
+    }, 3000);
     return (
       <section id='success' className='min-h-[500px]'>
         <p>
