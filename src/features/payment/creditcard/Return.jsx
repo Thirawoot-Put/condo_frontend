@@ -18,6 +18,7 @@ export default function Return() {
     )
       .then((res) => res.json())
       .then((data) => {
+        console.log(data.paymentId);
         setStatus(data.status);
         setCustomerEmail(data.customer_email);
       });
