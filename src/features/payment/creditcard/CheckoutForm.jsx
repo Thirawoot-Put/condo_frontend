@@ -3,20 +3,31 @@ import { EmbeddedCheckoutProvider } from '@stripe/react-stripe-js';
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
+// import { useLocation } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
+
+import * as postApi from '../../../api/post-api';
+import usePostForm from '../../post/hook/usePostForm';
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_API);
 
 export default function CheckoutForm() {
+  // const location = useLocation();
   const [clientSecret, setClientSecret] = useState('');
+  const { days, amount } = usePostForm();
+
+  const payment = async () => {
+    try {
+      const response = await postApi.payByCreditCard({ days, amount });
+      console.log(response.data);
+      setClientSecret(response.data.clientSecret);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
-    // Create a Checkout Session as soon as the page loads
-    fetch('http://localhost:8080/transaction/create-checkout-session', {
-      method: 'POST',
-    })
-      .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret));
+    payment();
   }, []);
 
   return (

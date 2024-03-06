@@ -1,22 +1,24 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 export default function Return() {
   const [status, setStatus] = useState(null);
   const [customerEmail, setCustomerEmail] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const sessionId = urlParams.get('session_id');
-
+    console.log(sessionId);
     fetch(
       `http://localhost:8080/transaction/session-status?session_id=${sessionId}`
     )
       .then((res) => res.json())
       .then((data) => {
+        console.log(data.paymentId);
         setStatus(data.status);
         setCustomerEmail(data.customer_email);
       });
@@ -27,6 +29,10 @@ export default function Return() {
   }
 
   if (status === 'complete') {
+    // setTimeout(() => {
+    //   navigate('/');
+    // }, 3000);
+
     return (
       <section id='success' className='min-h-[500px]'>
         <p>
