@@ -25,7 +25,7 @@ function MapDisplay({ zoom = 20, markers = [] }) {
   return (
     <>
       <div>
-        <div style={{ width: '80%', height: '80vh', margin: 'auto' }}>
+        <div style={{ width: '90%', height: '70vh', margin: 'auto' }}>
           {isLoaded ? (
             <GoogleMap
               mapContainerStyle={{
