@@ -12,6 +12,7 @@ import RoomImagesContainer from './RoomImagesContainer';
 import SearchBarWithOption from '../../../components/SearchBarWithOption';
 
 import * as selectApi from '../../../api/select-api';
+import Spinner from '../../../components/Spinner';
 
 export default function PostForm() {
   const [facilities, setFacilities] = useState([]);
@@ -29,6 +30,7 @@ export default function PostForm() {
     condos,
     fetchCondos,
     disabled,
+    loading,
   } = usePostForm();
 
   const condoImageFileEl = useRef(null);
@@ -46,8 +48,15 @@ export default function PostForm() {
     fetchCondos();
   }, []);
 
+  if (loading) {
+    return <Spinner />;
+  }
+
   return (
-    <form className=' flex flex-col gap-10 p-10 rounded-lg shadow-lg'>
+    <form
+      className=' flex flex-col gap-10 p-10 rounded-lg shadow-lg'
+      onSubmit={handlePostFormSubmit}
+    >
       <div className='font-semibold text-center text-2xl'>Property Sign Up</div>
       {/* --------1. Name and location--------- */}
       <div className='flex flex-col gap-3'>
@@ -79,7 +88,14 @@ export default function PostForm() {
           </div>
         </PostFormContent>
         <PostFormContent title='Address'>
-          <Input label='Address' />
+          <Input
+            label='Address'
+            name='location'
+            value={postFormObj.location}
+            onChange={handleInputChange}
+            errorMsg={error.location}
+            disabled={disabled}
+          />
           <div className='flex gap-5'>
             <SelectOption
               title='District'
@@ -99,6 +115,7 @@ export default function PostForm() {
               value={postFormObj.provinceId}
               onChange={handleInputChange}
               errorMsg={error.provinceId}
+              disabled={disabled}
             />
             {/* <SelectOption
               title='District'
@@ -152,21 +169,67 @@ export default function PostForm() {
         <PostFormContent title='Details'>
           <div className='flex gap-3'>
             <div className='w-full'>
-              <Input label='Room No.' />
+              <Input
+                label='Room No.'
+                name='roomNumber'
+                value={postFormObj.roomNumber}
+                onChange={handleInputChange}
+                errorMsg={error.roomNumber}
+                disabled={disabled}
+              />
             </div>
             <div className='w-full'>
-              <Input label='Floor' />
+              <Input
+                label='Floor'
+                name='floor'
+                value={postFormObj.floor}
+                onChange={handleInputChange}
+                errorMsg={error.floor}
+                disabled={disabled}
+              />
             </div>
             <div className='w-full'>
-              <Input label='Building' />
+              <Input
+                label='Building'
+                name='building'
+                value={postFormObj.building}
+                onChange={handleInputChange}
+                errorMsg={error.building}
+                disabled={disabled}
+              />
             </div>
           </div>
           <div className='flex gap-3 align-bottom'>
             <div className='w-full'>
-              <Input label='Size (m&#178;)' />
+              <Input
+                label='Size (m&#178;)'
+                name='roomSize'
+                value={postFormObj.roomSize}
+                onChange={handleInputChange}
+                errorMsg={error.roomSize}
+                disabled={disabled}
+              />
             </div>
-            <SelectOption title='Bedroom' dataToMap='10' />
-            <SelectOption title='Bathroom' dataToMap='10' />
+            <SelectOption
+              title='Bedroom'
+              dataToMap='10'
+              name='bedroom'
+              id='bedroom'
+              value={postFormObj.bedroom}
+              onChange={handleInputChange}
+              errorMsg={error.bedroom}
+              disabled={disabled}
+            />
+            <SelectOption
+              title='Bathroom'
+              dataToMap='10'
+              name='bathroom'
+              id='bathroom'
+              value={postFormObj.bathroom}
+              onChange={handleInputChange}
+              errorMsg={error.bathroom}
+              disabled={disabled}
+            />
           </div>
         </PostFormContent>
       </div>
@@ -174,10 +237,26 @@ export default function PostForm() {
       <div className='flex flex-col gap-3'>
         <div className='font-semibold'>4. Price and contract</div>
         <PostFormContent title='Rent'>
-          <Input label='Monthly rental price (Baht / month)' />
+          <Input
+            label='Monthly rental price (Baht / month)'
+            name='price'
+            value={postFormObj.price}
+            onChange={handleInputChange}
+            errorMsg={error.price}
+            disabled={disabled}
+          />
         </PostFormContent>
         <PostFormContent title='Contract'>
-          <SelectOption title='Month' dataToMap='12' />
+          <SelectOption
+            title='Month'
+            dataToMap='12'
+            name='contract'
+            id='contract'
+            value={postFormObj.contract}
+            onChange={handleInputChange}
+            errorMsg={error.contract}
+            disabled={disabled}
+          />
         </PostFormContent>
       </div>
       {/* --------5. Property description--------- */}

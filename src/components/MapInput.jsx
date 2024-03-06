@@ -1,19 +1,34 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
+import '@reach/combobox/styles.css';
+
+import Spinner from '../components/Spinner';
+import PlacesAutocomplete from './PlacesAutocomplete';
+
+export default function Places() {
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAP_API_KEY,
+    libraries: ['places'],
+  });
+
+  if (!isLoaded) return <Spinner />;
+  return <MapInput />;
+}
 
 function MapInput() {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAP_API_KEY,
+    libraries: ['places'],
   });
 
-  const [marker, setMarker] = useState({ lat: 0, lng: 0 });
+  const [select, setSelect] = useState({ lat: 13.7563309, lng: 100.5017651 });
 
   const handleMapClick = (event) => {
     const newMarker = {
       lat: event.latLng.lat(),
       lng: event.latLng.lng(),
     };
-    setMarker(newMarker);
+    setSelect(newMarker);
     console.log(newMarker);
   };
 
@@ -22,6 +37,9 @@ function MapInput() {
       <div>
         <h1>try google map marker</h1>
         <div style={{ width: '80%', height: '80vh', margin: 'auto' }}>
+          <div className='places-container'>
+            <PlacesAutocomplete setSelect={setSelect} />
+          </div>
           {isLoaded ? (
             <GoogleMap
               mapContainerStyle={{
@@ -29,14 +47,11 @@ function MapInput() {
                 height: '100%',
               }}
               //Default map position on first display
-              center={{
-                lat: 13.7247376,
-                lng: 100.3212733,
-              }}
-              zoom={18}
+              center={select}
+              zoom={16}
               onClick={handleMapClick}
             >
-              <Marker position={{ lat: marker.lat, lng: marker.lng }} />
+              {select && <Marker position={select} />}
             </GoogleMap>
           ) : null}
         </div>
@@ -45,4 +60,4 @@ function MapInput() {
   );
 }
 
-export default MapInput;
+// export default MapInput;

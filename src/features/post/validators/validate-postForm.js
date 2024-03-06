@@ -116,8 +116,8 @@ const postFromSchema = Joi.object({
     'any.required': 'description is required',
   }),
   condoImageForValidate: Joi.string().required().trim().messages({
-    'string.empty': 'condoImage is required ja',
-    'any.required': 'condoImage is required ja',
+    'string.empty': 'condoImage is required',
+    'any.required': 'condoImage is required',
   }),
 }).unknown(true);
 
