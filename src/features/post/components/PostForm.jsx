@@ -10,6 +10,7 @@ import usePostForm from '../hook/usePostForm';
 import ImageCard from './ImageCard';
 import RoomImagesContainer from './RoomImagesContainer';
 import SearchBarWithOption from '../../../components/SearchBarWithOption';
+import MapInput from '../../../components/MapInput';
 
 import Spinner from '../../../components/Spinner';
 
@@ -17,6 +18,7 @@ export default function PostForm() {
   const {
     postFormObj,
     handleInputChange,
+    handleMapChange,
     handleCondoImageChange,
     handleCondoImageClear,
     handleRoomImageAdd,
@@ -142,7 +144,12 @@ export default function PostForm() {
               />
             </div>
           </div>
-          This place is for MAPPPPPPPPPPPP
+          {/* This place is for MAPPPPPPPPPPPP */}
+          <MapInput
+            value={{ lat: +postFormObj.lat, lng: +postFormObj.long }}
+            onChange={handleMapChange}
+            disabled={disabled}
+          />
         </PostFormContent>
       </div>
       {/* --------2. Facilities --------- */}
@@ -327,7 +334,7 @@ export default function PostForm() {
         </PostFormContent>
       </div>
       <div className='flex justify-center'>
-        <Button bg='blue' color='white'>
+        <Button bg='blue' color='white' type='submit'>
           Submit
         </Button>
       </div>
