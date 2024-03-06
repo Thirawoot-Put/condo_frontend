@@ -33,6 +33,7 @@
     "react-thailand-address-typeahead": "^2.0.1",
     "react-toastify": "^10.0.4",
     "slick-carousel": "^1.8.1",
+    "swiper": "^11.0.7",
     "template-starter": "link:",
     "use-places-autocomplete": "^4.0.1"
   },

@@ -19,7 +19,7 @@ const about = [
   { name: 'Our team', to: '/', id: 2 },
   { name: 'Awards', to: '/', id: 3 },
   { name: 'Testimonials', to: '/', id: 4 },
-  { name: 'privicy policy', to: '/', id: 5 },
+  { name: 'Privicy policy', to: '/', id: 5 },
 ];
 const contact = [
   { name: 'Infomation', to: '/', id: 1 },
@@ -31,17 +31,17 @@ const contact = [
 
 export default function Container() {
   return (
-    <div className=''>
-      <div className='w-[80%] mx-auto flex flex-col gap-14 mt-10'>
+    <div className='bg-gray-300 pt-[1px]'>
+      <div className='w-[80%] mx-auto flex flex-col gap-14 mt-10 '>
         <div className='flex justify-between min-h-[160px]'>
           <div className=' '>
-            <MenuList menu={about} />
+            <MenuList menu={about} title='About us' />
           </div>
           <div className=''>
-            <MenuList menu={service} />
+            <MenuList menu={service} title='Services' />
           </div>
           <div className=' '>
-            <MenuList menu={contact} />
+            <MenuList menu={contact} title='Contact us' />
           </div>
         </div>
         <div className='flex justify-between  border-t py-1.5'>
@@ -49,7 +49,7 @@ export default function Container() {
             <p>CONDRENT</p>
           </div>
           <div className='font-mono flex gap-2'>
-            <p className=''>copyright</p>
+            <p className=''>Copyright</p>
             <p className='text-xl'>&#169;</p>
             <p>2024 codecamp cc16</p>
           </div>

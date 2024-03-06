@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 export default function ProfileCard({ children, user, title = '' }) {
   const [isShow, setIsShow] = useState(false);
-    console.log(user)
+  
   const date = new Date(user?.createdAt).toString().slice(4, 15);
 
   return (
