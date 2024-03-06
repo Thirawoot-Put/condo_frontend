@@ -20,8 +20,8 @@ export default function PostFormContextProvider({ children }) {
     districtId: '',
     provinceId: '',
     postCode: '',
-    lat: '99.99',
-    long: '100.1',
+    lat: '13.7563309',
+    long: '100.5017651',
     price: '',
     contract: '',
     roomNumber: '',
@@ -84,6 +84,14 @@ export default function PostFormContextProvider({ children }) {
   const handleInputChange = (e) => {
     setPostFormObj({ ...postFormObj, [e.target.name]: e.target.value });
     setError({ ...error, [e.target.name]: '' });
+  };
+
+  const handleMapChange = (mapObj) => {
+    setPostFormObj({
+      ...postFormObj,
+      lat: mapObj.lat + '',
+      long: mapObj.lng + '',
+    });
   };
 
   const handleClickRoomFacility = (facilityId) => {
@@ -274,6 +282,7 @@ export default function PostFormContextProvider({ children }) {
       value={{
         postFormObj,
         handleInputChange,
+        handleMapChange,
         handleClickRoomFacility,
         handleCondoImageChange,
         handleCondoImageClear,
