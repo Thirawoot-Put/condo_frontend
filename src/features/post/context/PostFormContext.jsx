@@ -47,6 +47,7 @@ export default function PostFormContextProvider({ children }) {
   const [selectedPayment, setSelectedPayment] = useState(null);
   const [days, setDays] = useState(1);
   const [amount, setAmount] = useState(days * 5);
+  const [postId, setPostId] = useState(null);
 
   const handleSearchSelected = (name) => {
     const condoObj = condos.find(
@@ -222,7 +223,8 @@ export default function PostFormContextProvider({ children }) {
       console.log(result);
       setLoading(false);
       toast.success('Successfully posted');
-      // navigate(`agent/package`)
+      setPostId(result.data.post.id);
+      navigate(`/agent/package`);
     } catch (err) {
       console.log(err);
       if (err.response?.data?.message === 'ROOM_EXISTED') {
@@ -313,6 +315,8 @@ export default function PostFormContextProvider({ children }) {
         handleSubmitSelectPackage,
         handleSliderChange,
         handleLabelClick,
+        postId,
+        setPostId,
       }}
     >
       {children}

@@ -14,11 +14,15 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_API);
 export default function CheckoutForm() {
   // const location = useLocation();
   const [clientSecret, setClientSecret] = useState('');
-  const { days, amount } = usePostForm();
+  const { days, amount, postId } = usePostForm();
 
   const payment = async () => {
     try {
-      const response = await postApi.payByCreditCard({ days, amount });
+      const response = await postApi.payByCreditCard({
+        days,
+        amount,
+        postId,
+      });
       console.log(response.data);
       setClientSecret(response.data.clientSecret);
     } catch (err) {

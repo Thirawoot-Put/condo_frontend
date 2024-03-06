@@ -3,25 +3,38 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 
+import * as postApi from '../../../api/post-api';
+import usePostForm from '../../post/hook/usePostForm';
+
 export default function Return() {
   const [status, setStatus] = useState(null);
   const [customerEmail, setCustomerEmail] = useState('');
+  const [paymentId, setPaymentId] = useState('');
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const sessionId = urlParams.get('session_id');
-    console.log(sessionId);
-    fetch(
-      `http://localhost:8080/transaction/session-status?session_id=${sessionId}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data.paymentId);
-        setStatus(data.status);
-        setCustomerEmail(data.customer_email);
+  const getStatus = async () => {
+    try {
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const sessionId = urlParams.get('session_id');
+      const postId = +urlParams.get('postId');
+      const days = +urlParams.get('days');
+      const amount = +urlParams.get('amount');
+      const response = await postApi.getStatus(sessionId, {
+        postId,
+        days,
+        amount,
       });
+      setStatus(response.data.status);
+      setCustomerEmail(response.data.customer_email);
+      setPaymentId(response.data.paymentId);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getStatus();
   }, []);
 
   if (status === 'open') {
