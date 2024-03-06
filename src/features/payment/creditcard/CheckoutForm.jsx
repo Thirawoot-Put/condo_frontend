@@ -18,7 +18,11 @@ export default function CheckoutForm() {
 
   const payment = async () => {
     try {
-      const response = await postApi.payByCreditCard({ days, amount });
+      const response = await postApi.payByCreditCard({
+        days,
+        amount,
+        postId: 1,
+      });
       console.log(response.data);
       setClientSecret(response.data.clientSecret);
     } catch (err) {
