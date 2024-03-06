@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
@@ -10,12 +11,9 @@ import ImageCard from './ImageCard';
 import RoomImagesContainer from './RoomImagesContainer';
 import SearchBarWithOption from '../../../components/SearchBarWithOption';
 
-import * as selectApi from '../../../api/select-api';
 import Spinner from '../../../components/Spinner';
 
 export default function PostForm() {
-  const [facilities, setFacilities] = useState([]);
-
   const {
     postFormObj,
     handleInputChange,
@@ -30,19 +28,18 @@ export default function PostForm() {
     fetchCondos,
     disabled,
     loading,
+    getSelected,
+    facilities,
   } = usePostForm();
 
   const condoImageFileEl = useRef(null);
   const roomImageFileEl = useRef(null);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
-    const get = async () => {
-      const getFacilitiesCheckBoxed = await selectApi.getFacilities();
-      console.log(getFacilitiesCheckBoxed.data.facilities);
-      setFacilities(getFacilitiesCheckBoxed.data.facilities);
-    };
-    get();
     fetchCondos();
+    getSelected();
   }, []);
 
   if (loading) {
@@ -330,7 +327,7 @@ export default function PostForm() {
         </PostFormContent>
       </div>
       <div className='flex justify-center'>
-        <Button bg='blue' color='white' type='submit'>
+        <Button bg='blue' color='white'>
           Submit
         </Button>
       </div>

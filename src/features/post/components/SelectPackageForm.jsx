@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import usePostForm from '../hook/usePostForm';
 import InputSlider from './InputSlider';
 import PaymentContainer from './PaymentContainer';
 import visaCard from '/asset/Visa_logo.png';
@@ -7,27 +9,20 @@ import qrPayment from '/asset/qrpayment.jpg';
 import Button from '../../../components/Button';
 
 export default function SelectPackageForm() {
-  const [selectedPayment, setSelectedPayment] = useState(null);
-  const [days, setDays] = useState(1);
-  const [total, setTotal] = useState(days * 5);
-  const handlePaymentSelection = (paymentType) => {
-    setSelectedPayment(paymentType);
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+  const navigate = useNavigate();
+  const { selectedPayment, handlePaymentSelection, handleSubmitSelectPackage } =
+    usePostForm();
+
   return (
-    <form className='px-20 py-20 flex flex-col gap-20' onSubmit={handleSubmit}>
+    <form
+      className='px-20 py-20 flex flex-col gap-20'
+      onSubmit={handleSubmitSelectPackage}
+    >
       <div className='flex flex-col gap-4'>
         <div className='text-lg'>
           Please select the duration for promoting your property
         </div>
-        <InputSlider
-          days={days}
-          setDays={setDays}
-          total={total}
-          setTotal={setTotal}
-        />
+        <InputSlider />
       </div>
       <div className='flex flex-col gap-10'>
         <div className='text-lg '>
@@ -53,7 +48,7 @@ export default function SelectPackageForm() {
           </PaymentContainer>
         </div>
       </div>
-      <Button bg='blue' color='white'>
+      <Button bg='blue' color='white' type='submit'>
         Confirm
       </Button>
     </form>

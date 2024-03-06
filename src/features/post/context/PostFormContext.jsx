@@ -1,9 +1,9 @@
-// import { nanoid } from 'nanoid';
 import { nanoid } from 'nanoid';
 import { toast } from 'react-toastify';
 import { createContext } from 'react';
 import * as postApi from '../../../api/post-api';
 import * as condoApi from '../../../api/condo-api';
+import * as selectApi from '../../../api/select-api';
 import { useState } from 'react';
 import validatePostForm from '../validators/validate-postForm';
 import { useNavigate } from 'react-router-dom';
@@ -41,6 +41,12 @@ export default function PostFormContextProvider({ children }) {
   const [condos, setCondos] = useState([]);
   const [disabled, setDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [districts, setDistricts] = useState([]);
+  const [provinces, setProvinces] = useState([]);
+  const [facilities, setFacilities] = useState([]);
+  const [selectedPayment, setSelectedPayment] = useState(null);
+  const [days, setDays] = useState(1);
+  const [amount, setAmount] = useState(days * 5);
 
   const handleSearchSelected = (name) => {
     const condoObj = condos.find(
@@ -208,7 +214,7 @@ export default function PostFormContextProvider({ children }) {
       console.log(result);
       setLoading(false);
       toast.success('Successfully posted');
-      // navigate(`post/${result.post.id}`)
+      // navigate(`agent/package`)
     } catch (err) {
       console.log(err);
       if (err.response?.data?.message === 'ROOM_EXISTED') {
@@ -221,10 +227,42 @@ export default function PostFormContextProvider({ children }) {
     }
   };
 
+  const handlePaymentSelection = (paymentType) => {
+    setSelectedPayment(paymentType);
+  };
+  const handleSubmitSelectPackage = (e) => {
+    e.preventDefault();
+    navigate('/checkout');
+  };
+
+  const handleSliderChange = (event) => {
+    setDays(parseInt(event.target.value));
+    setAmount(parseInt(event.target.value) * 5);
+  };
+
+  const handleLabelClick = (index) => {
+    setDays(index);
+    setAmount(index * 5);
+  };
+
   const fetchCondos = async () => {
     try {
       const res = await condoApi.getCondos();
       setCondos(res.data.condos);
+    } catch (err) {
+      console.log(err);
+    } finally {
+    }
+  };
+
+  const getSelected = async () => {
+    try {
+      const getDistrictsOption = await selectApi.getDistricts();
+      setDistricts(getDistrictsOption.data.districts);
+      const getProvincesOption = await selectApi.getProvinces();
+      setProvinces(getProvincesOption.data.provinces);
+      const getFacilitiesCheckBoxed = await selectApi.getFacilities();
+      setFacilities(getFacilitiesCheckBoxed.data.facilities);
     } catch (err) {
       console.log(err);
     } finally {
@@ -250,6 +288,22 @@ export default function PostFormContextProvider({ children }) {
         fetchCondos,
         disabled,
         loading,
+        districts,
+        setDistricts,
+        provinces,
+        setProvinces,
+        getSelected,
+        facilities,
+        selectedPayment,
+        setSelectedPayment,
+        days,
+        setDays,
+        amount,
+        setAmount,
+        handlePaymentSelection,
+        handleSubmitSelectPackage,
+        handleSliderChange,
+        handleLabelClick,
       }}
     >
       {children}
