@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import io from 'socket.io-client';
+import InfoBar from '../features/chat_test/components/InfoBar';
+import ChatInput from '../features/chat_test/components/ChatInput';
+import Messages from '../features/chat_test/components/Messages';
+import TextContainer from '../features/chat_test/components/TextContainer';
 
 let socket;
 
@@ -13,6 +17,7 @@ export default function ChatTestPage() {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const ENDPOINT = 'localhost:8080';
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
@@ -24,8 +29,17 @@ export default function ChatTestPage() {
 
     socket.emit('join', { name, room }, () => {});
 
+    socket.on('roomData', ({ room, users }, callback) => {
+      setUsers(users);
+    });
+
     return () => {
       socket.emit('disconnect');
+
+      // มาทำต่อ
+      socket.on('roomData', ({ room, users }, callback) => {
+        setUsers(users);
+      });
 
       socket.off();
     };
@@ -51,13 +65,15 @@ export default function ChatTestPage() {
   return (
     <div className=''>
       <div className=''>
-        <input
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          onKeyPress={(e) => (e.key === 'Enter' ? sendMessage(e) : null)}
-          type='text'
+        <InfoBar room={room} />
+        <Messages messages={messages} name={name} />
+        <ChatInput
+          message={message}
+          setMessage={setMessage}
+          sendMessage={sendMessage}
         />
       </div>
+      <TextContainer users={users.filter((user) => user.room === room)} />
     </div>
   );
 }
