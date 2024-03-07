@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 
-import * as selectApi from '../../../api/select-api';
+// import * as selectApi from '../../../api/select-api';
+import usePostForm from '../hook/usePostForm';
 
 export default function SelectInput({
   id,
@@ -14,18 +15,7 @@ export default function SelectInput({
   errorMsg,
   disabled = false,
 }) {
-  const [districts, setDistricts] = useState([]);
-  const [provinces, setProvinces] = useState([]);
-
-  useEffect(() => {
-    const get = async () => {
-      const getDistrictsOption = await selectApi.getDistricts();
-      setDistricts(getDistrictsOption.data.districts);
-      const getProvincesOption = await selectApi.getProvinces();
-      setProvinces(getProvincesOption.data.provinces);
-    };
-    get();
-  }, []);
+  const { districts, provinces } = usePostForm();
 
   return (
     <div className='flex flex-col gap-2 pb-2 w-full'>
@@ -51,18 +41,21 @@ export default function SelectInput({
                   {district}
                 </option>
               ));
+              break;
             case 'province':
               return provinces.map(({ id, province }) => (
                 <option key={id} value={id}>
                   {province}
                 </option>
               ));
+              break;
             case '12':
               return Array.from({ length: 12 }, (_, index) => (
                 <option key={index + 1} value={index + 1}>
                   {index + 1}
                 </option>
               ));
+              break;
             default:
               return Array.from({ length: 10 }, (_, index) => (
                 <option key={index + 1} value={index + 1}>

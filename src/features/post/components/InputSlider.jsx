@@ -1,18 +1,9 @@
-import { useState } from 'react';
+import usePostForm from '../hook/usePostForm';
 import TotalContainer from './TotalContainer';
 
-export default function InputSlider({ days, setDays, total, setTotal }) {
-  //   const [days, setDays] = useState(1);
+export default function InputSlider() {
+  const { days, amount, handleSliderChange, handleLabelClick } = usePostForm();
 
-  const handleSliderChange = (event) => {
-    setDays(parseInt(event.target.value));
-    setTotal(parseInt(event.target.value) * 5);
-  };
-
-  const handleLabelClick = (index) => {
-    setDays(index);
-    setTotal(index);
-  };
   return (
     <div className='w-full mt-8 flex flex-col gap-3'>
       <input
@@ -44,7 +35,7 @@ export default function InputSlider({ days, setDays, total, setTotal }) {
         </TotalContainer>
         <TotalContainer>
           Total:{' '}
-          <span className='font-bold text-xl text-blue-500'>{total}</span> Baht
+          <span className='font-bold text-xl text-blue-500'>{amount}</span> Baht
         </TotalContainer>
       </div>
     </div>

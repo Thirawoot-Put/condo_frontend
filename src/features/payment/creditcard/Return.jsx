@@ -1,25 +1,40 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
+
+import * as postApi from '../../../api/post-api';
+import usePostForm from '../../post/hook/usePostForm';
 
 export default function Return() {
   const [status, setStatus] = useState(null);
   const [customerEmail, setCustomerEmail] = useState('');
+  const [paymentId, setPaymentId] = useState('');
+  const navigate = useNavigate();
+
+  const getStatus = async () => {
+    try {
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const sessionId = urlParams.get('session_id');
+      const postId = +urlParams.get('postId');
+      const days = +urlParams.get('days');
+      const amount = +urlParams.get('amount');
+      const response = await postApi.getStatus(sessionId, {
+        postId,
+        days,
+        amount,
+      });
+      setStatus(response.data.status);
+      setCustomerEmail(response.data.customer_email);
+      setPaymentId(response.data.paymentId);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const sessionId = urlParams.get('session_id');
-
-    fetch(
-      `http://localhost:8080/transaction/session-status?session_id=${sessionId}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setStatus(data.status);
-        setCustomerEmail(data.customer_email);
-      });
+    getStatus();
   }, []);
 
   if (status === 'open') {
@@ -27,6 +42,10 @@ export default function Return() {
   }
 
   if (status === 'complete') {
+    // setTimeout(() => {
+    //   navigate('/');
+    // }, 3000);
+
     return (
       <section id='success' className='min-h-[500px]'>
         <p>
