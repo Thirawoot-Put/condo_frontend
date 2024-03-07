@@ -18,6 +18,7 @@ export function ProfileContextProvider({ children }) {
   };
   const fetchProfilePost = async (id) => {
     const response = await postApi.fetchPostByUserId(id);
+   
     setPosts(response.data.posts);
   };
 
@@ -26,8 +27,8 @@ export function ProfileContextProvider({ children }) {
     fetchProfileUser(userId);
   }, []);
 
-  console.log(posts);
-  console.log(user);
+ 
+  console.log(posts)
 
   return (
     <ProfileContext.Provider value={{ posts, user }}>

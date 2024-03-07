@@ -1,10 +1,10 @@
-import React from 'react';  
+import React from 'react';
 
 import PostIProfileList from './agent/PostIProfileList';
 import useProfile from './context/ProfileContext';
 import { Button } from '@mui/material';
 import useAuth from '../auth/hook/useAuth';
-import ProfileCard from '../../components/ProfileCard'
+import ProfileCard from '../../components/ProfileCard';
 
 export default function Container() {
   const {
@@ -12,9 +12,11 @@ export default function Container() {
     user,
   } = useProfile();
   const { authUser } = useAuth();
+  console.log(user);
+  console.log(authUser);
 
   return (
-    <div className='min-h-[500px] '>
+    <div className='min-h-[500px] flex flex-col gap-12 p-6  mx-auto'>
       <ProfileCard user={user}>
         {user?.id == authUser?.id && (
           <Button variant='outlined'>Edit Profile</Button>
@@ -22,8 +24,9 @@ export default function Container() {
       </ProfileCard>
 
       <PostIProfileList title='Active' items={active} />
-      <PostIProfileList title='Inactive' items={inactive} />
-      <div>in active</div>
+      {authUser?.id == user?.id && (
+        <PostIProfileList title='Inactive' items={inactive} />
+      )}
     </div>
   );
 }
