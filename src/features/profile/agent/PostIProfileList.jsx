@@ -50,7 +50,7 @@ export default function PostIProfileList({ title, items }) {
 
               <p>Created at : {el.createdAt.slice(0, 10)}</p>
               {el.postStatus && <p>Expires at : {el.expiresAt.slice(0, 10)}</p>}
-              <p className='text-red-500 font-medium'>Price {el?.room.price}</p>
+              <p className='text-red-500 font-medium font-mono'>Price {el?.room.price }</p>
             </div>
           </SwiperSlide>
         ))}
