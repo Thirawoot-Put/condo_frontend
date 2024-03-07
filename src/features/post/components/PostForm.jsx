@@ -176,7 +176,7 @@ export default function PostForm() {
                 value={postFormObj.roomNumber}
                 onChange={handleInputChange}
                 errorMsg={error.roomNumber}
-                disabled={disabled}
+                // disabled={disabled}
               />
             </div>
             <div className='w-full'>
@@ -186,7 +186,7 @@ export default function PostForm() {
                 value={postFormObj.floor}
                 onChange={handleInputChange}
                 errorMsg={error.floor}
-                disabled={disabled}
+                // disabled={disabled}
               />
             </div>
             <div className='w-full'>
@@ -196,7 +196,7 @@ export default function PostForm() {
                 value={postFormObj.building}
                 onChange={handleInputChange}
                 errorMsg={error.building}
-                disabled={disabled}
+                // disabled={disabled}
               />
             </div>
           </div>
@@ -208,7 +208,7 @@ export default function PostForm() {
                 value={postFormObj.roomSize}
                 onChange={handleInputChange}
                 errorMsg={error.roomSize}
-                disabled={disabled}
+                // disabled={disabled}
               />
             </div>
             <SelectOption
@@ -219,7 +219,7 @@ export default function PostForm() {
               value={postFormObj.bedroom}
               onChange={handleInputChange}
               errorMsg={error.bedroom}
-              disabled={disabled}
+              // disabled={disabled}
             />
             <SelectOption
               title='Bathroom'
@@ -229,7 +229,7 @@ export default function PostForm() {
               value={postFormObj.bathroom}
               onChange={handleInputChange}
               errorMsg={error.bathroom}
-              disabled={disabled}
+              // disabled={disabled}
             />
           </div>
         </PostFormContent>
@@ -244,7 +244,7 @@ export default function PostForm() {
             value={postFormObj.price}
             onChange={handleInputChange}
             errorMsg={error.price}
-            disabled={disabled}
+            // disabled={disabled}
           />
         </PostFormContent>
         <PostFormContent title='Contract'>
@@ -256,7 +256,7 @@ export default function PostForm() {
             value={postFormObj.contract}
             onChange={handleInputChange}
             errorMsg={error.contract}
-            disabled={disabled}
+            // disabled={disabled}
           />
         </PostFormContent>
       </div>
