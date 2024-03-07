@@ -1,29 +1,45 @@
 import React from 'react';
 import { MdOutlineLocationOn } from 'react-icons/md';
 
-function CardMap() {
+function CardMap({ post }) {
   return (
     <div className='card card-side bg-base-100 shadow-xl p-4 w-[33rem] justify-between gap-4'>
       <div className='flex h-36 aspect-square overflow-hidden items-center rounded-xl'>
         <img
-          className='object-center'
-          src='https://images.pexels.com/photos/533157/pexels-photo-533157.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+          className='object-center h-36'
+          src={
+            post?.room.roomImages[0]?.roomImage || post?.room.condo.condoImage
+          }
           alt='pic'
         />
       </div>
 
       <div className='flex flex-col justify-between flex-1'>
         <div>
-          <h1 className='font-semibold text-xl'>room number</h1>
-          <h1>Condo name</h1>
+          <h1 className='font-semibold text-xl'>
+            {post?.room.roomNumber}/{post?.room.floor}
+          </h1>
+          <h1 className='font-semibold'>{post?.room.condo.nameEn}</h1>
+          <h2 className='text-sm'>Building: {post?.room.building}</h2>
           <small className='flex items-center'>
             <MdOutlineLocationOn />
-            <span>district, province</span>
+            <span>
+              {post?.room.condo.district.district},{' '}
+              {post?.room.condo.province.province}
+            </span>
           </small>
           <div>
-            <small className='pr-1 text-gray-500'>utils |</small>
-            <small className='pr-1 text-gray-500'>utils |</small>
-            <small className='pr-1 text-gray-500'>utils |</small>
+            {post?.room.roomFacilities.map(
+              (facility) =>
+                facility.id <= 4 && (
+                  <small
+                    className='px-1 text-gray-500 border-r first:pl-0 last:border-none border-gray-400'
+                    key={facility.id}
+                  >
+                    {facility.facility.name}
+                  </small>
+                )
+            )}
           </div>
         </div>
         <div className='text-end'>

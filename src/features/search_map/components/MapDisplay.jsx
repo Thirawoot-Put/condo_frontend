@@ -27,8 +27,6 @@ function MapDisplay({ zoom = 20, markers = [], setIsShow, onClickMarker }) {
     setIsShow(false);
   };
 
-  console.log(activeMarker);
-
   return (
     <>
       <div>
