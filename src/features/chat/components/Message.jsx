@@ -8,6 +8,10 @@ export default function Message({ messageObj }) {
   const isSender = messageObj.sender.id === authUser.id;
   const extendedClasses = isSender ? `self-end` : `self-start`;
 
+  if (messageObj.message.trim() === '') {
+    return;
+  }
+
   return (
     <div className='flex flex-col'>
       <h2 className={`${extendedClasses}`}>
