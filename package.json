@@ -37,11 +37,8 @@
     "react-thailand-address-typeahead": "^2.0.1",
     "react-toastify": "^10.0.4",
     "slick-carousel": "^1.8.1",
-<<<<<<< HEAD
     "swiper": "^11.0.7",
-=======
     "socket.io-client": "^4.7.4",
->>>>>>> develop
     "template-starter": "link:",
     "use-places-autocomplete": "^4.0.1"
   },
