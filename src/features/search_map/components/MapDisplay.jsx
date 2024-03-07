@@ -6,18 +6,25 @@ import {
   InfoWindowF,
 } from '@react-google-maps/api';
 
-function MapDisplay({ zoom = 20, markers = [] }) {
+function MapDisplay({ zoom = 20, markers = [], setIsShow, onClickMarker }) {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAP_API_KEY,
   });
 
   const [activeMarker, setActiveMarker] = useState(null);
 
-  const handleActiveMarker = (marker) => {
-    if (marker === activeMarker) {
-      return;
-    }
+  const handleClickMarker = (marker) => {
+    // if (marker === activeMarker) {
+    //   return;
+    // }
     setActiveMarker(marker);
+    setIsShow(true);
+    onClickMarker(marker);
+  };
+
+  const handleCloseMarker = () => {
+    setActiveMarker(null);
+    setIsShow(false);
   };
 
   console.log(activeMarker);
@@ -39,21 +46,22 @@ function MapDisplay({ zoom = 20, markers = [] }) {
               }}
               zoom={zoom}
             >
-              {markers.map(({ id, name, position }) => (
+              {markers.map((marker) => (
                 <MarkerF
-                  key={id}
-                  position={position}
-                  onClick={() => handleActiveMarker(id)}
+                  key={marker?.id}
+                  position={{ lat: +marker?.lat, lng: +marker?.long }}
+                  onClick={() => handleClickMarker(marker?.id)}
                   // icon={{
                   //   url: 'https://www.svgrepo.com/show/187158/apartment.svg',
                   //   scaledSize: { width: 50, height: 50 },
                   // }}
                 >
-                  {activeMarker === id ? (
-                    <InfoWindowF onCloseClick={() => setActiveMarker(null)}>
+                  {activeMarker === marker?.id ? (
+                    <InfoWindowF onCloseClick={handleCloseMarker}>
                       <div>
-                        <p>{name}</p>
-                        <p>ห้องว่าง: xxx</p>
+                        <p>{marker?.nameEn}</p>
+                        <p>{marker?.location}</p>
+                        <p>district: {marker?.district.district}</p>
                       </div>
                     </InfoWindowF>
                   ) : null}
