@@ -20,3 +20,4 @@ export const getStatus = (sessionId, transactionData) =>
     `http://localhost:8080/transaction/session-status?session_id=${sessionId}`,
     transactionData
   );
+export const getPostInCondo = (id) => axios.get(`/post/condo/${id}`);

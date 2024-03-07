@@ -3,14 +3,13 @@ import Hero from '../features/homepage/components/Hero';
 import FeaturedList from '../features/homepage/components/FeaturedList';
 import PopularArea from '../features/homepage/components/PopularArea';
 import PromoteWithUs from '../features/homepage/components/PromoteWithUs';
-import ImageSlide from '../components/ImageSlide';
-import { imageSlides } from '../mock';
+import SlideHero from '../features/homepage/components/SlideHero';
 
 function HomePage() {
   return (
     <div>
       <Hero />
-      <ImageSlide slides={imageSlides} />
+      <SlideHero />
       <FeaturedList />
       <PopularArea />
       <PromoteWithUs />
