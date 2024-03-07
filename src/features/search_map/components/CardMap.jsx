@@ -4,7 +4,7 @@ import { MdOutlineLocationOn } from 'react-icons/md';
 function CardMap({ post }) {
   return (
     <div className='card card-side bg-base-100 shadow-xl p-4 w-[33rem] justify-between gap-4'>
-      <div className='flex h-36 aspect-square overflow-hidden items-center rounded-xl'>
+      <div className='flex h-36 aspect-square overflow-hidden items-center justify-center rounded-xl'>
         <img
           className='object-center h-36'
           src={
