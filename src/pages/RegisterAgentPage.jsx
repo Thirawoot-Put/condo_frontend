@@ -8,6 +8,7 @@ function RegisterAgentPage() {
   return (
     <>
       <RegisterForm
+        nameButton='Register for agent'
         register={registerAgent}
         validator={validateAgentRegister}
       />

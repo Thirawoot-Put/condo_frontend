@@ -4,7 +4,11 @@ import { Link } from 'react-router-dom';
 import Button from '../../../components/Button';
 import { toast } from 'react-toastify';
 
-function RegisterForm({ register, validator }) {
+function RegisterForm({
+  register,
+  validator,
+  nameButton = 'Register for User',
+}) {
   const [input, setInput] = useState({
     username: '',
     password: '',
@@ -19,7 +23,7 @@ function RegisterForm({ register, validator }) {
 
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
-    setError({});
+    setError({ ...error, [e.target.name]: '' });
   };
 
   const handleSubmit = async (e) => {
@@ -27,7 +31,7 @@ function RegisterForm({ register, validator }) {
       e.preventDefault();
       const validateError = validator(input);
       if (validateError) {
-        setError(validateError);
+        return setError(validateError);
       }
       if (input.mobile === '') {
         const newState = { ...input };
@@ -37,6 +41,7 @@ function RegisterForm({ register, validator }) {
       if (!validateError) {
         await register(input);
         toast.success('Register success');
+        setInput({})
       }
     } catch (error) {
       console.log(error);
@@ -153,7 +158,7 @@ function RegisterForm({ register, validator }) {
           </div>
 
           <Button bg='blue' color='white' type='submit'>
-            Register for User
+            {nameButton}
           </Button>
           <Link to={'/login'} className='text-center'>
             Or Login

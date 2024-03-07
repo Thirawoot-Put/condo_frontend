@@ -40,10 +40,15 @@ export default function AuthContextProvider({ children }) {
 
     setAuthUser(respon.data.agent);
   };
+  const logout = () => {
+    store.clearToken();
+    setAuthUser(null);
+    toast.success("logout")
+  };
 
   return (
     <AuthContext.Provider
-      value={{ registerUser, registerAgent, authUser, login }}
+      value={{ registerUser, registerAgent, authUser, login,logout }}
     >
       {children}
     </AuthContext.Provider>

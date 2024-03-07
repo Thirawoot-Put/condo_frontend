@@ -39,7 +39,7 @@ function LoginForm() {
   };
 
   return (
-    <div className='py-6'>
+    <div className='py-6 h-[90vh]  flex'>
       <div className='w-[55vh] m-auto flex flex-col gap-4 justify-around items-center px-6 py-6 border border-gray-100 rounded-lg shadow-lg'>
         <h1 className='font-semibold text-3xl'>Welcome to Condrent</h1>
         <form
