@@ -8,8 +8,8 @@ export default function MessageName({ messages }) {
   const chatObj = messages?.[0];
   const TalkerName =
     chatObj?.senderId === authUser?.id
-      ? `${chatObj?.receiver.firstName || ''} ${chatObj?.receiver.lastName || ''}`
-      : `${chatObj?.sender.firstName || ''} ${chatObj?.sender.lastName || ''}`;
+      ? `${chatObj?.receiver?.firstName || ''} ${chatObj?.receiver?.lastName || ''}`
+      : `${chatObj?.sender?.firstName || ''} ${chatObj?.sender?.lastName || ''}`;
 
   return (
     <div className='h-9 font-bold flex items-center'>

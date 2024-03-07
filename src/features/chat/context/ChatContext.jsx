@@ -2,34 +2,42 @@ import { useEffect } from 'react';
 import { createContext } from 'react';
 import * as chatApi from '../../../api/chat-api';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
 import socket from '../../../config/socket';
 import useAuth from '../../../features/auth/hook/useAuth';
+// import { useNavigate } from 'react-router-dom';
 
 export const ChatContext = createContext();
 
 export default function ChatContextProvider({ children }) {
+  // const navigate = useNavigate();
   const { authUser } = useAuth();
-  const { userId } = useParams();
+  console.log('authUser', authUser);
 
   const [lastChatsByUserId, setLastChatsByUserId] = useState([]);
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [talker, setTalker] = useState({});
 
-  useEffect(() => {
-    socket.connect();
-
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
-
-  useEffect(() => {
-    socket.on('message', (message) => {
-      setMessages([...messages, message]);
-    });
-  }, [messages]);
+  const handleStartChat = (talkerObj) => {
+    console.log('talkerObj', talkerObj);
+    socket.emit(
+      'sendMessage',
+      { authUser, talker: { talkerId: talkerObj.id }, message: ' ' },
+      () => {
+        setMessage('');
+        setTalker({
+          talkerName: {
+            firstName: talkerObj.firstName,
+            lastName: talkerObj.lastName,
+          },
+          talkerId: talkerObj.id,
+        });
+        // navigate('/user/chat');
+        fetchLastChatsByUserId(authUser?.id);
+        fetchChatByUserIdAndTalkerId(authUser?.id, talkerObj.id);
+      }
+    );
+  };
 
   const handleChangeMessage = (e) => {
     setMessage(e.target.value);
@@ -60,26 +68,45 @@ export default function ChatContextProvider({ children }) {
   };
 
   useEffect(() => {
-    fetchLastChatsByUserId(userId);
-  }, [userId]);
+    socket.connect();
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    socket.on('message', (message) => {
+      setMessages([...messages, message]);
+    });
+  }, [messages]);
+
+  useEffect(() => {
+    if (authUser?.id) {
+      fetchLastChatsByUserId(authUser?.id);
+    }
+  }, [authUser?.id]);
 
   const fetchChatByUserIdAndTalkerId = async (userId, talkerId) => {
     try {
+      console.log('in f');
       const { data } = await chatApi.getChatByUserIdAndTalkerId(
         userId,
         talkerId
       );
       console.log('data', data);
       setMessages(data.chats);
+      console.log('messages in fetch', messages);
     } catch (error) {
       console.log(error);
     }
   };
 
+  console.log('messages in con', messages);
+
   return (
     <ChatContext.Provider
       value={{
-        userId,
         lastChatsByUserId,
         fetchChatByUserIdAndTalkerId,
         handleSendMessage,
@@ -88,6 +115,7 @@ export default function ChatContextProvider({ children }) {
         message,
         handleTalkerChange,
         talker,
+        handleStartChat,
       }}
     >
       {children}
