@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
@@ -13,6 +12,7 @@ import SearchBarWithOption from '../../../components/SearchBarWithOption';
 import MapInput from '../../../components/MapInput';
 
 import Spinner from '../../../components/Spinner';
+import { useLocation } from 'react-router-dom';
 
 export default function PostForm() {
   const {
@@ -32,16 +32,30 @@ export default function PostForm() {
     loading,
     getSelected,
     facilities,
+    setIsEdit,
+    fetchPostByPostId,
   } = usePostForm();
+
+  const location = useLocation();
+  console.log('location', location);
 
   const condoImageFileEl = useRef(null);
   const roomImageFileEl = useRef(null);
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     fetchCondos();
     getSelected();
+    if (location?.state?.isEdit) {
+      setIsEdit(true);
+      fetchPostByPostId(location?.state?.postId);
+      console.log('location', location);
+
+      return () => {
+        location.state.isEdit = false;
+        console.log('location. after', location);
+        setIsEdit(false);
+      };
+    }
   }, []);
 
   if (loading) {

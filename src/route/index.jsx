@@ -20,9 +20,12 @@ import PostContextProvider from '../features/homepage/context/PostContext';
 import CheckoutForm from '../features/payment/creditcard/CheckoutForm';
 import Return from '../features/payment/creditcard/Return';
 import SelectPackagePage from '../pages/SelectPackagePage';
+<<<<<<< HEAD
 import JoinTestPage from '../pages/JoinTestPage';
 import ChatTestPage from '../pages/ChatTestPage';
 import ProtechAuth from '../features/protectroute/ProtechAuth';
+=======
+>>>>>>> develop
 
 const router = createBrowserRouter([
   // Guest เข้าได้ทุกคน
@@ -86,15 +89,7 @@ const router = createBrowserRouter([
     element: <UserContainer />,
     children: [
       {
-        path: 'join',
-        element: <JoinTestPage />,
-      },
-      {
-        path: 'chat',
-        element: <ChatTestPage />,
-      },
-      {
-        path: 'user/chat/:userId',
+        path: 'user/chat',
         element: <ChatPage />,
       },
       {
@@ -114,6 +109,10 @@ const router = createBrowserRouter([
     children: [
       {
         path: 'agent/post',
+        element: <CreatePostPage />,
+      },
+      {
+        path: 'agent/post/edit',
         element: <CreatePostPage />,
       },
       {

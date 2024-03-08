@@ -25,6 +25,11 @@ export default function Navbar() {
     setAnchorEl(null);
   };
 
+  const goChat = () => {
+    navigate(`/user/chat`);
+    setAnchorEl(null);
+  };
+
   const goCreatePost = () => {
     navigate('/agent/post');
     setAnchorEl(null);
@@ -80,6 +85,7 @@ export default function Navbar() {
                 onClose={handleClose}
               >
                 <MenuItem onClick={goProfile}>Profile</MenuItem>
+                <MenuItem onClick={goChat}>Chats</MenuItem>
                 {authUser.role === 'AGENT' && (
                   <MenuItem onClick={goCreatePost}>Create post</MenuItem>
                 )}

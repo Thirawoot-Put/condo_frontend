@@ -9,8 +9,11 @@ import ProfileCard from '../../components/ProfileCard';
 import { Button } from '@mui/material';
 import MapDisplayOnePin from '../../components/MapDisplayOnePin';
 import Facilities from './component/Facilities';
+import useChat from '../chat/hook/useChat';
+import { Link } from 'react-router-dom';
 
 export default function Container() {
+  const { handleStartChat } = useChat();
   const { loading, postDetail } = useDetail();
   const latlong = {
     lat: +postDetail?.room?.condo?.lat,
@@ -45,7 +48,16 @@ export default function Container() {
                 <div className='col-span-4 bg-blue-100'>nearest essentials</div>
               </div>
               <ProfileCard user={postDetail?.user} title='Hosted by'>
-                <Button variant='outlined'>Contact Host</Button>
+                <Link to='/user/chat'>
+                  <Button
+                    variant='outlined'
+                    onClick={() => {
+                      handleStartChat(postDetail?.user);
+                    }}
+                  >
+                    Contact Host
+                  </Button>
+                </Link>
               </ProfileCard>
             </div>
           )}
