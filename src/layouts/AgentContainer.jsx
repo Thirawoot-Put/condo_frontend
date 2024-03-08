@@ -8,11 +8,11 @@ function AgentContainer() {
   return (
     <div>
       <Header />
-      <PostFormContextProvider>
-        <div className='pt-16'>
+      <div className='pt-16'>
+        <PostFormContextProvider>
           <Outlet />
-        </div>
-      </PostFormContextProvider>
+        </PostFormContextProvider>
+      </div>
       <Footer />
     </div>
   );

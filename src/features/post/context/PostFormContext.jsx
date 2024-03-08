@@ -7,11 +7,14 @@ import * as selectApi from '../../../api/select-api';
 import { useState } from 'react';
 import validatePostForm from '../validators/validate-postForm';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 export const PostFormContext = createContext();
 
 export default function PostFormContextProvider({ children }) {
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log('location', location);
 
   const initialPostFormObj = {
     nameTh: '',
@@ -48,6 +51,9 @@ export default function PostFormContextProvider({ children }) {
   const [days, setDays] = useState(1);
   const [amount, setAmount] = useState(days * 5);
   const [postId, setPostId] = useState(null);
+  const [condoId, setCondoId] = useState(null);
+  const [roomId, setRoomId] = useState(null);
+  const [isEdit, setIsEdit] = useState(false);
 
   const handleSearchSelected = (name) => {
     const condoObj = condos.find(
@@ -190,7 +196,7 @@ export default function PostFormContextProvider({ children }) {
 
       delete newPostFormObj.condoImage;
       delete newPostFormObj.roomImages;
-      if (postFormObj.description.trim() === '') {
+      if (!postFormObj.description || postFormObj.description.trim() === '') {
         delete newPostFormObj.description;
       }
 
@@ -202,7 +208,7 @@ export default function PostFormContextProvider({ children }) {
       console.log('postFormObj.condoImage.file', postFormObj.condoImage);
 
       if (validateError) {
-        toast.error('please fill out correctly');
+        toast.error('please fill out the form correctly');
         return setError(validateError);
       }
 
@@ -219,8 +225,15 @@ export default function PostFormContextProvider({ children }) {
         formData.append('roomImages', roomImageObj.file)
       );
 
-      const result = await postApi.createPost(formData);
+      let result;
+      if (location.pathname === '/agent/post/edit') {
+        result = await postApi.editPost(formData, postId, condoId, roomId);
+      } else {
+        result = await postApi.createPost(formData);
+      }
+
       console.log(result);
+
       setLoading(false);
       toast.success('Successfully posted');
       setPostId(result.data.post.id);
@@ -240,10 +253,10 @@ export default function PostFormContextProvider({ children }) {
   const handlePaymentSelection = (paymentType) => {
     setSelectedPayment(paymentType);
   };
-  const handleSubmitSelectPackage = (e) => {
-    e.preventDefault();
-    navigate('/checkout');
-  };
+  // const handleSubmitSelectPackage = (e) => {
+  //   e.preventDefault();
+  //   navigate('/checkout');
+  // };
 
   const handleSliderChange = (event) => {
     setDays(parseInt(event.target.value));
@@ -263,6 +276,44 @@ export default function PostFormContextProvider({ children }) {
       console.log(err);
     } finally {
     }
+  };
+
+  const fetchPostByPostId = async (postId) => {
+    const {
+      data: {
+        post: { room },
+      },
+    } = await postApi.fetchPostByPostId(postId);
+    // const { id, ...condoObj } = condo;
+    const {
+      condo,
+      createdAt,
+      id: roomId,
+      roomImages,
+      roomFacilities,
+      ...roomObj
+    } = room;
+    const { id: condoId, ...condoObj } = condo;
+
+    setPostId(+postId);
+    setCondoId(+condoId);
+    setRoomId(+roomId);
+    setPostFormObj({
+      description: '',
+      ...condoObj,
+      ...roomObj,
+      roomFacilityList: roomFacilities.map(
+        (roomFacility) => roomFacility.facilityId
+      ),
+      condoImage: { url: condo.condoImage, file: condo.condoImage },
+      roomImageList: roomImages.map((roomImage) => {
+        return {
+          id: roomImage.id,
+          url: roomImage.roomImage,
+          file: roomImage.roomImage,
+        };
+      }),
+    });
   };
 
   const getSelected = async () => {
@@ -312,11 +363,13 @@ export default function PostFormContextProvider({ children }) {
         amount,
         setAmount,
         handlePaymentSelection,
-        handleSubmitSelectPackage,
+        // handleSubmitSelectPackage,
         handleSliderChange,
         handleLabelClick,
         postId,
         setPostId,
+        setIsEdit,
+        fetchPostByPostId,
       }}
     >
       {children}

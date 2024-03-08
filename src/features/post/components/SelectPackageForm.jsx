@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import usePostForm from '../hook/usePostForm';
 import InputSlider from './InputSlider';
@@ -10,9 +10,19 @@ import Button from '../../../components/Button';
 
 export default function SelectPackageForm() {
   const navigate = useNavigate();
-  const { selectedPayment, handlePaymentSelection, handleSubmitSelectPackage } =
-    usePostForm();
+  const location = useLocation();
+  const state = location.state;
+  console.log(state);
+  const {
+    selectedPayment,
+    handlePaymentSelection,
+    // handleSubmitSelectPackage
+  } = usePostForm();
 
+  const handleSubmitSelectPackage = (e) => {
+    e.preventDefault();
+    navigate('/checkout', { state });
+  };
   return (
     <form
       className='px-20 py-20 flex flex-col gap-20'

@@ -83,15 +83,12 @@ dependencies:
   slick-carousel:
     specifier: ^1.8.1
     version: 1.8.1(jquery@3.7.1)
-<<<<<<< HEAD
-  swiper:
-    specifier: ^11.0.7
-    version: 11.0.7
-=======
   socket.io-client:
     specifier: ^4.7.4
     version: 4.7.4
->>>>>>> develop
+  swiper:
+    specifier: ^11.0.7
+    version: 11.0.7
   template-starter:
     specifier: 'link:'
     version: 'link:'
