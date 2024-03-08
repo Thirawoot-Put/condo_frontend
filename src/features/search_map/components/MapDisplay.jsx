@@ -57,16 +57,16 @@ function MapDisplay({ zoom = 20, markers = [], setIsShow, onClickMarker }) {
                   {activeMarker === marker?.id ? (
                     <InfoWindowF onCloseClick={handleCloseMarker}>
                       <div className='flex flex-col items-center gap-1'>
-                        <div className='w-36'>
-                          <p>{marker?.nameEn}</p>
-                          <p>{marker?.location}</p>
-                        </div>
                         <div className='h-36 flex aspect-square overflow-hidden items-center rounded-xl justify-center'>
                           <img
                             className='object-center h-36'
                             src={marker?.condoImage}
                             alt=''
                           />
+                        </div>
+                        <div className='w-36'>
+                          <p className='font-semibold'>{marker?.nameEn}</p>
+                          <p>{marker?.location}</p>
                         </div>
                       </div>
                     </InfoWindowF>
