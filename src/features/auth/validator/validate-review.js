@@ -3,10 +3,10 @@ import validate from '../../../ultils/validate';
 
 const reviewSchema = Joi.object({
   rating: Joi.number().integer().positive().required().messages({
-    'string.empty': 'districtId is required',
-    'any.required': 'districtId is required',
-    'number.base': 'districtId be a number',
-    'number.integer': 'districtId be an integer',
+    'string.empty': 'rating is required',
+    'any.required': 'rating is required',
+    'number.base': 'rating must be a number',
+    'number.integer': 'rating must be an integer',
   }),
   comment: Joi.string().required().trim().messages({
     'string.empty': 'comment is required',
