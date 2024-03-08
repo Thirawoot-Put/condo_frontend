@@ -11,7 +11,6 @@ export const ChatContext = createContext();
 export default function ChatContextProvider({ children }) {
   // const navigate = useNavigate();
   const { authUser } = useAuth();
-  console.log('authUser', authUser);
 
   const [lastChatsByUserId, setLastChatsByUserId] = useState([]);
   const [message, setMessage] = useState('');
@@ -19,7 +18,6 @@ export default function ChatContextProvider({ children }) {
   const [talker, setTalker] = useState({});
 
   const handleStartChat = (talkerObj) => {
-    console.log('talkerObj', talkerObj);
     socket.emit(
       'sendMessage',
       { authUser, talker: { talkerId: talkerObj.id }, message: ' ' },
@@ -55,8 +53,6 @@ export default function ChatContextProvider({ children }) {
   const handleTalkerChange = (newTalker) => {
     setTalker(newTalker);
   };
-
-  console.log(message, messages);
 
   const fetchLastChatsByUserId = async (userId) => {
     try {
@@ -101,8 +97,6 @@ export default function ChatContextProvider({ children }) {
       console.log(error);
     }
   };
-
-  console.log('messages in con', messages);
 
   return (
     <ChatContext.Provider
