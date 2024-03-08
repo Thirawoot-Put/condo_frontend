@@ -28,22 +28,20 @@ function CardMap({ post }) {
               {post?.room.condo.province.province}
             </span>
           </small>
-          <div>
-            {post?.room.roomFacilities.map(
-              (facility) =>
-                facility.id <= 4 && (
-                  <small
-                    className='px-1 text-gray-500 border-r first:pl-0 last:border-none border-gray-400'
-                    key={facility.id}
-                  >
-                    {facility.facility.name}
-                  </small>
-                )
-            )}
-          </div>
+          {post?.room.roomFacilities.map(
+            (facility) =>
+              facility.id <= 4 && (
+                <small
+                  className='px-1 text-gray-500 border-r first:pl-0 last:border-none border-gray-400'
+                  key={facility.id}
+                >
+                  {facility.facility.name}
+                </small>
+              )
+          )}
         </div>
         <div className='text-end'>
-          <span className='text-lg font-semibold'>THB 3,000 </span>
+          <span className='text-lg font-semibold'>{post?.room.price}</span>
           <span className='text-sm'>/month</span>
         </div>
       </div>

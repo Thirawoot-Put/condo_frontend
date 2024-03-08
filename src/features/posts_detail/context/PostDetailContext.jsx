@@ -27,7 +27,6 @@ export function PostDetailContextProvider({ children }) {
     fetchPostId(params.postId);
   }, []);
 
-  console.log(postDetail);
   return (
     <PostDetailContext.Provider value={{ postDetail, loading }}>
       {children}
