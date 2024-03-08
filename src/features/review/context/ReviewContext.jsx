@@ -1,5 +1,8 @@
 import { useContext, useState, createContext } from 'react';
 import validateReview from '../../auth/validator/validate-review';
+
+import * as reviewApi from '../../../api/review-api';
+
 const ReviewContext = createContext();
 
 const initail = { comment: '', rating: 0 };
@@ -13,7 +16,7 @@ export function ReviewContextProvider({ children }) {
     setError({ ...error, [e.target.name]: '' });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     try {
       e.preventDefault();
       const validateError = validateReview(input);
@@ -21,6 +24,8 @@ export function ReviewContextProvider({ children }) {
         return setError(validateError);
       }
       if (!validateError) {
+        await reviewApi.createReview(input);
+        setInput(initail);
       }
     } catch (error) {
       console.log(error);
@@ -28,7 +33,7 @@ export function ReviewContextProvider({ children }) {
   };
 
   return (
-    <ReviewContext.Provider value={{ handleChange, handleSubmit, error }}>
+    <ReviewContext.Provider value={{ handleChange, handleSubmit, error,input }}>
       {children}
     </ReviewContext.Provider>
   );

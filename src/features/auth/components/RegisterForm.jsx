@@ -33,11 +33,7 @@ function RegisterForm({
       if (validateError) {
         return setError(validateError);
       }
-      if (input.mobile === '') {
-        const newState = { ...input };
-        delete newState.mobile;
-        setInput(newState);
-      }
+
       if (!validateError) {
         await register(input);
         toast.success('Register success');
