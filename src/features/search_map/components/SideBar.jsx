@@ -4,7 +4,7 @@ import CardMap from './CardMap';
 function SideBar({ posts }) {
   return (
     <div className='flex py-1'>
-      <div className='flex flex-col h-[60vh] justify-between px-4 py-3'>
+      <div className='flex flex-col h-[80vh] justify-between px-4 py-3'>
         <div className='overflow-y-scroll flex flex-col gap-2'>
           {posts?.length === 0 ? (
             <>
