@@ -20,6 +20,8 @@ export default function PostContextProvider({ children }) {
     }
   };
 
+  console.log(allPosts);
+
   return (
     <PostContext.Provider value={{ allPosts, getAllPosts }}>
       {children}
