@@ -43,12 +43,11 @@ export default function AuthContextProvider({ children }) {
   const logout = () => {
     store.clearToken();
     setAuthUser(null);
-    toast.success("logout")
   };
 
   return (
     <AuthContext.Provider
-      value={{ registerUser, registerAgent, authUser, login,logout }}
+      value={{ registerUser, registerAgent, authUser, login, logout }}
     >
       {children}
     </AuthContext.Provider>

@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 function RegisterForm({
   register,
   validator,
-  nameButton = 'Register for User',
+  nameButton = 'Register for user',
 }) {
   const [input, setInput] = useState({
     username: '',
@@ -41,7 +41,7 @@ function RegisterForm({
       if (!validateError) {
         await register(input);
         toast.success('Register success');
-        setInput({})
+        setInput({});
       }
     } catch (error) {
       console.log(error);
@@ -66,7 +66,7 @@ function RegisterForm({
         >
           <div>
             <Input
-              label='Username'
+              label='Username *'
               type='text'
               placeholder='example: JohnD'
               onChange={handleChange}
@@ -79,7 +79,7 @@ function RegisterForm({
 
           <div>
             <Input
-              label='Password'
+              label='Password *'
               type='password'
               placeholder='password'
               onChange={handleChange}
@@ -92,7 +92,7 @@ function RegisterForm({
 
           <div>
             <Input
-              label='Confirm password'
+              label='Confirm password *'
               type='password'
               placeholder='confirm password'
               onChange={handleChange}
@@ -105,7 +105,7 @@ function RegisterForm({
 
           <div>
             <Input
-              label='E-mail'
+              label='E-mail *'
               type='email'
               placeholder='example: john@gmail.com'
               onChange={handleChange}
@@ -119,7 +119,7 @@ function RegisterForm({
           <div className='flex gap-2'>
             <div>
               <Input
-                label='First name'
+                label='First name *'
                 type='text'
                 placeholder='example: John'
                 onChange={handleChange}
@@ -132,7 +132,7 @@ function RegisterForm({
 
             <div>
               <Input
-                label='Last name'
+                label='Last name *'
                 type='text'
                 placeholder='example: Doe'
                 onChange={handleChange}
@@ -146,7 +146,7 @@ function RegisterForm({
 
           <div>
             <Input
-              label='Moblie'
+              label={nameButton == 'Register for user' ? 'Mobile' : 'Mobile *'}
               type='text'
               placeholder='example: 0892346789 (10 digits)'
               onChange={handleChange}
@@ -157,11 +157,12 @@ function RegisterForm({
             />
           </div>
 
+          <p className='text-sm text-blue-600'>* required</p>
           <Button bg='blue' color='white' type='submit'>
             {nameButton}
           </Button>
           <Link to={'/login'} className='text-center'>
-            Or Login
+            Or login
           </Link>
         </form>
       </div>

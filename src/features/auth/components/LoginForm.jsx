@@ -30,7 +30,6 @@ function LoginForm() {
       }
       if (!validateError) {
         await login(input);
-        toast.success('Login success');
       }
     } catch (error) {
       console.log(error);
@@ -78,9 +77,9 @@ function LoginForm() {
             type='submit'
             className='border p-4 rounded-2xl'
           >
-            Login
+            Log in
           </Button>
-          <p className='text-center'>Or</p>
+          <p className='text-center'>Create new account</p>
           <div className='flex justify-around'>
             <Link
               to={'/register'}
