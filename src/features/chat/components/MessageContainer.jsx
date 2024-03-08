@@ -5,7 +5,7 @@ import Message from './Message';
 export default function MessageContainer({ messages }) {
   console.log('messages', messages);
   return (
-    <ScrollToBottom className='h-[60vh] bg-slate-100 py-4 px-10'>
+    <ScrollToBottom className='bg-slate-100 overflow-y-scroll px-10 py-4 h-full'>
       {messages?.map((messageObj) => (
         <Message key={messageObj.id} messageObj={messageObj} />
       ))}
