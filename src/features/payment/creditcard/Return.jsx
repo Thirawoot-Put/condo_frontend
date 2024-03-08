@@ -5,10 +5,12 @@ import { Navigate, useNavigate } from 'react-router-dom';
 
 import * as postApi from '../../../api/post-api';
 import usePostForm from '../../post/hook/usePostForm';
+import Button from '../../../components/Button';
 
 export default function Return() {
   const [status, setStatus] = useState(null);
   const [customerEmail, setCustomerEmail] = useState('');
+  const [postId, setPostId] = useState(null);
   const [paymentId, setPaymentId] = useState('');
   const navigate = useNavigate();
 
@@ -27,7 +29,8 @@ export default function Return() {
       });
       setStatus(response.data.status);
       setCustomerEmail(response.data.customer_email);
-      setPaymentId(response.data.paymentId);
+      // setPaymentId(response.data.paymentId);
+      setPostId(postId);
     } catch (err) {
       console.log(err);
     }
@@ -47,12 +50,37 @@ export default function Return() {
     // }, 3000);
 
     return (
-      <section id='success' className='min-h-[500px]'>
-        <p>
-          We appreciate your business! A confirmation email will be sent to{' '}
-          {customerEmail}. If you have any questions, please email{' '}
-          <a href='mailto:orders@example.com'>orders@example.com</a>.
-        </p>
+      <section
+        id='success'
+        className='min-h-screen flex justify-center items-center'
+      >
+        <div className='flex flex-col justify-center text-center'>
+          <p>
+            Thank you for choosing to list your property with us!. A
+            confirmation email will be sent to {customerEmail}. If you have any
+            further inquiries, please feel free to contact us at{' '}
+            <a
+              href='mailto:cc16.condrent.am@gmail.com'
+              className='text-blue-500'
+            >
+              cc16.condrent.am@gmail.com
+            </a>
+            .
+          </p>
+          <div className='flex justify-center gap-2 items-center text-center'>
+            Your post has been successfully created,
+            <div className='py-2'>
+              <Button
+                bg='blue'
+                color='white'
+                onClick={() => navigate(`/post/${postId}`)}
+              >
+                Click
+              </Button>
+            </div>
+            to view your post
+          </div>
+        </div>
       </section>
     );
   }
