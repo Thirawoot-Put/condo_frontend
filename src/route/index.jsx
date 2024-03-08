@@ -90,6 +90,10 @@ const router = createBrowserRouter([
         element: <CreatePostPage />,
       },
       {
+        path: 'agent/post/edit',
+        element: <CreatePostPage />,
+      },
+      {
         path: 'agent/package',
         element: <SelectPackagePage />,
       },
