@@ -7,23 +7,21 @@ function BigPostCard({ data }) {
         height: '100%',
         objectFit: 'fill'
     }
-
+    console.log(data);
   return (
-    <div className='w-full h-full flex flex-col justify-around bg-base-100'>
-      <div className='h-5/6 w-full'>
+    <div className='w-full h-full flex flex-col justify-around items-center'>
+      <div className='h-5/6 w-5/6'>
         <img
-          className='rounded-b-2xl object-cover'
+          className='rounded-2xl'
           style={Imgstyle}
-          src={data.condo.condoImage}
+          src={data.condoImage}
           alt='condo_img'
         />
       </div>
-      <div className='w-full h-1/6 text-3xl flex justify-around items-center text-white'>
-        <div>
-          {data.roomNumber}/{data.floor}
-        </div>
-        <div>{data.condo.nameEn}</div>
-        <div>{data.price}</div>
+      <div className='w-full h-1/6 text-3xl flex justify-around items-center text-black'>
+        <div>{data.nameTh}</div>
+        <div>{data.nameEn}</div>
+        <div>{data.district.district}</div>
       </div>
     </div>
   );
