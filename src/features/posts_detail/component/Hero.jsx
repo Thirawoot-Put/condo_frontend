@@ -1,7 +1,9 @@
-import { useState } from 'react';
-import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
-import { RxDotFilled } from 'react-icons/rx';
+import { Carousel, props } from 'react-responsive-carousel';
+// import Carousel, { Props } from '../src/components/Carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+
 import useDetail from '../context/PostDetailContext';
+import { nanoid } from 'nanoid';
 
 export default function Hero() {
   const { postDetail } = useDetail();
@@ -9,49 +11,20 @@ export default function Hero() {
     return { url: el?.roomImage };
   });
 
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  const previousSlide = () => {
-    const isFirstSlide = currentSlide === 0;
-    const newIndex = isFirstSlide ? slides?.length - 1 : currentSlide - 1;
-    setCurrentSlide(newIndex);
-  };
-  const nextSlide = () => {
-    const isLastSlide = currentSlide === slides?.length - 1;
-    const newIndex = isLastSlide ? 0 : currentSlide + 1;
-    setCurrentSlide(newIndex);
-  };
-
-  const dotSlide = (slideIndex) => {
-    setCurrentSlide(slideIndex);
-  };
+  const customRenderThumb = (children) =>
+    children.map((item) => {
+      return <img key={nanoid()} src={item?.props?.children?.props?.src} />;
+    });
 
   return (
     <>
-      <div className='max-w-[1400px] h-[780px] w-full m-auto py-16 relative group'>
-        <div
-          style={{ backgroundImage: `url(${slides[currentSlide]?.url})` }}
-          className='w-full h-full rounded-2xl bg-center bg-cover shadow-md'
-        ></div>
-        <div className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer'>
-          <BsChevronCompactLeft size={30} onClick={previousSlide} />
-        </div>
-
-        <div className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer'>
-          <BsChevronCompactRight size={30} onClick={nextSlide} />
-        </div>
-        <div className='flex top-4 justify-center py-2'>
-          {slides?.map((slide, slideIndex) => (
-            <div
-              key={slideIndex}
-              onClick={() => dotSlide(slideIndex)}
-              className='text-3xl cursor-pointer'
-            >
-              <RxDotFilled className='text-white' />
-            </div>
-          ))}
-        </div>
-      </div>
+      <Carousel renderThumbs={customRenderThumb}>
+        {slides.map((el, index) => (
+          <div key={nanoid()} className='max-h-[720px]'>
+            <img src={el?.url} />
+          </div>
+        ))}
+      </Carousel>
     </>
   );
 }
