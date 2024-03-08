@@ -4,11 +4,11 @@ import MainChat from './MainChat';
 
 export default function ChatContainer() {
   return (
-    <div className='flex h-[70vh]'>
-      <div className='w-[25vw]'>
+    <div className='flex h-full'>
+      <div className='w-[25vw] px-2 pb-2'>
         <TalkerContainer />
       </div>
-      <div className='flex-1 '>
+      <div className='flex-1'>
         <MainChat />
       </div>
     </div>

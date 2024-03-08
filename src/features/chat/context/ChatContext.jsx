@@ -110,6 +110,7 @@ export default function ChatContextProvider({ children }) {
         handleTalkerChange,
         talker,
         handleStartChat,
+        talker,
       }}
     >
       {children}

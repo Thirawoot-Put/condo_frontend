@@ -12,8 +12,8 @@ export default function MessageName({ messages }) {
       : `${chatObj?.sender?.firstName || ''} ${chatObj?.sender?.lastName || ''}`;
 
   return (
-    <div className='h-9 font-bold flex items-center'>
-      <h1>{TalkerName}</h1>
+    <div className='h-[40px] px-10 font-bold flex items-center'>
+      {TalkerName}
     </div>
   );
 }
