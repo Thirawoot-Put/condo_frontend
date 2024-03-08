@@ -4,7 +4,11 @@ import { Link } from 'react-router-dom';
 import Button from '../../../components/Button';
 import { toast } from 'react-toastify';
 
-function RegisterForm({ register, validator }) {
+function RegisterForm({
+  register,
+  validator,
+  nameButton = 'Register for user',
+}) {
   const [input, setInput] = useState({
     username: '',
     password: '',
@@ -19,7 +23,7 @@ function RegisterForm({ register, validator }) {
 
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
-    setError({});
+    setError({ ...error, [e.target.name]: '' });
   };
 
   const handleSubmit = async (e) => {
@@ -27,7 +31,7 @@ function RegisterForm({ register, validator }) {
       e.preventDefault();
       const validateError = validator(input);
       if (validateError) {
-        setError(validateError);
+        return setError(validateError);
       }
       if (input.mobile === '') {
         const newState = { ...input };
@@ -37,6 +41,7 @@ function RegisterForm({ register, validator }) {
       if (!validateError) {
         await register(input);
         toast.success('Register success');
+        setInput({});
       }
     } catch (error) {
       console.log(error);
@@ -61,7 +66,7 @@ function RegisterForm({ register, validator }) {
         >
           <div>
             <Input
-              label='Username'
+              label='Username *'
               type='text'
               placeholder='example: JohnD'
               onChange={handleChange}
@@ -74,7 +79,7 @@ function RegisterForm({ register, validator }) {
 
           <div>
             <Input
-              label='Password'
+              label='Password *'
               type='password'
               placeholder='password'
               onChange={handleChange}
@@ -87,7 +92,7 @@ function RegisterForm({ register, validator }) {
 
           <div>
             <Input
-              label='Confirm password'
+              label='Confirm password *'
               type='password'
               placeholder='confirm password'
               onChange={handleChange}
@@ -100,7 +105,7 @@ function RegisterForm({ register, validator }) {
 
           <div>
             <Input
-              label='E-mail'
+              label='E-mail *'
               type='email'
               placeholder='example: john@gmail.com'
               onChange={handleChange}
@@ -114,7 +119,7 @@ function RegisterForm({ register, validator }) {
           <div className='flex gap-2'>
             <div>
               <Input
-                label='First name'
+                label='First name *'
                 type='text'
                 placeholder='example: John'
                 onChange={handleChange}
@@ -127,7 +132,7 @@ function RegisterForm({ register, validator }) {
 
             <div>
               <Input
-                label='Last name'
+                label='Last name *'
                 type='text'
                 placeholder='example: Doe'
                 onChange={handleChange}
@@ -141,7 +146,7 @@ function RegisterForm({ register, validator }) {
 
           <div>
             <Input
-              label='Moblie'
+              label={nameButton == 'Register for user' ? 'Mobile' : 'Mobile *'}
               type='text'
               placeholder='example: 0892346789 (10 digits)'
               onChange={handleChange}
@@ -152,11 +157,12 @@ function RegisterForm({ register, validator }) {
             />
           </div>
 
+          <p className='text-sm text-blue-600'>* required</p>
           <Button bg='blue' color='white' type='submit'>
-            Register for User
+            {nameButton}
           </Button>
           <Link to={'/login'} className='text-center'>
-            Or Login
+            Or login
           </Link>
         </form>
       </div>

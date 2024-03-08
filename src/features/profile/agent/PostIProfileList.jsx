@@ -13,6 +13,7 @@ import './styles.css';
 // import required modules
 import { Pagination } from 'swiper/modules';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 export default function PostIProfileList({ title, items }) {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ export default function PostIProfileList({ title, items }) {
     <div className=' border rounded-md py-4'>
       <Swiper
         slidesPerView={show}
-        spaceBetween={30}
+        spaceBetween={4}
         pagination={{
           clickable: true,
         }}
@@ -50,7 +51,9 @@ export default function PostIProfileList({ title, items }) {
 
               <p>Created at : {el.createdAt.slice(0, 10)}</p>
               {el.postStatus && <p>Expires at : {el.expiresAt.slice(0, 10)}</p>}
-              <p className='text-red-500 font-medium font-mono'>Price {el?.room.price }</p>
+              <p className='text-red-500 font-medium font-mono'>
+                Price : {el?.room.price}
+              </p>
             </div>
           </SwiperSlide>
         ))}

@@ -14,7 +14,7 @@ import Button from '../components/Button';
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const { authUser } = useAuth();
+  const { authUser, logout } = useAuth();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -32,11 +32,6 @@ export default function Navbar() {
 
   const goCreatePost = () => {
     navigate('/agent/post');
-    setAnchorEl(null);
-  };
-
-  const logout = () => {
-    store.clearToken();
     setAnchorEl(null);
   };
 
@@ -94,7 +89,15 @@ export default function Navbar() {
                 {authUser.role === 'AGENT' && (
                   <MenuItem onClick={goCreatePost}>Create post</MenuItem>
                 )}
-                <MenuItem onClick={logout}>Logout</MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    logout();
+                    setAnchorEl(null);
+                    navigate('/')
+                  }}
+                >
+                  Logout
+                </MenuItem>
               </Menu>
             </div>
           ) : (
