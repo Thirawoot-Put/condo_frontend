@@ -16,7 +16,7 @@ export default function Container() {
   console.log(authUser);
 
   return (
-    <div className='min-h-[500px] flex flex-col gap-12 p-6  mx-auto'>
+    <div className='min-h-[500px] flex flex-col gap-12 p-6  mx-auto w-[80%]'>
       <ProfileCard user={user}>
         {user?.id == authUser?.id && (
           <Button variant='outlined'>Edit Profile</Button>

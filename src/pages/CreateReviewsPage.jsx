@@ -1,7 +1,8 @@
 import React from 'react';
+import Container from '../features/review/Container';
 
 function CreateReviewsPage() {
-  return <div>CreateReviewsPage</div>;
+  return <Container />;
 }
 
 export default CreateReviewsPage;

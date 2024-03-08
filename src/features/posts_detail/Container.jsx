@@ -27,7 +27,7 @@ export default function Container() {
       {loading ? (
         <Spinner />
       ) : (
-        <div className='min-h-[500px] w-[90%] mx-auto'>
+        <div className='min-h-[500px] w-[80%] mx-auto'>
           {postDetail && (
             <div className='flex flex-col gap-16'>
               <div>
