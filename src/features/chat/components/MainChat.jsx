@@ -5,18 +5,20 @@ import MessageName from './MessageName';
 import useChat from '../hook/useChat';
 
 export default function MainChat() {
-  const { message, handleSendMessage, handleChangeMessage, messages } =
+  const { message, handleSendMessage, handleChangeMessage, messages, talker } =
     useChat();
 
   return (
-    <div>
+    <div className='h-[64vh] flex flex-col'>
       <MessageName messages={messages} />
       <MessageContainer messages={messages} />
-      <MessageInput
-        value={message}
-        onSubmit={handleSendMessage}
-        onChange={handleChangeMessage}
-      />
+      {talker?.talkerId && (
+        <MessageInput
+          value={message}
+          onSubmit={handleSendMessage}
+          onChange={handleChangeMessage}
+        />
+      )}
     </div>
   );
 }
