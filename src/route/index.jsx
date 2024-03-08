@@ -20,13 +20,9 @@ import PostContextProvider from '../features/homepage/context/PostContext';
 import CheckoutForm from '../features/payment/creditcard/CheckoutForm';
 import Return from '../features/payment/creditcard/Return';
 import SelectPackagePage from '../pages/SelectPackagePage';
-<<<<<<< HEAD
-import JoinTestPage from '../pages/JoinTestPage';
-import ChatTestPage from '../pages/ChatTestPage';
-import ProtechAuth from '../features/protectroute/ProtechAuth';
-=======
->>>>>>> develop
 
+import ProtechAuth from '../features/protectroute/ProtechAuth';
+// comment
 const router = createBrowserRouter([
   // Guest เข้าได้ทุกคน
   {
