@@ -253,10 +253,10 @@ export default function PostFormContextProvider({ children }) {
   const handlePaymentSelection = (paymentType) => {
     setSelectedPayment(paymentType);
   };
-  const handleSubmitSelectPackage = (e) => {
-    e.preventDefault();
-    navigate('/checkout');
-  };
+  // const handleSubmitSelectPackage = (e) => {
+  //   e.preventDefault();
+  //   navigate('/checkout');
+  // };
 
   const handleSliderChange = (event) => {
     setDays(parseInt(event.target.value));
@@ -363,7 +363,7 @@ export default function PostFormContextProvider({ children }) {
         amount,
         setAmount,
         handlePaymentSelection,
-        handleSubmitSelectPackage,
+        // handleSubmitSelectPackage,
         handleSliderChange,
         handleLabelClick,
         postId,

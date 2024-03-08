@@ -8,19 +8,18 @@ const PostDetailContext = createContext();
 
 export function PostDetailContextProvider({ children }) {
   const [postDetail, setPostDetail] = useState(null);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const params = useParams();
 
   const fetchPostId = async (id) => {
     try {
-        setLoading(true)
-        const response = await postApi.fetchPostByPostId(id);
-        setPostDetail(response.data.post);
-        
+      setLoading(true);
+      const response = await postApi.fetchPostByPostId(id);
+      setPostDetail(response.data.post);
     } catch (err) {
-        console.log(err)
+      console.log(err);
     } finally {
-        setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -30,7 +29,7 @@ export function PostDetailContextProvider({ children }) {
 
   console.log(postDetail);
   return (
-    <PostDetailContext.Provider value={{ postDetail ,loading }}>
+    <PostDetailContext.Provider value={{ postDetail, loading }}>
       {children}
     </PostDetailContext.Provider>
   );

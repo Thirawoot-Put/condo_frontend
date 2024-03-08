@@ -2,6 +2,7 @@ const bgClass = {
   blue: 'bg-sky-600 hover:bg-sky-700',
   green: 'bg-lime-500 hover:bg-lime-600',
   gray: 'bg-gray-200 hover:bg-gray-300',
+  white: 'bg-white hover:bg-gray-200',
 };
 
 const colorClass = {
