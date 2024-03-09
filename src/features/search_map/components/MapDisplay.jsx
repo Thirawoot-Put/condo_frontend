@@ -6,7 +6,17 @@ import {
   InfoWindowF,
 } from '@react-google-maps/api';
 
-function MapDisplay({ zoom = 20, markers = [], setIsShow, onClickMarker }) {
+function MapDisplay({ markers = [], setIsShow, onClickMarker }) {
+  let zoom = 11;
+  let lat = 13.715042359221808;
+  let lng = 100.60007182984619;
+  const queryString = window.location.search;
+  if (queryString) {
+    const urlParams = new URLSearchParams(queryString);
+    lat = urlParams.get('lat');
+    lng = urlParams.get('lng');
+    zoom = 14;
+  }
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAP_API_KEY,
   });
@@ -39,8 +49,8 @@ function MapDisplay({ zoom = 20, markers = [], setIsShow, onClickMarker }) {
               }}
               //Default map position on first display
               center={{
-                lat: 13.724494,
-                lng: 100.58177,
+                lat: +lat,
+                lng: +lng,
               }}
               zoom={zoom}
             >
