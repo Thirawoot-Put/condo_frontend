@@ -18,8 +18,8 @@ function FeaturedList() {
   return (
     <div className='h-[600px] w-full m-auto py-10'>
       <div className='text-center'>
-        <h1 className='text-3xl font-semibold'>Feature Lists</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <h1 className='text-3xl font-semibold'>Recommend Lists</h1>
+        <p>Recommend post by recommend agent</p>
       </div>
       <div className='w-[90%] h-[90%] py-5 m-auto'>
         <Swiper
@@ -27,7 +27,7 @@ function FeaturedList() {
           spaceBetween={0}
           slidesPerView={4}
           modules={[Navigation]}
-          className='w-full h-full'
+          className='w-full h-fit'
           style={{
             '--swiper-navigation-color': '#000000',
           }}

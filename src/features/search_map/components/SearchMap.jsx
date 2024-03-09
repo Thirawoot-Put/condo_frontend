@@ -38,8 +38,6 @@ function SearchMap() {
     }
   };
 
-  console.log(postsInCondo);
-
   useEffect(() => {
     fetchCondo();
   }, []);
