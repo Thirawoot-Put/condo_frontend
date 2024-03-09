@@ -4,10 +4,9 @@ import usePost from '../hook/usePost';
 import { useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import 'swiper/css/effect-coverflow'
-import 'swiper/css/navigation'
-import { Navigation } from 'swiper/modules'
-
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/navigation';
+import { Navigation } from 'swiper/modules';
 
 function FeaturedList() {
   const { allPosts, getAllPosts } = usePost();
@@ -23,27 +22,25 @@ function FeaturedList() {
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
       </div>
       <div className='w-[90%] h-[90%] py-5 m-auto'>
-      <Swiper
-      navigation={true}
-      spaceBetween={0}
-      slidesPerView={4}
-      modules={[Navigation]}
-      className='w-full h-full'
-      style={{
-            "--swiper-navigation-color" : "#000000"
-        }}
-    >     
-          {allPosts.map((card) => (
-            <SwiperSlide key={card?.id} style={{ background: '#FFFFFF' }}>
-              <MediumPostCard key={card?.id} data={card?.room}/>
+        <Swiper
+          navigation={true}
+          spaceBetween={0}
+          slidesPerView={4}
+          modules={[Navigation]}
+          className='w-full h-full'
+          style={{
+            '--swiper-navigation-color': '#000000',
+          }}
+        >
+          {allPosts.map((post) => (
+            <SwiperSlide key={post?.id} style={{ background: '#FFFFFF' }}>
+              <MediumPostCard key={post?.id} data={post?.room} id={post?.id} />
             </SwiperSlide>
-          ))}  
-    </Swiper>
-        
+          ))}
+        </Swiper>
       </div>
     </div>
   );
 }
 
 export default FeaturedList;
-
