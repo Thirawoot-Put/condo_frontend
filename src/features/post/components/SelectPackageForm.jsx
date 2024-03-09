@@ -28,7 +28,7 @@ export default function SelectPackageForm() {
   };
   return (
     <form
-      className='px-20 py-20 flex flex-col gap-20'
+      className='p-20 flex flex-col gap-20'
       onSubmit={handleSubmitSelectPackage}
     >
       <div className='flex flex-col gap-4'>
@@ -66,9 +66,11 @@ export default function SelectPackageForm() {
           </PaymentContainer> */}
         </div>
       </div>
-      <Button bg='blue' color='white' type='submit'>
-        Confirm
-      </Button>
+      <div className='flex justify-center'>
+        <Button bg='blue' color='white' type='submit' width='oneThird'>
+          <p className='p-1 text-xl font-semibold'>Confirm</p>
+        </Button>
+      </div>
     </form>
   );
 }

@@ -9,6 +9,7 @@ const popArea = [
     districtName: 'วัฒนา',
     lat: 13.731145163468382,
     lng: 100.57444743095455,
+    province: 'กรุงเทพ',
   },
   {
     image:
@@ -16,6 +17,7 @@ const popArea = [
     districtName: 'สวนหลวง',
     lat: 13.727958154085284,
     lng: 100.62798937767265,
+    province: 'กรุงเทพ',
   },
   {
     image:
@@ -23,6 +25,7 @@ const popArea = [
     districtName: 'ปทุมวัน',
     lat: 13.740333816356511,
     lng: 100.53601595618368,
+    province: 'กรุงเทพ',
   },
   {
     image:
@@ -30,6 +33,7 @@ const popArea = [
     districtName: 'ราชเทวี',
     lat: 13.755007291499133,
     lng: 100.54190109250554,
+    province: 'กรุงเทพ',
   },
   {
     image:
@@ -37,6 +41,7 @@ const popArea = [
     districtName: 'พญาไท',
     lat: 13.782501907785736,
     lng: 100.5455408573214,
+    province: 'กรุงเทพ',
   },
   {
     image:
@@ -44,17 +49,18 @@ const popArea = [
     districtName: 'ภาษีเจริญ',
     lat: 13.726551817722289,
     lng: 100.44573046765527,
+    province: 'กรุงเทพ',
   },
 ];
 
 function PopularArea() {
   return (
     <div className='py-10 flex flex-col gap-8 items-center justify-center'>
-      <div className='text-center'>
+      <div className='text-center flex flex-col gap-2'>
         <h1 className='text-3xl font-semibold'>Popular Areas</h1>
         <p>Find condos in premium locations</p>
       </div>
-      <div className='w-screen grid grid-cols-4 gap-4 px-14'>
+      <div className='max-w-screen grid grid-cols-4 gap-4'>
         {popArea.map((area, index) => (
           <PopularAreaCard key={index} data={area} />
         ))}

@@ -39,54 +39,54 @@ function MapDisplay({ markers = [], setIsShow, onClickMarker }) {
 
   return (
     <>
-      <div>
-        <div style={{ width: '100%', height: '80vh' }}>
-          {isLoaded ? (
-            <GoogleMap
-              mapContainerStyle={{
-                width: '100%',
-                height: '100%',
-              }}
-              //Default map position on first display
-              center={{
-                lat: +lat,
-                lng: +lng,
-              }}
-              zoom={zoom}
-            >
-              {markers.map((marker) => (
-                <MarkerF
-                  key={marker?.id}
-                  position={{ lat: +marker?.lat, lng: +marker?.long }}
-                  onClick={() => handleClickMarker(marker?.id)}
-                  // icon={{
-                  //   url: 'https://www.svgrepo.com/show/187158/apartment.svg',
-                  //   scaledSize: { width: 50, height: 50 },
-                  // }}
-                >
-                  {activeMarker === marker?.id ? (
-                    <InfoWindowF onCloseClick={handleCloseMarker}>
-                      <div className='flex flex-col items-center gap-1'>
-                        <div className='h-36 flex aspect-square overflow-hidden items-center rounded-xl justify-center'>
-                          <img
-                            className='object-center h-36'
-                            src={marker?.condoImage}
-                            alt=''
-                          />
-                        </div>
-                        <div className='w-36'>
-                          <p className='font-semibold'>{marker?.nameEn}</p>
-                          <p>{marker?.location}</p>
-                        </div>
+      {/* <div> */}
+      <div style={{ width: '100%', height: '80vh' }}>
+        {isLoaded ? (
+          <GoogleMap
+            mapContainerStyle={{
+              width: '100%',
+              height: '100%',
+            }}
+            //Default map position on first display
+            center={{
+              lat: +lat,
+              lng: +lng,
+            }}
+            zoom={zoom}
+          >
+            {markers.map((marker) => (
+              <MarkerF
+                key={marker?.id}
+                position={{ lat: +marker?.lat, lng: +marker?.long }}
+                onClick={() => handleClickMarker(marker?.id)}
+                // icon={{
+                //   url: 'https://www.svgrepo.com/show/187158/apartment.svg',
+                //   scaledSize: { width: 50, height: 50 },
+                // }}
+              >
+                {activeMarker === marker?.id ? (
+                  <InfoWindowF onCloseClick={handleCloseMarker}>
+                    <div className='flex flex-col items-center gap-1'>
+                      <div className='h-36 flex aspect-square overflow-hidden items-center rounded-xl justify-center'>
+                        <img
+                          className='object-center h-36'
+                          src={marker?.condoImage}
+                          alt=''
+                        />
                       </div>
-                    </InfoWindowF>
-                  ) : null}
-                </MarkerF>
-              ))}
-            </GoogleMap>
-          ) : null}
-        </div>
+                      <div className='w-36'>
+                        <p className='font-semibold'>{marker?.nameEn}</p>
+                        <p>{marker?.location}</p>
+                      </div>
+                    </div>
+                  </InfoWindowF>
+                ) : null}
+              </MarkerF>
+            ))}
+          </GoogleMap>
+        ) : null}
       </div>
+      {/* </div> */}
     </>
   );
 }
