@@ -10,10 +10,14 @@ const Input = ({
   label,
   errorMsg,
   disabled = false,
+  required,
 }) => {
   return (
     <div>
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={name}>
+        {label}
+        {required && <span className='text-red-500'> *</span>}
+      </label>
       <input
         className='w-full border-0 border-b-2 border-gray-400 py-1.5 mt-1 focus:outline-none focus:border-b-black'
         type={type}
