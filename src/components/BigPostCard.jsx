@@ -21,10 +21,10 @@ function BigPostCard({ data }) {
           alt='condo_img'
         />
       </div>
-      <div className='w-full h-1/6 text-3xl flex justify-around items-center text-black'>
-        <div>{data.nameTh}</div>
-        <div>{data.nameEn}</div>
-        <div>{data.district.district}</div>
+      <div className='w-5/6 h-1/6 text-3xl flex justify-around items-center text-black px-4 py-2'>
+        <div className='flex-1 text-start'>{data.nameTh}</div>
+        <div className='flex-1 text-center'>{data.nameEn}</div>
+        <div className='flex-1 text-end'>{data.district.district}</div>
       </div>
     </Link>
   );
