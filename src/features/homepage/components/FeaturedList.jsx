@@ -16,7 +16,7 @@ function FeaturedList() {
   }, []);
 
   return (
-    <div className='h-[600px] w-full m-auto py-10'>
+    <div className='h-[600px] w-full mx-auto pt-10 pb-5'>
       <div className='text-center'>
         <h1 className='text-3xl font-semibold'>Recommend Lists</h1>
         <p>Recommend post by recommend agent</p>

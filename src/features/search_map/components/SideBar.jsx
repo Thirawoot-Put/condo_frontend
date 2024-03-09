@@ -1,10 +1,18 @@
 import React from 'react';
 import CardMap from './CardMap';
+import Spinner from '../../../components/Spinner';
 
-function SideBar({ posts }) {
+function SideBar({ posts, loading }) {
+  if (loading) {
+    return (
+      <div className='overflow-y-scroll items-center flex flex-col w-[40vw] border gap-2 py-3 h-full'>
+        <Spinner />
+      </div>
+    );
+  }
+
   return (
-    <div className='overflow-y-scroll items-center flex flex-col w-[40vw] border border-blue-400 gap-2 py-3 h-full'>
-      {/* <div className='flex flex-col gap-2 py-3 items-center h-full'> */}
+    <div className='overflow-y-scroll items-center flex flex-col w-[40vw] border gap-2 py-3 h-full'>
       {posts?.length === 0 ? (
         <>
           <h2 className='text-xl font-semibold'>
@@ -22,7 +30,6 @@ function SideBar({ posts }) {
           ))}
         </>
       )}
-      {/* </div> */}
     </div>
   );
 }
