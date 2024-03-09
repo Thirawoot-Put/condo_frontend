@@ -64,7 +64,7 @@ export default function Navbar() {
             </Typography>
             <Typography
               role='button'
-              onClick={() => navigate('/posts')}
+              onClick={() => navigate('/user/review')}
               variant='p'
               component='div'
               sx={{ flexGrow: 1 }}

@@ -1,14 +1,17 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-function MediumPostCard({ data }) {
-
+function MediumPostCard({ data, id }) {
   const Imgstyle = {
     width: '100%',
     height: '100%',
-    objectFit: 'fill'
-}
+    objectFit: 'fill',
+  };
   return (
-    <div className='shadow-xl w-[17vw] h-[35vh] border rounded-2xl'>
+    <Link
+      to={`/post/${id}`}
+      className='shadow-xl w-[17vw] h-[50vh] border rounded-2xl'
+    >
       <div className='h-3/5'>
         <img
           className='rounded-t-2xl'
@@ -22,9 +25,9 @@ function MediumPostCard({ data }) {
           {data.roomNumber}/{data.floor}
         </div>
         <div>{data.condo.nameEn}</div>
-        <div>{data.price}</div>
+        <div>{data.price} THB/mont</div>
       </div>
-    </div>
+    </Link>
   );
 }
 
