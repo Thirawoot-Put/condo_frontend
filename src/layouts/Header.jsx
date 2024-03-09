@@ -42,69 +42,110 @@ export default function Navbar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='fixed' sx={{ height: '4rem', px: '1rem' }}>
-        <Toolbar>
-          <Typography
-            role='button'
-            onClick={() => navigate('/')}
-            variant='h6'
-            component='div'
-            sx={{ flexGrow: 1 }}
-          >
-            Condrent
-          </Typography>
-          {authUser && (
-            <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-              Welcome {authUser.firstName} {authUser.lastName}
+        <Toolbar sx={{ justifyContent: 'space-between' }}>
+          <div className='flex gap-4'>
+            <Typography
+              role='button'
+              onClick={() => navigate('/map')}
+              variant='p'
+              component='div'
+              sx={{ flexGrow: 1, borderRight: 1, paddingRight: 2 }}
+            >
+              Map
             </Typography>
-          )}
-          {authUser ? (
-            <div>
-              <IconButton
-                size='large'
-                aria-label='account of current user'
-                aria-controls='menu-appbar'
-                aria-haspopup='true'
-                onClick={handleMenu}
-                color='inherit'
+            <Typography
+              role='button'
+              onClick={() => navigate('/posts')}
+              variant='p'
+              component='div'
+              sx={{ flexGrow: 1, borderRight: 1, paddingRight: 2 }}
+            >
+              Check our room
+            </Typography>
+            <Typography
+              role='button'
+              onClick={() => navigate('/posts')}
+              variant='p'
+              component='div'
+              sx={{ flexGrow: 1 }}
+            >
+              Review
+            </Typography>
+          </div>
+          <div>
+            <Typography
+              role='button'
+              onClick={() => navigate('/')}
+              variant='h5'
+              component='div'
+              sx={{ flexGrow: 1 }}
+            >
+              CondRent
+            </Typography>
+          </div>
+          <div className='flex items-center gap-4 ml-24'>
+            {authUser && (
+              <Typography
+                variant='p'
+                component='div'
+                sx={{ flexGrow: 1, fontSize: 20, fontWeight: 500 }}
               >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id='menu-appbar'
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={goProfile}>Profile</MenuItem>
-                <MenuItem onClick={goChat}>Chats</MenuItem>
-                {authUser.role === 'AGENT' && (
-                  <MenuItem onClick={goCreatePost}>Create post</MenuItem>
-                )}
-                <MenuItem
-                  onClick={() => {
-                    logout();
-                    setAnchorEl(null);
-                    navigate('/')
-                  }}
+                {authUser.firstName} {authUser.lastName}
+              </Typography>
+            )}
+            {authUser ? (
+              <div>
+                <IconButton
+                  size='large'
+                  aria-label='account of current user'
+                  aria-controls='menu-appbar'
+                  aria-haspopup='true'
+                  onClick={handleMenu}
+                  color='inherit'
                 >
-                  Logout
-                </MenuItem>
-              </Menu>
-            </div>
-          ) : (
-            <Button onClick={() => navigate('/login')} bg='gray' color='black'>
-              Login/Register
-            </Button>
-          )}
+                  <AccountCircle />
+                </IconButton>
+                <Menu
+                  id='menu-appbar'
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem onClick={goProfile}>Profile</MenuItem>
+                  <MenuItem onClick={goChat}>Chats</MenuItem>
+                  {authUser.role === 'AGENT' && (
+                    <MenuItem onClick={goCreatePost}>Create post</MenuItem>
+                  )}
+                  <MenuItem
+                    onClick={() => {
+                      logout();
+                      setAnchorEl(null);
+                      navigate('/');
+                    }}
+                  >
+                    Logout
+                  </MenuItem>
+                </Menu>
+              </div>
+            ) : (
+              <Button
+                onClick={() => navigate('/login')}
+                bg='gray'
+                color='black'
+              >
+                Login/Register
+              </Button>
+            )}
+          </div>
         </Toolbar>
       </AppBar>
     </Box>

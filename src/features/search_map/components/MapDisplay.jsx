@@ -30,7 +30,7 @@ function MapDisplay({ zoom = 20, markers = [], setIsShow, onClickMarker }) {
   return (
     <>
       <div>
-        <div style={{ width: '90%', height: '70vh', margin: 'auto' }}>
+        <div style={{ width: '100%', height: '80vh' }}>
           {isLoaded ? (
             <GoogleMap
               mapContainerStyle={{
