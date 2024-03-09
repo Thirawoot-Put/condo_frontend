@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import useReview from '../context/ReviewContext';
 
 export default function Review() {
-  const [value, setValue] = useState(0);
-  const { handleChange, handleSubmit, error } = useReview();
+  
+  const { handleChange, handleSubmit, error, input } = useReview();
   return (
     <form
       onSubmit={handleSubmit}
@@ -17,7 +17,7 @@ export default function Review() {
         <Rating
           name='rating'
           size='large'
-          value={value}
+          value={input.rating}
           onChange={(event, newValue) => {
             handleChange(event);
             setValue(newValue);
@@ -36,6 +36,7 @@ export default function Review() {
           rows={4}
           fullWidth
           variant='standard'
+          value={input.comment}
           onChange={handleChange}
         />
         {error.comment && (
