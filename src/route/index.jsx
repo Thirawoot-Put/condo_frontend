@@ -23,7 +23,7 @@ import SelectPackagePage from '../pages/SelectPackagePage';
 
 import ProtechAuth from '../features/protectroute/ProtechAuth';
 import PostsPage from '../pages/PostsPage';
-// comment
+
 const router = createBrowserRouter([
   // Guest เข้าได้ทุกคน
   {
