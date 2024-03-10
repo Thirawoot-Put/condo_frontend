@@ -32,7 +32,7 @@ export default function SearchContextProvider({ children }) {
         return {
           ...post,
           roomFacilityMap: post.room?.roomFacilities?.reduce((acc, cur) => {
-            acc[cur.id] = 1;
+            acc[cur.facilityId] = 1;
             return acc;
           }, {}),
         };
@@ -90,7 +90,7 @@ export default function SearchContextProvider({ children }) {
 
   const handleClickDistricts = (districtId) => {
     const districtIndex = selected.districts.findIndex(
-      (facility) => facility === +districtId
+      (district) => district === +districtId
     );
     const newDistricts = [...selected.districts];
     if (districtIndex < 0) {
@@ -132,10 +132,9 @@ export default function SearchContextProvider({ children }) {
       const IsInSelectedPrices =
         +post.room?.price >= +selected.prices[0] &&
         +post.room?.price <= +selected.prices[1];
-      const IsInSelectedFacilities =
-        selected.facilities.findIndex(
-          (facility) => post.roomFacilityMap[facility]
-        ) !== -1;
+      const IsInSelectedFacilities = selected.facilities.every((facility) =>
+        post.roomFacilityMap.hasOwnProperty(facility)
+      );
       const IsInSelectedDistricts = selected.districts.includes(
         post.room?.condo?.districtId
       );
