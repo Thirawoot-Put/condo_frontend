@@ -48,11 +48,9 @@ export default function PostForm() {
     if (location?.state?.isEdit) {
       setIsEdit(true);
       fetchPostByPostId(location?.state?.postId);
-      console.log('location', location);
 
       return () => {
         location.state.isEdit = false;
-        console.log('location. after', location);
         setIsEdit(false);
       };
     }
