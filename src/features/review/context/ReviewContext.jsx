@@ -2,7 +2,6 @@ import { useContext, useState, createContext } from 'react';
 import validateReview from '../../auth/validator/validate-review';
 
 import * as reviewApi from '../../../api/review-api';
-import useAuth from '../../auth/hook/useAuth';
 
 const ReviewContext = createContext();
 
@@ -11,10 +10,9 @@ const initail = { comment: '', rating: 0 };
 export function ReviewContextProvider({ children }) {
   const [input, setInput] = useState(initail);
   const [AllReview, setAllReview] = useState([]);
-  const [reviewMe, setReviewMe] = useState(null)
-  const [error, setError] = useState({});
 
-  const { authContext } = useAuth();
+  const [have, setHave] = useState(false);
+  const [error, setError] = useState({});
 
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -23,13 +21,27 @@ export function ReviewContextProvider({ children }) {
 
   const fetchAllReview = async () => {
     const response = await reviewApi.fetchAllReviews();
-    setAllReview(response.data.reviews)
-    console.log(AllReview)
+    setAllReview(response.data.reviews);
   };
   const fetchReviewMe = async () => {
-    const response = await reviewApi.fetchReviewByUserId()
-    setReviewMe(response.data.review)
-  }
+    const response = await reviewApi.fetchReviewByUserId();
+    setInput({
+      comment: response?.data?.review?.comment,
+      rating: +response?.data?.review?.rating,
+    });
+
+    if (response?.data?.review?.comment != undefined) {
+      setHave(true);
+    }
+  };
+
+  const editSubmit = async (e) => {
+    try {
+      e.preventDefault();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleSubmit = async (e) => {
     try {
@@ -39,8 +51,13 @@ export function ReviewContextProvider({ children }) {
         return setError(validateError);
       }
       if (!validateError) {
-        await reviewApi.createReview(input);
-        setInput(initail);
+        if (!have) {
+          await reviewApi.createReview(input);
+        } else {
+          await reviewApi.editReviewByUserId(input);
+        }
+        await fetchAllReview();
+        await fetchReviewMe();
       }
     } catch (error) {
       console.log(error);
@@ -49,7 +66,17 @@ export function ReviewContextProvider({ children }) {
 
   return (
     <ReviewContext.Provider
-      value={{ handleChange, handleSubmit, error, input,fetchAllReview ,AllReview,fetchReviewMe ,reviewMe}}
+      value={{
+        handleChange,
+        handleSubmit,
+        error,
+        input,
+        fetchAllReview,
+        AllReview,
+        fetchReviewMe,
+        have,
+        editSubmit,
+      }}
     >
       {children}
     </ReviewContext.Provider>
