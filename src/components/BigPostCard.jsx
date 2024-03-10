@@ -1,30 +1,38 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function BigPostCard({ data }) {
-
-    const Imgstyle = {
-        width: '100%',
-        height: '100%',
-        objectFit: 'fill'
-    }
-
+  const Imgstyle = {
+    width: '100%',
+    height: '100%',
+    objectFit: 'fill',
+  };
+  console.log(data);
   return (
-    <div className='w-full h-full flex flex-col justify-around bg-base-100'>
-      <div className='h-5/6 w-full'>
+    <div className='w-full h-full flex flex-col justify-around items-center'>
+      <Link
+        to={`/map?lat=${data.lat}&lng=${data.long}`}
+        className='h-5/6 w-5/6'
+      >
         <img
-          className='rounded-b-2xl object-cover'
+          className='rounded-2xl'
           style={Imgstyle}
-          src={data.condo.condoImage}
+          src={data.condoImage}
           alt='condo_img'
         />
-      </div>
-      <div className='w-full h-1/6 text-3xl flex justify-around items-center text-white'>
-        <div>
-          {data.roomNumber}/{data.floor}
-        </div>
-        <div>{data.condo.nameEn}</div>
-        <div>{data.price}</div>
-      </div>
+      </Link>
+      {/* <div className='w-full h-1/6 text-3xl flex justify-around items-center text-black'>
+        <div>{data.nameTh}</div>
+        <div>{data.nameEn}</div>
+        <div>{data.district.district}</div> */}
+      <Link
+        to={`/map?lat=${data.lat}&lng=${data.long}`}
+        className='w-5/6 h-1/6 text-3xl grid grid-cols-3 items-center text-black'
+      >
+        <div className='text-start'>{data.nameTh}</div>
+        <div>{data.district.district}</div>
+        <div className='text-end font-semibold'>{data.nameEn}</div>
+      </Link>
     </div>
   );
 }

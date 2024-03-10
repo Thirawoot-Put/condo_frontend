@@ -10,6 +10,7 @@ import Spinner from '../../../components/Spinner';
 function SearchMap() {
   const [isShow, setIsShow] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [loadingSideBar, setLoadingSideBar] = useState(false);
   const [condos, setCondos] = useState([]);
   const [postsInCondo, setPostsInCondo] = useState([]);
 
@@ -29,16 +30,17 @@ function SearchMap() {
 
   const fetchPostInCondo = async (condoId) => {
     try {
+      setLoadingSideBar(true);
       const {
         data: { posts },
       } = await postApi.getPostInCondo(condoId);
       setPostsInCondo(posts);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoadingSideBar(false);
     }
   };
-
-  console.log(postsInCondo);
 
   useEffect(() => {
     fetchCondo();
@@ -49,23 +51,27 @@ function SearchMap() {
       {loading ? (
         <Spinner />
       ) : (
-        <div className='flex h-[80vh]'>
-          <div
-            className={`flex w-2/5 h-[70vh] ${isShow ? 'translate-x-0' : '-translate-x-full'} ease-in-out duration-500`}
-          >
-            <SideBar posts={postsInCondo} />
+        <>
+          <h1 className='text-center text-xl font-semibold mt-4'>
+            Find your happiness home
+          </h1>
+          <div className='flex h-[80vh] my-3'>
+            <div
+              className={` ${isShow ? 'translate-x-0' : '-translate-x-full ml-[-2.5rem]'} ease-in-out duration-500`}
+            >
+              <SideBar posts={postsInCondo} loading={loadingSideBar} />
+            </div>
+            <div
+              className={`w-[80vw]  ${isShow ? 'translate-x-0' : '-translate-x-1/3'} ease-in-out duration-500`}
+            >
+              <MapDisplay
+                markers={condos}
+                setIsShow={setIsShow}
+                onClickMarker={fetchPostInCondo}
+              />
+            </div>
           </div>
-          <div
-            className={`w-3/5 h-[70vh] m-auto items-center  ${isShow ? 'translate-x-0' : '-translate-x-1/3'} ease-in-out duration-500`}
-          >
-            <MapDisplay
-              zoom={12}
-              markers={condos}
-              setIsShow={setIsShow}
-              onClickMarker={fetchPostInCondo}
-            />
-          </div>
-        </div>
+        </>
       )}
     </>
   );

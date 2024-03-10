@@ -50,8 +50,7 @@ function MapInput({
   return (
     <>
       <div>
-        <h1>try google map marker</h1>
-        <div style={{ width: '80%', height: '80vh', margin: 'auto' }}>
+        <div className='w-full flex flex-col gap-5 h-[80vh] m-auto'>
           {disabled || (
             <div className='places-container'>
               <PlacesAutocomplete setSelect={setSelect} />
@@ -76,5 +75,3 @@ function MapInput({
     </>
   );
 }
-
-// export default MapInput;

@@ -2,6 +2,7 @@ import React from 'react';
 import { MdOutlineLocationOn } from 'react-icons/md';
 
 function CardMap({ post }) {
+  console.log(post);
   return (
     <div className='card card-side bg-base-100 shadow-xl p-4 w-[33rem] justify-between gap-4'>
       <div className='flex h-36 aspect-square overflow-hidden items-center justify-center rounded-xl'>
@@ -32,6 +33,9 @@ function CardMap({ post }) {
           {post?.room?.roomFacilities?.map(
             (facility) =>
               facility.id <= 4 && (
+                // {post?.room.roomFacilities.map(
+                //   (facility, index) =>
+                //     index <= 3 && (
                 <small
                   className='px-1 text-gray-500 border-r first:pl-0 last:border-none border-gray-400'
                   key={facility.id}

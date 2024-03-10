@@ -14,12 +14,16 @@ export default function SelectInput({
   onChange,
   errorMsg,
   disabled = false,
+  required,
 }) {
   const { districts, provinces } = usePostForm();
 
   return (
     <div className='flex flex-col gap-2 pb-2 w-full'>
-      <label htmlFor={htmlFor}>{title}</label>
+      <label htmlFor={htmlFor}>
+        {title}&nbsp;
+        {required && <span className='text-red-500'>*</span>}
+      </label>
       <select
         id={id}
         className='block py-1 w-full bg-transparent border-0 border-b-2 border-gray-400 focus:outline-none focus:border-b-black'
@@ -28,11 +32,9 @@ export default function SelectInput({
         onChange={onChange}
         disabled={disabled}
       >
-        <option defaultValue>--select--</option>
-        {/* This must be conditional rendering if have data from api to map */}
-        {/* <option value={valueOption['1']}>1</option>
-        <option value={valueOption['2']}>2</option>
-        <option value={valueOption['3']}>3</option> */}
+        <option defaultValue selected>
+          --select--
+        </option>
         {(() => {
           switch (dataToMap) {
             case 'district':
