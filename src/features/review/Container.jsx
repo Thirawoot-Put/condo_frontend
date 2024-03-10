@@ -7,7 +7,7 @@ import useReview, { ReviewContextProvider } from './context/ReviewContext';
 export default function Container() {
 
   return (
-    <ReviewContextProvider>
+  
       <div className='min-h-[600px] min-w-[560px] w-[80%] mx-auto py-12 flex flex-col gap-8'>
         <CardReview />
         <div className='flex  gap-8'>
@@ -17,6 +17,6 @@ export default function Container() {
           <AllReviews />
         </div>
       </div>
-    </ReviewContextProvider>
+   
   );
 }

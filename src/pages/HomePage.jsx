@@ -10,6 +10,7 @@ function HomePage() {
       <SlideHero />
       <FeaturedList />
       <PopularArea />
+
       <Rating />
     </div>
   );

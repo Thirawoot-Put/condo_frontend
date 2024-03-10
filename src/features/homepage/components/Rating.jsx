@@ -2,8 +2,13 @@ import React from 'react';
 import ReviewCard from './ReviewCard';
 import * as mockData from '../../../mock';
 import CardReview from '../../review/Component/CardReview';
+import useReview from '../../review/context/ReviewContext';
 
 function Rating() {
+  const { AllReview } = useReview();
+  console.log(AllReview)
+
+  
   return (
     <div className='py-10 flex flex-col gap-8 items-center justify-center'>
       <div className='text-center flex flex-col gap-2'>
