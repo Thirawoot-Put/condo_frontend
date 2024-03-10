@@ -23,7 +23,12 @@ import SelectPackagePage from '../pages/SelectPackagePage';
 
 import ProtechAuth from '../features/protectroute/ProtechAuth';
 import PostsPage from '../pages/PostsPage';
+<<<<<<< HEAD
 
+=======
+import SearchPage from '../pages/SearchPage';
+// comment
+>>>>>>> develop
 const router = createBrowserRouter([
   // Guest เข้าได้ทุกคน
   {
@@ -81,6 +86,10 @@ const router = createBrowserRouter([
       {
         path: 'map',
         element: <SearchMapPage />,
+      },
+      {
+        path: 'search',
+        element: <SearchPage />,
       },
     ],
   },
