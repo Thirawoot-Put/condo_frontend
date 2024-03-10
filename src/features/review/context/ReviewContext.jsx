@@ -9,11 +9,38 @@ const initail = { comment: '', rating: 0 };
 
 export function ReviewContextProvider({ children }) {
   const [input, setInput] = useState(initail);
+  const [AllReview, setAllReview] = useState([]);
+
+  const [have, setHave] = useState(false);
   const [error, setError] = useState({});
 
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
     setError({ ...error, [e.target.name]: '' });
+  };
+
+  const fetchAllReview = async () => {
+    const response = await reviewApi.fetchAllReviews();
+    setAllReview(response.data.reviews);
+  };
+  const fetchReviewMe = async () => {
+    const response = await reviewApi.fetchReviewByUserId();
+    setInput({
+      comment: response?.data?.review?.comment,
+      rating: +response?.data?.review?.rating,
+    });
+
+    if (response?.data?.review?.comment != undefined) {
+      setHave(true);
+    }
+  };
+
+  const editSubmit = async (e) => {
+    try {
+      e.preventDefault();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -24,8 +51,13 @@ export function ReviewContextProvider({ children }) {
         return setError(validateError);
       }
       if (!validateError) {
-        await reviewApi.createReview(input);
-        setInput(initail);
+        if (!have) {
+          await reviewApi.createReview(input);
+        } else {
+          await reviewApi.editReviewByUserId(input);
+        }
+        await fetchAllReview();
+        await fetchReviewMe();
       }
     } catch (error) {
       console.log(error);
@@ -33,7 +65,19 @@ export function ReviewContextProvider({ children }) {
   };
 
   return (
-    <ReviewContext.Provider value={{ handleChange, handleSubmit, error,input }}>
+    <ReviewContext.Provider
+      value={{
+        handleChange,
+        handleSubmit,
+        error,
+        input,
+        fetchAllReview,
+        AllReview,
+        fetchReviewMe,
+        have,
+        editSubmit,
+      }}
+    >
       {children}
     </ReviewContext.Provider>
   );
