@@ -1,8 +1,12 @@
 import React from 'react';
-import MediumCardCarousel from '../../../components/MediumCardCarousel';
 import MediumPostCard from '../../../components/MediumPostCard';
 import usePost from '../hook/usePost';
 import { useEffect } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/navigation';
+import { Navigation } from 'swiper/modules';
 
 function FeaturedList() {
   const { allPosts, getAllPosts } = usePost();
@@ -12,17 +16,28 @@ function FeaturedList() {
   }, []);
 
   return (
-    <div className='bg-blue-300 py-10 flex flex-col gap-2 items-center justify-center'>
-      <div className='text-center'>
-        <h1 className='text-3xl font-semibold'>Feature Lists</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    <div className='h-[600px] w-full mx-auto pt-10 pb-5'>
+      <div className='text-center flex flex-col gap-2'>
+        <h1 className='text-3xl font-semibold'>Recommend Lists</h1>
+        <p>Recommend post by recommend agent</p>
       </div>
-      <div className='w-[90rem] py-5'>
-        <MediumCardCarousel>
-          {allPosts.map((card) => (
-            <MediumPostCard key={card?.id} data={card?.room} />
+      <div className='w-[90%] h-[90%] py-5 m-auto'>
+        <Swiper
+          navigation={true}
+          spaceBetween={0}
+          slidesPerView={4}
+          modules={[Navigation]}
+          className='w-full h-fit'
+          style={{
+            '--swiper-navigation-color': '#000000',
+          }}
+        >
+          {allPosts.map((post) => (
+            <SwiperSlide key={post?.id} style={{ background: '#FFFFFF' }}>
+              <MediumPostCard key={post?.id} data={post?.room} id={post?.id} />
+            </SwiperSlide>
           ))}
-        </MediumCardCarousel>
+        </Swiper>
       </div>
     </div>
   );

@@ -12,6 +12,8 @@ const colorClass = {
 
 const widthClass = {
   full: 'w-full',
+  half: 'w-1/2',
+  oneThird: 'w-1/3',
 };
 
 export default function Button({

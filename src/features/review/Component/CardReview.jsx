@@ -2,7 +2,6 @@ import React from 'react';
 import AllVote from './AllVote';
 import useReview from '../context/ReviewContext';
 
-
 export default function CardReview() {
   const { AllReview } = useReview();
 
