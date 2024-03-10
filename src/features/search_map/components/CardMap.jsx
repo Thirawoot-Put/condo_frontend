@@ -30,12 +30,12 @@ function CardMap({ post }) {
               {post?.room?.condo?.province?.province}
             </span>
           </small>
-          {post?.room?.roomFacilities?.map(
+          {/* {post?.room?.roomFacilities?.map(
             (facility) =>
-              facility.id <= 4 && (
-                // {post?.room.roomFacilities.map(
-                //   (facility, index) =>
-                //     index <= 3 && (
+              facility.id <= 4 && ( */}
+          {post?.room.roomFacilities.map(
+            (facility, index) =>
+              index <= 3 && (
                 <small
                   className='px-1 text-gray-500 border-r first:pl-0 last:border-none border-gray-400'
                   key={facility.id}
