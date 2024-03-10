@@ -27,11 +27,11 @@ function BigPostCard({ data }) {
         <div>{data.district.district}</div> */}
       <Link
         to={`/map?lat=${data.lat}&lng=${data.long}`}
-        className='w-full h-1/6 text-3xl grid grid-cols-3 items-center text-black'
+        className='w-5/6 h-1/6 text-3xl grid grid-cols-3 items-center text-black'
       >
-        <div>{data.nameTh}</div>
+        <div className='text-start'>{data.nameTh}</div>
         <div>{data.district.district}</div>
-        <div>{data.nameEn}</div>
+        <div className='text-end font-semibold'>{data.nameEn}</div>
       </Link>
     </div>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import FeaturedList from '../features/homepage/components/FeaturedList';
 import PopularArea from '../features/homepage/components/PopularArea';
-import PromoteWithUs from '../features/homepage/components/PromoteWithUs';
+import Rating from '../features/homepage/components/Rating';
 import SlideHero from '../features/homepage/components/SlideHero';
 
 function HomePage() {
@@ -10,7 +10,7 @@ function HomePage() {
       <SlideHero />
       <FeaturedList />
       <PopularArea />
-      <PromoteWithUs />
+      <Rating />
     </div>
   );
 }

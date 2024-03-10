@@ -17,7 +17,7 @@ function SlideHero() {
   console.log(allCondos);
   return (
     <>
-      <div className='max-w-[1600px] h-[80vh] w-full m-auto pt-14 px-4 relative group'>
+      <div className='max-w-full h-[80vh] w-full m-auto pt-14 relative group'>
         <Swiper
           navigation={true}
           spaceBetween={0}

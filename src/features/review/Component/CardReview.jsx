@@ -1,16 +1,32 @@
 import React from 'react';
 import AllVote from './AllVote';
+import Button from '../../../components/Button';
+import { useNavigate } from 'react-router-dom';
 
-export default function CardReview() {
+export default function CardReview({ btn }) {
+  const navigate = useNavigate();
   return (
     <div className='shadow-md rounded-md p-4 flex '>
       <div className='px-6 min-w-[240px] '>
         <div className=''>
-          <p>การจัดอันดับความคิดเห็น</p>
-          <div className='flex gap-12'>
+          <p className='text-center font-semibold text-xl'>Review Ranking</p>
+          <div className='flex gap-12 justify-center'>
             <div className='flex flex-col justify-center items-center'>
               <h1 className='text-9xl'>4.9</h1>
-              <h1 className='text-gray-500  text-2xl'>จาก 5</h1>
+              <h1 className='text-gray-500'>from 5</h1>
+              {btn && (
+                <div className='p-3'>
+                  <Button
+                    bg='blue'
+                    color='white'
+                    onClick={() => {
+                      navigate('/user/review');
+                    }}
+                  >
+                    Leave us a review
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
         </div>

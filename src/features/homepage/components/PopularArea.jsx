@@ -56,11 +56,11 @@ const popArea = [
 function PopularArea() {
   return (
     <div className='py-10 flex flex-col gap-8 items-center justify-center'>
-      <div className='text-center'>
-        <h1 className='text-3xl font-semibold'>Popular area</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <div className='text-center flex flex-col gap-2'>
+        <h1 className='text-3xl font-semibold'>Popular Areas</h1>
+        <p>Find condos in premium locations</p>
       </div>
-      <div className='w-full flex gap-4 px-14 flex-wrap justify-center'>
+      <div className='max-w-screen grid grid-cols-4 gap-4'>
         {popArea.map((area, index) => (
           <PopularAreaCard key={index} data={area} />
         ))}

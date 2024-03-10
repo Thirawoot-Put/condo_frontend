@@ -64,13 +64,13 @@ export default function PostForm() {
 
   return (
     <form
-      className=' flex flex-col gap-10 p-10 rounded-lg shadow-lg'
+      className=' flex flex-col gap-10 p-20 rounded-lg shadow-lg'
       onSubmit={handlePostFormSubmit}
     >
       <div className='font-semibold text-center text-2xl'>Property Sign Up</div>
       {/* --------1. Name and location--------- */}
       <div className='flex flex-col gap-3'>
-        <div className='font-semibold'>1. Name and location</div>
+        <div className='font-semibold text-lg'>1. Name and location</div>
         <PostFormContent title='Name'>
           <div className='flex flex-col gap-2'>
             <SearchBarWithOption
@@ -163,7 +163,7 @@ export default function PostForm() {
       </div>
       {/* --------2. Facilities --------- */}
       <div className='flex flex-col gap-3'>
-        <div className='font-semibold'>2. Facilities</div>
+        <div className='font-semibold text-lg'>2. Facilities</div>
         <PostFormContent title='List of facilities'>
           <div className='grid grid-cols-3'>
             {facilities.map(({ id, name }) => (
@@ -174,7 +174,7 @@ export default function PostForm() {
       </div>
       {/* --------3. Room details--------- */}
       <div className='flex flex-col gap-3'>
-        <div className='font-semibold'>3. Room details</div>
+        <div className='font-semibold text-lg'>3. Room details</div>
         <PostFormContent title='Details'>
           <div className='flex gap-3'>
             <div className='w-full'>
@@ -254,7 +254,7 @@ export default function PostForm() {
       </div>
       {/* --------4. Price--------- */}
       <div className='flex flex-col gap-3'>
-        <div className='font-semibold'>4. Price and contract</div>
+        <div className='font-semibold text-lg'>4. Price and contract</div>
         <PostFormContent title='Rent'>
           <Input
             label='Monthly rental price (Baht / month)'
@@ -269,7 +269,7 @@ export default function PostForm() {
         </PostFormContent>
         <PostFormContent title='Contract'>
           <SelectOption
-            title='Month'
+            title='Minimum (Month)'
             dataToMap='12'
             name='contract'
             id='contract'
@@ -283,8 +283,9 @@ export default function PostForm() {
       </div>
       {/* --------5. Property description--------- */}
       <div className='flex flex-col gap-3'>
-        <div className='font-semibold'>5. Property description</div>
+        <div className='font-semibold text-lg'>5. Property description</div>
         <PostFormContent>
+          <br />
           <div className='relative w-full min-w-[200px]'>
             <label
               htmlFor='description'
@@ -305,7 +306,7 @@ export default function PostForm() {
       </div>
       {/* --------6. Photos--------- */}
       <div className='flex flex-col gap-3'>
-        <div className='font-semibold'>6. Photos</div>
+        <div className='font-semibold text-lg'>6. Photos</div>
         <PostFormContent title='Photo'>
           <div>
             Condo image
@@ -363,9 +364,9 @@ export default function PostForm() {
           </div>
         </PostFormContent>
       </div>
-      <div className='flex justify-center'>
-        <Button bg='blue' color='white' type='submit'>
-          Submit
+      <div className='flex justify-center pt-10'>
+        <Button bg='blue' color='white' type='submit' width='oneThird'>
+          <p className='p-1 text-xl font-semibold'>Submit</p>
         </Button>
       </div>
     </form>
