@@ -33,7 +33,7 @@ const Nearest = ({lat,lng}) => {
 
       // Perform a nearby search.
       placesService.nearbySearch(
-        { location: pyrmont, radius: 1500, type: 'store' },
+        { location: pyrmont, radius: 500, type: "point_of_interest" },
         (results, status, pagination) => {
           if (status !== 'OK' || !results) return;
 
@@ -96,8 +96,9 @@ const Nearest = ({lat,lng}) => {
   return (
     <div>
       <div id='map' style={{ height: '400px', width: '100%' }}></div>
-      <ul id='places'></ul>
-      <button id='more'>Load More</button>
+      <h1 className='py-2 text-xl font-bold'>Places Nearby</h1>
+      <ul className='py-1 max-h-36 overflow-scroll list-none' id='places'></ul>
+      <button className='mt-2 py-1.5 w-full rounded-2xl border' id='more'>Load More</button>
     </div>
   );
 };
