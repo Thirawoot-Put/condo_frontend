@@ -32,9 +32,9 @@ export default function MainContainer() {
     // };
   }, [selected.name]);
 
-  if (loading) {
-    return <Spinner />;
-  }
+  // if (loading) {
+  //   return <Spinner />;
+  // }
 
   return (
     <div className='w-[70vw] mx-auto py-8 flex flex-col gap-4'>

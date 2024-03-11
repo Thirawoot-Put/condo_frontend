@@ -43,7 +43,7 @@ export default function Review() {
     <>
       <form
         onSubmit={handleSubmit}
-        className='min-h-[200px] shadow-md rounded-md p-4 flex flex-col gap-4'
+        className='min-h-[200px] border rounded-md p-4 flex flex-col gap-4'
       >
         <div>
           {have ? (
