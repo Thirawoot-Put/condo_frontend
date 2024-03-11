@@ -6,7 +6,10 @@ import { Button } from '@mui/material';
 import useAuth from '../auth/hook/useAuth';
 import ProfileCard from '../../components/ProfileCard';
 
+import { useNavigate } from 'react-router-dom';
+
 export default function Container() {
+  const navigate = useNavigate();
   const {
     posts: { active, inactive },
     user,
@@ -19,7 +22,12 @@ export default function Container() {
     <div className='min-h-[500px] flex flex-col gap-12 p-6  mx-auto w-[80%]'>
       <ProfileCard user={user}>
         {user?.id == authUser?.id && (
-          <Button variant='outlined'>Edit Profile</Button>
+          <Button
+            variant='outlined'
+            onClick={() => navigate('/user/profile/edit')}
+          >
+            Edit Profile
+          </Button>
         )}
       </ProfileCard>
 

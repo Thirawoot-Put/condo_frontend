@@ -21,11 +21,11 @@ function FeaturedList() {
         <h1 className='text-3xl font-semibold'>Recommend Lists</h1>
         <p>Recommend post by recommend agent</p>
       </div>
-      <div className='w-[90%] h-[90%] py-5 m-auto'>
+      <div className=' h-[90%] py-5 m-auto'>
         <Swiper
           navigation={true}
           spaceBetween={0}
-          slidesPerView={4}
+          slidesPerView={5}
           modules={[Navigation]}
           className='w-full h-fit'
           style={{

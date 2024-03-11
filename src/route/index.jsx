@@ -25,8 +25,9 @@ import ProtechAuth from '../features/protectroute/ProtechAuth';
 import PostsPage from '../pages/PostsPage';
 
 import SearchPage from '../pages/SearchPage';
-// 
-// 
+import EditProfile from '../pages/EditProfile';
+//
+//
 const router = createBrowserRouter([
   // Guest เข้าได้ทุกคน
   {
@@ -74,10 +75,6 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: 'posts',
-        element: <PostsPage />,
-      },
-      {
         path: 'post/:postId',
         element: <PostDetailPage />,
       },
@@ -107,6 +104,10 @@ const router = createBrowserRouter([
       {
         path: 'user/profile/:userId',
         element: <UserProfilePage />,
+      },
+      {
+        path: 'user/profile/edit',
+        element: <EditProfile />,
       },
     ],
   },

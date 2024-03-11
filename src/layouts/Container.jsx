@@ -8,7 +8,7 @@ function Container() {
   return (
     <div>
       <Header />
-      <Box sx={{ paddingTop: 8, paddingInline: 5 }}>
+      <Box sx={{ paddingTop: 8,  }}>
         <Outlet />
       </Box>
       <Footer />

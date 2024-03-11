@@ -31,7 +31,7 @@ export default function Container() {
       ) : (
         <div>
           {postDetail?.postStatus === false && (
-            <div className=' '>
+            <div className=''>
               <SubNavToPay />
             </div>
           )}
@@ -53,7 +53,7 @@ export default function Container() {
                       <MapDisplayOnePin zoom={18} marker={latlong} />
                     </div>
                   </div>
-                  <div className='col-span-4 bg-blue-100'>
+                  <div className='col-span-4'>
                     <Nearest lat={latlong?.lat} lng={latlong?.lng} />
                   </div>
                 </div>

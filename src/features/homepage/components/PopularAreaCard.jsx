@@ -6,7 +6,7 @@ function PopularAreaCard({ data }) {
   const navigate = useNavigate();
 
   return (
-    <div className='flex border-gray-500 shadow-[2px_3px_14px_1px_rgba(183,183,183,0.75)] rounded-lg'>
+    <div className='flex bg-white hover:shadow-lg  rounded-lg'>
       <div className='w-36 aspect-square overflow-hidden rounded-l-lg'>
         <img
           className='w-full h-full object-cover'
