@@ -132,7 +132,6 @@ export default function SearchContextProvider({ children }) {
   };
 
   const handleClickClearFilter = () => {
-    console.log('initialPosts', initialPosts);
     setActivePosts(initialPosts);
     setSelected({
       ...selected,
