@@ -144,8 +144,6 @@ export default function SearchContextProvider({ children }) {
   };
 
   const filterBySelected = (posts) => {
-    console.log('posts', posts);
-    console.log('initialPosts', initialPosts);
     const clonedPost = posts
       ? posts
       : isPriceAscending
@@ -180,7 +178,7 @@ export default function SearchContextProvider({ children }) {
 
   const PriceSortCompareFunction = (a, b) => {
     const signConverter = isPriceAscending ? 1 : -1;
-    if (+a?.room?.price <= +b?.room?.price) {
+    if (+a?.room?.price >= +b?.room?.price) {
       return -1 * signConverter;
     } else {
       return 1 * signConverter;
@@ -188,13 +186,11 @@ export default function SearchContextProvider({ children }) {
   };
 
   const handlePriceSort = () => {
-    console.log('isPriceAscending', isPriceAscending);
     const posts = [...initialPosts];
     posts.sort(PriceSortCompareFunction);
     setIsPriceAscending(isPriceAscending === null ? true : !isPriceAscending);
     setSortedInitialPosts(posts);
     filterBySelected(posts);
-    console.log('posts', posts);
   };
 
   return (

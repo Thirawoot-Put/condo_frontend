@@ -24,11 +24,11 @@ export default function FilterContainer() {
   }, [selected?.prices, selected?.districts, selected?.facilities]);
 
   return (
-    <div>
+    <div className='flex flex-col gap-2'>
       <Button variant='outlined' onClick={handleClickClearFilter}>
         Clear
       </Button>
-      <div>
+      <div className='flex gap-1'>
         <SortContainer />
       </div>
       <FilterContent title='Price'>

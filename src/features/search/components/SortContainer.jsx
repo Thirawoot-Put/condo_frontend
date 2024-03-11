@@ -10,12 +10,9 @@ export default function SortContainer() {
       <SortToggle onClick={handlePriceSort} isAscending={isPriceAscending}>
         Price
       </SortToggle>
-      <Button variant='outlined' size='small'>
-        viewer
-      </Button>
-      <Button variant='outlined' size='small'>
-        distance
-      </Button>
+      <SortToggle onClick={handlePriceSort} isAscending={isPriceAscending}>
+        Viewer
+      </SortToggle>
     </>
   );
 }
