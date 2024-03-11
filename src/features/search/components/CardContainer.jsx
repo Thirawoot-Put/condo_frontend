@@ -16,7 +16,7 @@ export default function CardContainer() {
   return (
     <>
       {activePosts.map((post) => (
-        <CardMap key={post.id} post={post} />
+        <CardMap key={post.id} post={post} width='w-[50rem]' />
       ))}
     </>
   );

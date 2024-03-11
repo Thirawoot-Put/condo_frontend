@@ -39,7 +39,7 @@ export default function MainContainer() {
   }, []);
 
   return (
-    <div className='w-[80vw] mx-auto py-8 flex flex-col gap-4'>
+    <div className='w-[70vw] mx-auto py-8 flex flex-col gap-4'>
       <SearchBar
         onChange={handleChangeInputName}
         onSubmit={handleSubmitInputName}
