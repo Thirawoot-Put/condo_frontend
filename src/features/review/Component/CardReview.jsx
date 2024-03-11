@@ -41,7 +41,8 @@ export default function CardReview() {
           <div className='flex gap-12'>
             <div className='flex flex-col justify-center items-center'>
               <h1 className='text-9xl'>
-                {(allRate / AllReview.length).toFixed(1)}
+                {AllReview.length != 0 &&
+                  (allRate / AllReview.length).toFixed(1)}
               </h1>
               <h1 className='text-gray-500  text-2xl'>จาก 5</h1>
             </div>
