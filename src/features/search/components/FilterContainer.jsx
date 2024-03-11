@@ -5,6 +5,7 @@ import FilterCheckbox from './FilterCheckbox';
 import FilterContent from './FilterContent';
 import { useEffect } from 'react';
 import { Button } from '@mui/material';
+import SortContainer from './SortContainer';
 
 export default function FilterContainer() {
   const {
@@ -23,14 +24,18 @@ export default function FilterContainer() {
   }, [selected?.prices, selected?.districts, selected?.facilities]);
 
   return (
-    <div className='w-[25vw]'>
+    <div className='flex flex-col gap-2'>
       <Button variant='outlined' onClick={handleClickClearFilter}>
         Clear
       </Button>
-      <FilterContent title='By price'>
+      <div className='flex gap-1'>
+        <SortContainer />
+      </div>
+      <FilterContent title='Price'>
         <PriceSlider />
       </FilterContent>
-      <FilterContent title='By district'>
+      <div className='border'></div>
+      <FilterContent title='District'>
         <div className=''>
           {districts?.map(({ id, district }) => (
             <FilterCheckbox
@@ -43,7 +48,8 @@ export default function FilterContainer() {
           ))}
         </div>
       </FilterContent>
-      <FilterContent title='By facilities'>
+      <div className='border'></div>
+      <FilterContent title='Facilities'>
         <div className=''>
           {facilities?.map(({ id, name }) => (
             <FilterCheckbox
