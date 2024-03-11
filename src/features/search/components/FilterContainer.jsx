@@ -51,7 +51,7 @@ export default function FilterContainer() {
               name={name}
               value={id}
               onClick={handleClickFacilities}
-              list={selected.districts}
+              list={selected.facilities}
             />
           ))}
         </div>
