@@ -2,7 +2,7 @@ import React from 'react';
 import { MdOutlineLocationOn } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
-function CardMap({ post, width = 'w-[33rem]' }) {
+function CardMap({ post, distance = null, width = 'w-[33rem]' }) {
   return (
     <Link
       to={`/post/${post?.id}`}
@@ -48,9 +48,12 @@ function CardMap({ post, width = 'w-[33rem]' }) {
               )
           )}
         </div>
-        <div className='text-end'>
-          <span className='text-lg font-semibold'>{post?.room?.price}</span>
-          <span className='text-sm'>/month</span>
+        <div className='flex justify-between items-end'>
+          {distance ? <small>{distance} km</small> : <div></div>}
+          <div>
+            <span className='text-lg font-semibold'>{post?.room?.price}</span>
+            <span className='text-sm'>/month</span>
+          </div>
         </div>
       </div>
     </Link>

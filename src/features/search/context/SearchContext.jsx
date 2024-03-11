@@ -2,9 +2,12 @@ import React, { createContext, useState, useEffect } from 'react';
 import * as postApi from '../../../api/post-api';
 import * as selectApi from '../../../api/select-api';
 import * as roomApi from '../../../api/room-api';
+import * as ipApi from '../../../api/ip-api';
 import { useAsyncError } from 'react-router';
 // import * as store from '../../../ultils/local-store';
 // import { toast } from 'react-toastify';
+import * as ipgeolocation from '../../../config/ipgeolocation';
+import getDistanceFromLatLng from '../../../ultils/getDistanceFromLatLng';
 
 export const SearchContext = createContext();
 
@@ -23,19 +26,48 @@ export default function SearchContextProvider({ children }) {
   });
   const [minMaxPrice, setMinMaxPrice] = useState({});
   const [isPriceAscending, setIsPriceAscending] = useState(null);
+  const [isDistanceAscending, setIsDistanceAscending] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handlePriceChange = (event, newPrice) => {
     setSelected({ ...selected, prices: newPrice });
   };
 
+  const getCurrentLatLng = async () => {
+    const promise = new Promise((resolve, reject) => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const currentLocation = [
+            +position?.coords?.latitude,
+            +position?.coords?.longitude,
+          ];
+          // setCurrentLatLng(currentLocation);
+          // return currentLocation;
+          resolve(currentLocation);
+        });
+      } else {
+        console.log('Geolocation is not supported by this browser.');
+      }
+    });
+    return promise;
+  };
+
   const getActivePosts = async () => {
     try {
+      setLoading(true);
+      const currentLocation = await getCurrentLatLng();
       const {
         data: { posts },
       } = await postApi.fetchAllActivePost();
       const postsWithFacilityMap = posts.map((post) => {
         return {
           ...post,
+          distance: getDistanceFromLatLng(
+            +post?.room?.condo?.lat,
+            +post?.room?.condo?.long,
+            +currentLocation[0],
+            +currentLocation[1]
+          ),
           roomFacilityMap: post.room?.roomFacilities?.reduce((acc, cur) => {
             acc[cur.facilityId] = 1;
             return acc;
@@ -47,6 +79,8 @@ export default function SearchContextProvider({ children }) {
       setActivePosts(postsWithFacilityMap);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -140,6 +174,7 @@ export default function SearchContextProvider({ children }) {
       facilities: [],
     });
     setIsPriceAscending(null);
+    setIsDistanceAscending(null);
   };
 
   const filterBySelected = (posts) => {
@@ -190,6 +225,27 @@ export default function SearchContextProvider({ children }) {
     setIsPriceAscending(isPriceAscending === null ? true : !isPriceAscending);
     setSortedInitialPosts(posts);
     filterBySelected(posts);
+    setIsDistanceAscending(null);
+  };
+
+  const DistanceSortCompareFunction = (a, b) => {
+    const signConverter = isDistanceAscending ? 1 : -1;
+    if (+a?.distance >= +b?.distance) {
+      return -1 * signConverter;
+    } else {
+      return 1 * signConverter;
+    }
+  };
+
+  const handleDistanceSort = () => {
+    const posts = [...initialPosts];
+    posts.sort(DistanceSortCompareFunction);
+    setIsDistanceAscending(
+      isDistanceAscending === null ? true : !isDistanceAscending
+    );
+    setSortedInitialPosts(posts);
+    filterBySelected(posts);
+    setIsPriceAscending(null);
   };
 
   return (
@@ -213,6 +269,9 @@ export default function SearchContextProvider({ children }) {
         getMinMaxPrice,
         handlePriceSort,
         isPriceAscending,
+        handleDistanceSort,
+        isDistanceAscending,
+        loading,
       }}
     >
       {children}

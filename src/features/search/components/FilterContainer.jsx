@@ -1,6 +1,6 @@
 import React from 'react';
 import PriceSlider from './PriceSlider';
-import useSearch from '../hook/UseSearch';
+import useSearch from '../hook/useSearch';
 import FilterCheckbox from './FilterCheckbox';
 import FilterContent from './FilterContent';
 import { useEffect } from 'react';
