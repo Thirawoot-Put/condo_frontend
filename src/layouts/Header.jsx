@@ -8,7 +8,6 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import useAuth from '../features/auth/hook/useAuth';
-import * as store from '../ultils/local-store';
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
 

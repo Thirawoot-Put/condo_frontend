@@ -1,7 +1,4 @@
 import React from 'react';
-import MediumPostCard from '../../../components/MediumPostCard';
-import MediumCardCarousel from '../../../components/MediumCardCarousel';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
@@ -13,7 +10,6 @@ import './styles.css';
 // import required modules
 import { Pagination } from 'swiper/modules';
 import { useNavigate } from 'react-router-dom';
-import { Button } from '@mui/material';
 
 export default function PostIProfileList({ title, items }) {
   const navigate = useNavigate();

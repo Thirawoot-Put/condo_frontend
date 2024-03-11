@@ -1,7 +1,6 @@
 import React from 'react';
 import Router from './route';
-import { Bounce, Slide, ToastContainer, toast } from 'react-toastify';
-import { useEffect } from 'react';
+import { Slide, ToastContainer } from 'react-toastify';
 
 function App() {
   return (
