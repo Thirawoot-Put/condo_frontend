@@ -8,6 +8,7 @@ import validateEdit from '../features/auth/validator/validate-edit';
 import { useNavigate } from 'react-router-dom';
 
 import * as userApi from '../api/user-api';
+import { toast } from 'react-toastify';
 
 export default function EditProfile() {
   const { authUser } = useAuth();
@@ -26,8 +27,6 @@ export default function EditProfile() {
     setError({ ...error, [e.target.name]: '' });
   };
 
-  console.log(authUser);
-
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
@@ -42,6 +41,8 @@ export default function EditProfile() {
 
       if (!validateError) {
         await userApi.updateUer(input);
+        toast.success('edit success');
+        navigate(`/user/profile/${authUser.id}`);
       }
     } catch (err) {
       console.log(err);
