@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 export default function ProfileCard({ children, user, title = '' }) {
   const [isShow, setIsShow] = useState(false);
-  
+
   const date = new Date(user?.createdAt).toString().slice(4, 15);
 
   return (
@@ -23,7 +23,7 @@ export default function ProfileCard({ children, user, title = '' }) {
                 onClick={() => setIsShow(!isShow)}
                 role='button'
               >
-                มีข้อมูลติดต่อมุ้ย
+                แสดงข้อมูลการติดต่อ
               </p>
             )}
             {isShow && (
