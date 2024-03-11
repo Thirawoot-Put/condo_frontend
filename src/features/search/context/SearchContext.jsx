@@ -1,6 +1,8 @@
 import React, { createContext, useState, useEffect } from 'react';
 import * as postApi from '../../../api/post-api';
 import * as selectApi from '../../../api/select-api';
+import * as roomApi from '../../../api/room-api';
+import { useAsyncError } from 'react-router';
 // import * as store from '../../../ultils/local-store';
 // import { toast } from 'react-toastify';
 
@@ -8,6 +10,7 @@ export const SearchContext = createContext();
 
 export default function SearchContextProvider({ children }) {
   const [initialPosts, setInitialPosts] = useState([]);
+  const [sortedInitialPosts, setSortedInitialPosts] = useState([]);
   const [activePosts, setActivePosts] = useState([]);
   const [districts, setDistricts] = useState([]);
   //   const [provinces, setProvinces] = useState([]);
@@ -18,6 +21,8 @@ export default function SearchContextProvider({ children }) {
     districts: [],
     facilities: [],
   });
+  const [minMaxPrice, setMinMaxPrice] = useState({});
+  const [isPriceAscending, setIsPriceAscending] = useState(null);
 
   const handlePriceChange = (event, newPrice) => {
     setSelected({ ...selected, prices: newPrice });
@@ -32,12 +37,13 @@ export default function SearchContextProvider({ children }) {
         return {
           ...post,
           roomFacilityMap: post.room?.roomFacilities?.reduce((acc, cur) => {
-            acc[cur.id] = 1;
+            acc[cur.facilityId] = 1;
             return acc;
           }, {}),
         };
       });
       setInitialPosts(postsWithFacilityMap);
+      setSortedInitialPosts(postsWithFacilityMap);
       setActivePosts(postsWithFacilityMap);
     } catch (error) {
       console.log(error);
@@ -55,6 +61,21 @@ export default function SearchContextProvider({ children }) {
     } catch (err) {
       console.log(err);
     } finally {
+    }
+  };
+
+  const getMinMaxPrice = async () => {
+    try {
+      const {
+        data: { price },
+      } = await roomApi.getMinMaxPrice();
+      setMinMaxPrice(price);
+      setSelected({
+        ...selected,
+        prices: [+price?._min?.price, +price?._max?.price],
+      });
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -90,7 +111,7 @@ export default function SearchContextProvider({ children }) {
 
   const handleClickDistricts = (districtId) => {
     const districtIndex = selected.districts.findIndex(
-      (facility) => facility === +districtId
+      (district) => district === +districtId
     );
     const newDistricts = [...selected.districts];
     if (districtIndex < 0) {
@@ -114,14 +135,20 @@ export default function SearchContextProvider({ children }) {
     setActivePosts(initialPosts);
     setSelected({
       ...selected,
-      prices: [0, 100000],
+      prices: [0, +minMaxPrice._max.price],
       districts: [],
       facilities: [],
     });
+    setIsPriceAscending(null);
   };
 
-  const filterBySelected = () => {
-    const filterPosts = [...initialPosts].filter((post) => {
+  const filterBySelected = (posts) => {
+    const clonedPost = posts
+      ? posts
+      : isPriceAscending
+        ? [...sortedInitialPosts]
+        : [...initialPosts];
+    const filterPosts = clonedPost.filter((post) => {
       const IsInSelectedName =
         post.room?.condo?.nameTh
           ?.toLowerCase()
@@ -132,10 +159,9 @@ export default function SearchContextProvider({ children }) {
       const IsInSelectedPrices =
         +post.room?.price >= +selected.prices[0] &&
         +post.room?.price <= +selected.prices[1];
-      const IsInSelectedFacilities =
-        selected.facilities.findIndex(
-          (facility) => post.roomFacilityMap[facility]
-        ) !== -1;
+      const IsInSelectedFacilities = selected.facilities.every((facility) =>
+        post.roomFacilityMap.hasOwnProperty(facility)
+      );
       const IsInSelectedDistricts = selected.districts.includes(
         post.room?.condo?.districtId
       );
@@ -147,6 +173,23 @@ export default function SearchContextProvider({ children }) {
       );
     });
     setActivePosts(filterPosts);
+  };
+
+  const PriceSortCompareFunction = (a, b) => {
+    const signConverter = isPriceAscending ? 1 : -1;
+    if (+a?.room?.price >= +b?.room?.price) {
+      return -1 * signConverter;
+    } else {
+      return 1 * signConverter;
+    }
+  };
+
+  const handlePriceSort = () => {
+    const posts = [...initialPosts];
+    posts.sort(PriceSortCompareFunction);
+    setIsPriceAscending(isPriceAscending === null ? true : !isPriceAscending);
+    setSortedInitialPosts(posts);
+    filterBySelected(posts);
   };
 
   return (
@@ -166,6 +209,10 @@ export default function SearchContextProvider({ children }) {
         handleChangeInputName,
         handleSubmitInputName,
         initialPosts,
+        minMaxPrice,
+        getMinMaxPrice,
+        handlePriceSort,
+        isPriceAscending,
       }}
     >
       {children}

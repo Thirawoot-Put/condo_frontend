@@ -1,14 +1,40 @@
 import { Button, Rating, TextField } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import useReview from '../context/ReviewContext';
+import validateReview from '../../auth/validator/validate-review';
+
+import * as reviewApi from '../../../api/review-api';
 
 export default function Review() {
-  const { handleChange, handleSubmit, error, input, fetchReviewMe, have } =
+  const { handleChange, input, fetchReviewMe, have, fetchAllReview } =
     useReview();
 
+  const [error, setError] = useState({});
   const [isEdit, setIsEdit] = useState(false);
   const EDIT = have ? true : false;
   const EDIT2 = isEdit ? (have ? false : true) : have ? true : false;
+
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      const validateError = validateReview(input);
+      if (validateError) {
+        return setError(validateError);
+      }
+      if (!validateError) {
+        if (!have) {
+          await reviewApi.createReview(input);
+        } else {
+          await reviewApi.editReviewByUserId(input);
+          setIsEdit(false);
+        }
+        await fetchAllReview();
+        await fetchReviewMe();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     fetchReviewMe();
@@ -16,14 +42,15 @@ export default function Review() {
   return (
     <>
       <form
-        onSubmit={(e) => {
-          handleSubmit(e);
-         setIsEdit(false)
-        }}
+        onSubmit={handleSubmit}
         className='min-h-[200px] shadow-md rounded-md p-4 flex flex-col gap-4'
       >
         <div>
-          <p>เขียนรีวิว</p>
+          {have ? (
+            <p className='font-semibold'>My review</p>
+          ) : (
+            <p>เขียนรีวิว</p>
+          )}
         </div>
         <div>
           <Rating
@@ -50,7 +77,10 @@ export default function Review() {
             fullWidth
             variant='standard'
             value={input.comment}
-            onChange={handleChange}
+            onChange={(e) => {
+              handleChange(e);
+              setError({ ...error, [e.target.name]: '' });
+            }}
           />
           {error.comment && (
             <p className='text-red-500 text-xs'>Comment is required</p>
@@ -62,15 +92,26 @@ export default function Review() {
               Submit
             </Button>
           ) : !isEdit ? (
-            <Button variant='contained' onClick={() => setIsEdit(!isEdit)}>
+            <Button
+              variant='contained'
+              onClick={() => {
+                setIsEdit(!isEdit);
+              }}
+            >
               Edit
             </Button>
           ) : (
             <div className='flex gap-4'>
-              <Button variant='contained' type='summit'>
+              <Button variant='contained' type='submit'>
                 Submit
               </Button>
-              <Button variant='outlined' onClick={() => setIsEdit(!isEdit)}>
+              <Button
+                variant='outlined'
+                onClick={() => {
+                  setIsEdit(!isEdit);
+                  fetchReviewMe();
+                }}
+              >
                 Cancel
               </Button>
             </div>

@@ -1,10 +1,13 @@
 import React from 'react';
 import { MdOutlineLocationOn } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 function CardMap({ post }) {
-  console.log(post);
   return (
-    <div className='card card-side bg-base-100 shadow-xl p-4 w-[33rem] justify-between gap-4'>
+    <Link
+      to={`/post/${post?.id}`}
+      className='card card-side bg-base-100 shadow-xl p-4 w-[33rem] justify-between gap-4'
+    >
       <div className='flex h-36 aspect-square overflow-hidden items-center justify-center rounded-xl'>
         <img
           className='object-center h-36'
@@ -33,7 +36,7 @@ function CardMap({ post }) {
           {/* {post?.room?.roomFacilities?.map(
             (facility) =>
               facility.id <= 4 && ( */}
-          {post?.room.roomFacilities.map(
+          {post?.room?.roomFacilities.map(
             (facility, index) =>
               index <= 3 && (
                 <small
@@ -50,7 +53,7 @@ function CardMap({ post }) {
           <span className='text-sm'>/month</span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 

@@ -39,7 +39,6 @@ function MapDisplay({ markers = [], setIsShow, onClickMarker }) {
 
   return (
     <>
-      {/* <div> */}
       <div style={{ width: '100%', height: '80vh' }}>
         {isLoaded ? (
           <GoogleMap
@@ -86,7 +85,6 @@ function MapDisplay({ markers = [], setIsShow, onClickMarker }) {
           </GoogleMap>
         ) : null}
       </div>
-      {/* </div> */}
     </>
   );
 }
