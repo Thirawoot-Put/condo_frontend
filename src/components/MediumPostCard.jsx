@@ -11,7 +11,7 @@ function MediumPostCard({ data, id }) {
   return (
     <Link
       to={`/post/${id}`}
-      className='shadow-xl w-[15vw] h-[45vh] border rounded-2xl '
+      className='shadow-xl w-[16vw] h-[45vh] border rounded-2xl '
     >
       <div className='h-3/5 '>
         <img
@@ -26,7 +26,7 @@ function MediumPostCard({ data, id }) {
           {data.roomNumber}/{data.floor}
         </div>
         <div>{data.condo.nameEn}</div>
-        
+
         <div className='text-red-500 font-mono'>{data.price} THB/mont</div>
       </div>
     </Link>
