@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
-import useSearch from '../hook/UseSearch';
+import useSearch from '../hook/useSearch';
 
 // function valuetext(value) {
 //   return `${value}°C`;
@@ -30,7 +30,7 @@ export default function PriceSlider() {
   ];
 
   return (
-    <Box sx={{ width: '80%' }}>
+    <Box sx={{ width: '90%' }}>
       <Slider
         min={0}
         max={+minMaxPrice?._max?.price}

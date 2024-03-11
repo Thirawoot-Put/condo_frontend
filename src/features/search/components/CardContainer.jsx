@@ -1,6 +1,7 @@
 import React from 'react';
-import useSearch from '../hook/UseSearch';
+import useSearch from '../hook/useSearch';
 import CardMap from '../../search_map/components/CardMap';
+import { useEffect } from 'react';
 
 export default function CardContainer() {
   const { activePosts } = useSearch();
@@ -16,7 +17,7 @@ export default function CardContainer() {
   return (
     <>
       {activePosts.map((post) => (
-        <CardMap key={post.id} post={post} />
+        <CardMap key={post.id} post={post} distance={post.distance} />
       ))}
     </>
   );
