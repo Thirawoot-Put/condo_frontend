@@ -3,12 +3,27 @@ import ReviewCard from './ReviewCard';
 import * as mockData from '../../../mock';
 import CardReview from '../../review/Component/CardReview';
 import useReview from '../../review/context/ReviewContext';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 function Rating() {
+  const [sortedReview, setSortedReview] = useState([]);
   const { AllReview } = useReview();
-  console.log(AllReview)
 
-  
+  useEffect(() => {
+    sortRating();
+  }, [AllReview]);
+
+  const sortFn = (a, b) => b.rating - a.rating;
+
+  const sortRating = () => {
+    const copyArr = [...AllReview];
+    copyArr.sort(sortFn);
+    setSortedReview(copyArr);
+  };
+
+  console.log(sortedReview);
+
   return (
     <div className='py-10 flex flex-col gap-8 items-center justify-center'>
       <div className='text-center flex flex-col gap-2'>
@@ -18,10 +33,11 @@ function Rating() {
       <div className='w-full'>
         <CardReview btn='btn' />
       </div>
-      <div className='flex gap-4'>
-        {mockData.sampleReviews.map((review) => (
-          <ReviewCard key={review.id} data={review} />
-        ))}
+      <div className='flex w-full justify-around gap-4'>
+        {sortedReview.map(
+          (review, index) =>
+            index <= 5 && <ReviewCard key={review.id} data={review} />
+        )}
       </div>
     </div>
   );

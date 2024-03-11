@@ -31,7 +31,7 @@ export default function Container() {
       ) : (
         <div>
           {postDetail?.postStatus === false && (
-            <div className=' '>
+            <div className=''>
               <SubNavToPay />
             </div>
           )}

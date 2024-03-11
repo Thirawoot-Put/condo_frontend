@@ -21,11 +21,11 @@ function MediumPostCard({ data, id }) {
         />
       </div>
       <div className='h-2/5 bg-white px-4 py-2 rounded-b-2xl flex flex-col justify-around'>
-        <div>
+        <div className='font-semibold'>
           {data.roomNumber}/{data.floor}
         </div>
         <div>{data.condo.nameEn}</div>
-        <div>{data.price} THB/mont</div>
+        <div className='text-red-500 font-mono'>{data.price} THB/mont</div>
       </div>
     </Link>
   );

@@ -25,8 +25,8 @@ import ProtechAuth from '../features/protectroute/ProtechAuth';
 import PostsPage from '../pages/PostsPage';
 
 import SearchPage from '../pages/SearchPage';
-// 
-// 
+//
+//
 const router = createBrowserRouter([
   // Guest เข้าได้ทุกคน
   {
@@ -72,10 +72,6 @@ const router = createBrowserRouter([
             <LoginAgentPage />
           </ProtechAuth>
         ),
-      },
-      {
-        path: 'posts',
-        element: <PostsPage />,
       },
       {
         path: 'post/:postId',
