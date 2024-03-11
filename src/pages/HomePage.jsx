@@ -11,14 +11,17 @@ function HomePage() {
   useEffect(() => {
     fetchAllReview();
   }, []);
-  
+
   return (
-    <div>
-      <SlideHero />
+    <div className=''>
+      <div className='w-[90%] mx-auto'>
+        <SlideHero />
+      </div>
       <FeaturedList />
       <PopularArea />
-
-      <Rating />
+      <div className='w-[80%] mx-auto'>
+        <Rating />
+      </div>
     </div>
   );
 }
