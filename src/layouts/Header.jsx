@@ -40,7 +40,10 @@ export default function Navbar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position='fixed' sx={{ height: '4rem', px: '1rem' }}>
+      <AppBar
+        position='fixed'
+        sx={{ height: '4rem', px: '1rem', bgcolor: '#153243' }}
+      >
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           <div className='flex gap-4'>
             <Typography

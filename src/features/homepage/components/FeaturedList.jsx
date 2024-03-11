@@ -24,8 +24,8 @@ function FeaturedList() {
       <div className=' h-[90%] py-5 m-auto'>
         <Swiper
           navigation={true}
-          spaceBetween={-20}
-          slidesPerView={4}
+          spaceBetween={0}
+          slidesPerView={5}
           modules={[Navigation]}
           className='w-full h-fit'
           style={{

@@ -16,8 +16,8 @@ function HomePage() {
     <div className=''>
       <div className='w-[90%] mx-auto'>
         <SlideHero />
-      </div>
       <FeaturedList />
+      </div>
       <PopularArea />
       <div className='w-[80%] mx-auto'>
         <Rating />
