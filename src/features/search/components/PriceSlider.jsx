@@ -3,41 +3,43 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import useSearch from '../hook/UseSearch';
 
-const marks = [
-  {
-    value: 0,
-    label: '0฿',
-  },
-
-  {
-    value: 100000,
-    label: '100000฿',
-  },
-];
-
-function valuetext(value) {
-  return `${value}°C`;
-}
+// function valuetext(value) {
+//   return `${value}°C`;
+// }
 
 export default function PriceSlider() {
-  const { selected, handlePriceChange } = useSearch();
-  // const [value, setValue] = React.useState([20, 37]);
+  const { selected, handlePriceChange, minMaxPrice } = useSearch();
 
-  // const handleChange = (event, newValue) => {
-  //   setValue(newValue);
-  // };
+  if (
+    Object.keys(minMaxPrice).length === 0 &&
+    minMaxPrice.constructor === Object
+  ) {
+    return;
+  }
+
+  const marks = [
+    {
+      value: 0,
+      label: `0฿`,
+    },
+
+    {
+      value: +minMaxPrice?._max?.price,
+      label: `${minMaxPrice?._max?.price}฿`,
+    },
+  ];
 
   return (
-    <Box sx={{ width: 100 }}>
+    <Box sx={{ width: '80%' }}>
       <Slider
         min={0}
-        max={100000}
+        max={+minMaxPrice?._max?.price}
         marks={marks}
-        getAriaLabel={() => 'Temperature range'}
+        // shiftStep={1000}
+        step={1000}
         value={selected.prices}
         onChange={handlePriceChange}
         valueLabelDisplay='auto'
-        getAriaValueText={valuetext}
       />
     </Box>
   );
