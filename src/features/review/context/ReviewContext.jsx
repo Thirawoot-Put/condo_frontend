@@ -1,34 +1,48 @@
 import { useContext, useState, createContext } from 'react';
-import validateReview from '../../auth/validator/validate-review';
+
+import * as reviewApi from '../../../api/review-api';
+
 const ReviewContext = createContext();
 
 const initail = { comment: '', rating: 0 };
 
 export function ReviewContextProvider({ children }) {
   const [input, setInput] = useState(initail);
-  const [error, setError] = useState({});
+  const [AllReview, setAllReview] = useState([]);
+
+  const [have, setHave] = useState(false);
 
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
-    setError({ ...error, [e.target.name]: '' });
   };
 
-  const handleSubmit = (e) => {
-    try {
-      e.preventDefault();
-      const validateError = validateReview(input);
-      if (validateError) {
-        return setError(validateError);
-      }
-      if (!validateError) {
-      }
-    } catch (error) {
-      console.log(error);
+  const fetchAllReview = async () => {
+    const response = await reviewApi.fetchAllReviews();
+    setAllReview(response.data.reviews);
+  };
+  const fetchReviewMe = async () => {
+    const response = await reviewApi.fetchReviewByUserId();
+    setInput({
+      comment: response?.data?.review?.comment,
+      rating: +response?.data?.review?.rating,
+    });
+
+    if (response?.data?.review?.comment != undefined) {
+      setHave(true);
     }
   };
 
   return (
-    <ReviewContext.Provider value={{ handleChange, handleSubmit, error }}>
+    <ReviewContext.Provider
+      value={{
+        handleChange,
+        input,
+        fetchAllReview,
+        AllReview,
+        fetchReviewMe,
+        have,
+      }}
+    >
       {children}
     </ReviewContext.Provider>
   );

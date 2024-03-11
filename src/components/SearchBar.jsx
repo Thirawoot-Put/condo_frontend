@@ -1,13 +1,21 @@
 import React from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 
-function SearchBar({ width = 'w-[36rem]', onChange, onSubmit }) {
+function SearchBar({
+  width = 'w-[36rem]',
+  onChange,
+  onSubmit,
+  value = '',
+  placeholder = '',
+}) {
   return (
     <form onSubmit={onSubmit} className={`relative ${width}`}>
       <input
         onChange={onChange}
         type='text'
         className={`border border-gray-400 focus:outline-gray-400 rounded-lg ${width} px-4 py-1`}
+        value={value}
+        placeholder={placeholder}
       />
       <button
         role='submit'

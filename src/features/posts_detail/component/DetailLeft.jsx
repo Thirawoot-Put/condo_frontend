@@ -1,6 +1,5 @@
 import React from 'react';
 import useDetail from '../context/PostDetailContext';
-// import Button from '../../../components/Button';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 

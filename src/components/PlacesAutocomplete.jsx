@@ -35,8 +35,8 @@ const PlacesAutocomplete = ({ setSelect }) => {
         value={value}
         onChange={(e) => setValue(e.target.value)}
         disabled={!ready}
-        className='combobox-input'
-        placeholder='Search'
+        className='combobox-input w-3/5 border-0 border-b-2 border-gray-400 py-1.5 mt-1 focus:outline-none focus:border-b-black'
+        placeholder='Search here and pin your location on the map'
       />
       <ComboboxPopover>
         <ComboboxList>

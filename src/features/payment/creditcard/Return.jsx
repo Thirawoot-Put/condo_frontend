@@ -56,9 +56,10 @@ export default function Return() {
       >
         <div className='flex flex-col justify-center text-center'>
           <p>
-            Thank you for choosing to list your property with us!. A
-            confirmation email will be sent to {customerEmail}. If you have any
-            further inquiries, please feel free to contact us at{' '}
+            Thank you for choosing to list your property with us! A confirmation
+            email will be sent to{' '}
+            <span className='text-blue-500'>{customerEmail}</span> . If you have
+            any further inquiries, please feel free to contact us at{' '}
             <a
               href='mailto:cc16.condrent.am@gmail.com'
               className='text-blue-500'

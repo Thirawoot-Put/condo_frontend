@@ -29,6 +29,9 @@ export default function AuthContextProvider({ children }) {
   };
 
   const registerUser = async (input) => {
+    if (input.mobile == '') {
+      delete input.mobile;
+    }
     const respon = await authApi.registerUser(input);
     store.storeToken(respon.data.token);
 
@@ -47,7 +50,13 @@ export default function AuthContextProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ registerUser, registerAgent, authUser, login, logout }}
+      value={{
+        registerUser,
+        registerAgent,
+        authUser,
+        login,
+        logout,
+      }}
     >
       {children}
     </AuthContext.Provider>

@@ -12,12 +12,6 @@ const userRegisterSchema = Joi.object({
       'string.pattern.base':
         'username must be in alphabet or numeric and at least 6 digits',
     }),
-  mobile: Joi.string()
-    .pattern(/^[0][0-9]{9}$/)
-    .messages({
-      'string.empty': 'Mobile is required',
-      'any.required': 'Mobile is required',
-    }),
 
   password: Joi.string()
     .pattern(/^[a-zA-Z0-9]{6,}$/)
