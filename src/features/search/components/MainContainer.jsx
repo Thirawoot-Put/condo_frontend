@@ -2,8 +2,9 @@ import React from 'react';
 import FilterContainer from './FilterContainer';
 import CardContainer from './CardContainer';
 import { useEffect } from 'react';
-import useSearch from '../hook/UseSearch';
+import useSearch from '../hook/useSearch';
 import SearchBar from '../../../components/SearchBar';
+import Spinner from '../../../components/Spinner';
 
 export default function MainContainer() {
   const {
@@ -15,6 +16,7 @@ export default function MainContainer() {
     filterBySelected,
     initialPosts,
     getMinMaxPrice,
+    loading,
   } = useSearch();
 
   useEffect(() => {
@@ -22,21 +24,17 @@ export default function MainContainer() {
     console.log('initialPosts', initialPosts);
     handleSubmitInputName();
     // }, 4000);
-    console.log('selected.name', selected.name);
-
+    getActivePosts();
+    getSelected();
+    getMinMaxPrice();
     // return () => {
     //   clearTimeout(timeoutId);
     // };
   }, [selected.name]);
 
-  useEffect(() => {
-    const run = async () => {
-      await getActivePosts();
-      await getSelected();
-      await getMinMaxPrice();
-    };
-    run();
-  }, []);
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <div className='w-[80vw] mx-auto py-8 flex flex-col gap-4'>
