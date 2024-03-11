@@ -1,6 +1,7 @@
 import React from 'react';
 import { MdOutlineLocationOn } from 'react-icons/md';
 import { Link } from 'react-router-dom';
+import { FaRegEye } from 'react-icons/fa6';
 
 function CardMap({ post, distance = null, width = 'w-[33rem]' }) {
   return (
@@ -21,9 +22,12 @@ function CardMap({ post, distance = null, width = 'w-[33rem]' }) {
 
       <div className='flex flex-col justify-between flex-1'>
         <div>
-          <h1 className='font-semibold text-xl'>
-            {post?.room?.roomNumber}/{post?.room?.floor}
-          </h1>
+          <div className=' flex justify-between'>
+            <h1 className='font-semibold text-xl'>
+              {post?.room?.roomNumber}/{post?.room?.floor}
+            </h1>
+            <small>{post?.totalViewer} views</small>
+          </div>
           <h1 className='font-semibold'>{post?.room?.condo?.nameEn}</h1>
           <h2 className='text-sm'>Building: {post?.room?.building}</h2>
           <small className='flex items-center'>
