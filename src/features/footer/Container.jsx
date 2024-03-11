@@ -89,7 +89,7 @@ const contact = [
 export default function Container() {
   return (
     <div className='bg-gray-300'>
-      <div className='container pt-10 flex flex-col gap-14 mt-10'>
+      <div className='pt-10 flex flex-col gap-14 mt-10'>
         <div className='flex justify-between gap-8'>
           <div className='flex-1 flex justify-center'>
             <MenuList menu={about} title='About us' />
