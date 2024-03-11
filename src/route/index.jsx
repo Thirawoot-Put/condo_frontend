@@ -25,6 +25,7 @@ import ProtechAuth from '../features/protectroute/ProtechAuth';
 import PostsPage from '../pages/PostsPage';
 
 import SearchPage from '../pages/SearchPage';
+import EditProfile from '../pages/EditProfile';
 //
 //
 const router = createBrowserRouter([
@@ -103,6 +104,10 @@ const router = createBrowserRouter([
       {
         path: 'user/profile/:userId',
         element: <UserProfilePage />,
+      },
+      {
+        path: 'user/profile/edit',
+        element: <EditProfile />,
       },
     ],
   },

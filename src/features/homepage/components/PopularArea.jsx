@@ -55,9 +55,9 @@ const popArea = [
 
 function PopularArea() {
   return (
-    <div className='py-10 flex flex-col gap-8 items-center justify-center'>
-      <div className='text-center flex flex-col gap-2'>
-        <h1 className='text-3xl font-semibold'>Popular Areas</h1>
+    <div className='py-10 flex flex-col gap-8 items-center justify-center bg-[#284B63]'>
+      <div className='text-center flex flex-col gap-2 text-white'>
+        <h1 className='text-3xl font-semibold '>Popular Areas</h1>
         <p>Find condos in premium locations</p>
       </div>
       <div className='max-w-screen grid grid-cols-4 gap-4'>
