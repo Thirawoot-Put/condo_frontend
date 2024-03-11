@@ -24,17 +24,20 @@ export default function MainContainer() {
     console.log('initialPosts', initialPosts);
     handleSubmitInputName();
     // }, 4000);
-    getActivePosts();
-    getSelected();
-    getMinMaxPrice();
     // return () => {
     //   clearTimeout(timeoutId);
     // };
   }, [selected.name]);
 
-  if (loading) {
-    return <Spinner />;
-  }
+  useEffect(() => {
+    getActivePosts();
+    getSelected();
+    getMinMaxPrice();
+  }, []);
+
+  // if (loading) {
+  //   return <Spinner />;
+  // }
 
   return (
     <div className='w-[80vw] mx-auto py-8 flex flex-col gap-4'>
