@@ -1,5 +1,4 @@
 import { useContext, useState, createContext } from 'react';
-import validateReview from '../../auth/validator/validate-review';
 
 import * as reviewApi from '../../../api/review-api';
 
@@ -12,11 +11,9 @@ export function ReviewContextProvider({ children }) {
   const [AllReview, setAllReview] = useState([]);
 
   const [have, setHave] = useState(false);
-  const [error, setError] = useState({});
 
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
-    setError({ ...error, [e.target.name]: '' });
   };
 
   const fetchAllReview = async () => {
@@ -35,47 +32,15 @@ export function ReviewContextProvider({ children }) {
     }
   };
 
-  const editSubmit = async (e) => {
-    try {
-      e.preventDefault();
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    try {
-      e.preventDefault();
-      const validateError = validateReview(input);
-      if (validateError) {
-        return setError(validateError);
-      }
-      if (!validateError) {
-        if (!have) {
-          await reviewApi.createReview(input);
-        } else {
-          await reviewApi.editReviewByUserId(input);
-        }
-        await fetchAllReview();
-        await fetchReviewMe();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <ReviewContext.Provider
       value={{
         handleChange,
-        handleSubmit,
-        error,
         input,
         fetchAllReview,
         AllReview,
         fetchReviewMe,
         have,
-        editSubmit,
       }}
     >
       {children}
