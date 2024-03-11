@@ -229,7 +229,7 @@ export default function PostFormContextProvider({ children }) {
       if (location.pathname === '/agent/post/edit') {
         result = await postApi.editPost(formData, postId, condoId, roomId);
         setLoading(false);
-        toast.success('Successfully posted');
+        toast.success('Successfully edited post');
         setPostId(result.data.post.id);
         navigate(`/post/${result.data.post.id}`);
         return;
