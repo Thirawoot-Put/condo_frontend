@@ -9,6 +9,8 @@ export default function SortContainer() {
     isPriceAscending,
     handleDistanceSort,
     isDistanceAscending,
+    handleViewSort,
+    isViewAscending,
   } = useSearch();
   return (
     <>
@@ -20,6 +22,9 @@ export default function SortContainer() {
         isAscending={isDistanceAscending}
       >
         Distance
+      </SortToggle>
+      <SortToggle onClick={handleViewSort} isAscending={isViewAscending}>
+        View
       </SortToggle>
     </>
   );

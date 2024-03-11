@@ -27,6 +27,7 @@ export default function SearchContextProvider({ children }) {
   const [minMaxPrice, setMinMaxPrice] = useState({});
   const [isPriceAscending, setIsPriceAscending] = useState(null);
   const [isDistanceAscending, setIsDistanceAscending] = useState(null);
+  const [isViewAscending, setIsViewAscending] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const handlePriceChange = (event, newPrice) => {
@@ -35,16 +36,23 @@ export default function SearchContextProvider({ children }) {
 
   const getCurrentLatLng = async () => {
     const promise = new Promise((resolve, reject) => {
+      console.log('navigator.geolocation', navigator.geolocation);
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          const currentLocation = [
-            +position?.coords?.latitude,
-            +position?.coords?.longitude,
-          ];
-          // setCurrentLatLng(currentLocation);
-          // return currentLocation;
-          resolve(currentLocation);
-        });
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            console.log('position', position);
+            const currentLocation = [
+              +position?.coords?.latitude,
+              +position?.coords?.longitude,
+            ];
+            console.log('first');
+            resolve(currentLocation);
+          },
+          (error) => {
+            console.log('error', error);
+            resolve(null);
+          }
+        );
       } else {
         console.log('Geolocation is not supported by this browser.');
       }
@@ -60,14 +68,18 @@ export default function SearchContextProvider({ children }) {
         data: { posts },
       } = await postApi.fetchAllActivePost();
       const postsWithFacilityMap = posts.map((post) => {
-        return {
-          ...post,
-          distance: getDistanceFromLatLng(
+        let distance = null;
+        if (currentLocation) {
+          distance = getDistanceFromLatLng(
             +post?.room?.condo?.lat,
             +post?.room?.condo?.long,
             +currentLocation[0],
             +currentLocation[1]
-          ),
+          );
+        }
+        return {
+          ...post,
+          distance,
           roomFacilityMap: post.room?.roomFacilities?.reduce((acc, cur) => {
             acc[cur.facilityId] = 1;
             return acc;
@@ -175,6 +187,7 @@ export default function SearchContextProvider({ children }) {
     });
     setIsPriceAscending(null);
     setIsDistanceAscending(null);
+    setIsViewAscending(null);
   };
 
   const filterBySelected = (posts) => {
@@ -212,7 +225,7 @@ export default function SearchContextProvider({ children }) {
 
   const PriceSortCompareFunction = (a, b) => {
     const signConverter = isPriceAscending ? 1 : -1;
-    if (+a?.room?.price >= +b?.room?.price) {
+    if (+a?.room?.price > +b?.room?.price) {
       return -1 * signConverter;
     } else {
       return 1 * signConverter;
@@ -226,11 +239,12 @@ export default function SearchContextProvider({ children }) {
     setSortedInitialPosts(posts);
     filterBySelected(posts);
     setIsDistanceAscending(null);
+    setIsViewAscending(null);
   };
 
   const DistanceSortCompareFunction = (a, b) => {
     const signConverter = isDistanceAscending ? 1 : -1;
-    if (+a?.distance >= +b?.distance) {
+    if (+a?.distance > +b?.distance) {
       return -1 * signConverter;
     } else {
       return 1 * signConverter;
@@ -246,6 +260,26 @@ export default function SearchContextProvider({ children }) {
     setSortedInitialPosts(posts);
     filterBySelected(posts);
     setIsPriceAscending(null);
+    setIsViewAscending(null);
+  };
+
+  const ViewSortCompareFunction = (a, b) => {
+    const signConverter = isViewAscending ? 1 : -1;
+    if (+a?.totalViewer > +b?.totalViewer) {
+      return -1 * signConverter;
+    } else {
+      return 1 * signConverter;
+    }
+  };
+
+  const handleViewSort = () => {
+    const posts = [...initialPosts];
+    posts.sort(ViewSortCompareFunction);
+    setIsViewAscending(isViewAscending === null ? true : !isViewAscending);
+    setSortedInitialPosts(posts);
+    filterBySelected(posts);
+    setIsPriceAscending(null);
+    setIsDistanceAscending(null);
   };
 
   return (
@@ -271,6 +305,8 @@ export default function SearchContextProvider({ children }) {
         isPriceAscending,
         handleDistanceSort,
         isDistanceAscending,
+        handleViewSort,
+        isViewAscending,
         loading,
       }}
     >

@@ -52,7 +52,7 @@ export default function MainContainer() {
         <div className=' flex-1 shadow-lg p-6 rounded-lg'>
           <FilterContainer />
         </div>
-        <div className='flex flex-col gap-4'>
+        <div className=' w-[50vw] flex flex-col gap-4'>
           <CardContainer />
         </div>
       </div>
