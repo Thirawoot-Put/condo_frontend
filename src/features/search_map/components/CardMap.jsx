@@ -32,7 +32,7 @@ function CardMap({ post }) {
           {/* {post?.room?.roomFacilities?.map(
             (facility) =>
               facility.id <= 4 && ( */}
-          {post?.room.roomFacilities.map(
+          {post?.room?.roomFacilities.map(
             (facility, index) =>
               index <= 3 && (
                 <small
