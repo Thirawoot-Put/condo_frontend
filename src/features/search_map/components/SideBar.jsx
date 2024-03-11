@@ -1,19 +1,23 @@
 import React from 'react';
-import CardMap from './CardMap';
+import CardMap from '../../../components/CardMap';
 import Spinner from '../../../components/Spinner';
 
 function SideBar({ posts, loading }) {
-  if (loading) {
-    return (
-      <div className='overflow-y-scroll items-center flex flex-col w-[40vw] border gap-2 py-3 h-full rounded-l-md'>
-        <Spinner />
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className='overflow-y-scroll items-center flex flex-col w-[40vw] border gap-2 py-3 h-full rounded-l-md'>
+  //       <Spinner />
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className='overflow-y-scroll items-center flex flex-col w-[40vw] border gap-2 py-3 h-full rounded-l-md'>
-      {posts?.length === 0 ? (
+      {!posts ? (
+        <div className='flex items-center h-full text-3xl font-semibold'>
+          Please select condo on map
+        </div>
+      ) : posts?.length === 0 ? (
         <>
           <h2 className='text-xl font-semibold'>
             Sorry, This condo not has room to let for now.
@@ -25,7 +29,7 @@ function SideBar({ posts, loading }) {
         </>
       ) : (
         <>
-          {posts.map((post) => (
+          {posts?.map((post) => (
             <CardMap key={post.id} post={post} />
           ))}
         </>

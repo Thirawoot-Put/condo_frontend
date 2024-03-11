@@ -1,6 +1,6 @@
 import React from 'react';
 import useSearch from '../hook/UseSearch';
-import CardMap from '../../search_map/components/CardMap';
+import CardMap from '../../../components/CardMap';
 
 export default function CardContainer() {
   const { activePosts } = useSearch();
