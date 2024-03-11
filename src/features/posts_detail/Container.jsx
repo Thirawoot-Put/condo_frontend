@@ -12,6 +12,7 @@ import Facilities from './component/Facilities';
 import SubNavToPay from './component/SubNavToPay';
 import useChat from '../chat/hook/useChat';
 import { Link } from 'react-router-dom';
+import Nearest from './component/Nearest';
 
 export default function Container() {
   const { handleStartChat } = useChat();
@@ -53,7 +54,7 @@ export default function Container() {
                     </div>
                   </div>
                   <div className='col-span-4 bg-blue-100'>
-                    nearest essentials
+                    <Nearest lat={latlong?.lat} lng={latlong?.lng} />
                   </div>
                 </div>
                 <ProfileCard user={postDetail?.user} title='Hosted by'>
