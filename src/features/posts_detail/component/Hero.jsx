@@ -21,7 +21,7 @@ export default function Hero() {
     <div className='flex justify-center'>
       <Carousel renderThumbs={customRenderThumb}>
         {slides.map((el, index) => (
-          <div key={nanoid()} className='h-[750px]'>
+          <div key={nanoid()} className='h-[600px]'>
             <img
               className='w-[100%] h-[100%] object-cover object-center'
               src={el?.url}
