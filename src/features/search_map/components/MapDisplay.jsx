@@ -7,6 +7,7 @@ import {
 } from '@react-google-maps/api';
 
 function MapDisplay({ markers = [], setIsShow, onClickMarker }) {
+  // const [center, setCenter] = useState({});
   let zoom = 11;
   let lat = 13.715042359221808;
   let lng = 100.60007182984619;
@@ -17,6 +18,7 @@ function MapDisplay({ markers = [], setIsShow, onClickMarker }) {
     lng = urlParams.get('lng');
     zoom = 14;
   }
+  // setCenter({ ...center, lat, lng });
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAP_API_KEY,
   });
@@ -27,9 +29,11 @@ function MapDisplay({ markers = [], setIsShow, onClickMarker }) {
     // if (marker === activeMarker) {
     //   return;
     // }
-    setActiveMarker(marker);
+    lat = marker?.lat;
+    lng = marker?.long;
+    setActiveMarker(marker?.id);
     setIsShow(true);
-    onClickMarker(marker);
+    onClickMarker(marker?.id);
   };
 
   const handleCloseMarker = () => {
@@ -57,7 +61,7 @@ function MapDisplay({ markers = [], setIsShow, onClickMarker }) {
               <MarkerF
                 key={marker?.id}
                 position={{ lat: +marker?.lat, lng: +marker?.long }}
-                onClick={() => handleClickMarker(marker?.id)}
+                onClick={() => handleClickMarker(marker)}
                 // icon={{
                 //   url: 'https://www.svgrepo.com/show/187158/apartment.svg',
                 //   scaledSize: { width: 50, height: 50 },

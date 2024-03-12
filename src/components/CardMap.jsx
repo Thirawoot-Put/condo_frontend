@@ -11,7 +11,7 @@ function CardMap({ post, distance = null, width = 'w-[33rem]' }) {
     >
       <div className='flex h-36 aspect-square overflow-hidden items-center justify-center rounded-xl'>
         <img
-          className='object-center h-36'
+          className='object-center object-cover h-full w-full'
           src={
             post?.room?.roomImages?.[0]?.roomImage ||
             post?.room?.condo?.condoImage

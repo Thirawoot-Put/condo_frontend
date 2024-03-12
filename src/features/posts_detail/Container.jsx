@@ -42,17 +42,17 @@ export default function Container() {
               <SubNavToPay />
             </div>
           )}
-          <div className='min-h-[500px] w-[90%] mx-auto'>
+          <div className='min-h-[500px] w-[90%] mx-auto p-10'>
             {postDetail && (
               <div className='flex flex-col gap-16'>
-                <div>
-                  <Hero />
+                {/* <div> */}
+                <Hero />
 
-                  <div className='grid grid-cols-12 '>
-                    <DetailLeft />
-                    <DetailRight />
-                  </div>
+                <div className='grid grid-cols-12 '>
+                  <DetailLeft />
+                  <DetailRight />
                 </div>
+                {/* </div> */}
                 <Facilities />
                 <div className='grid grid-cols-12'>
                   <div className='col-span-8 '>
