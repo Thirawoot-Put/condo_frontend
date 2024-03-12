@@ -1,5 +1,6 @@
 import React from 'react';
 import FilterContainer from './FilterContainer';
+import MapDisplayFilter from './MapDisplayFilter';
 import CardContainer from './CardContainer';
 import { useEffect } from 'react';
 import useSearch from '../hook/useSearch';
@@ -16,13 +17,15 @@ export default function MainContainer() {
     filterBySelected,
     initialPosts,
     getMinMaxPrice,
+    activeCondos,
     loading,
+    setIsShow,
+    handleClickCondoMarker,
   } = useSearch();
 
   useEffect(() => {
     // const timeoutId = setTimeout(() => {
-    console.log('initialPosts', initialPosts);
-    handleSubmitInputName();
+    filterBySelected();
     // }, 4000);
     // return () => {
     //   clearTimeout(timeoutId);
@@ -47,6 +50,11 @@ export default function MainContainer() {
         value={selected.name}
         width='w-full'
         placeholder='Search condo name'
+      />
+      <MapDisplayFilter
+        markers={activeCondos}
+        setIsShow={setIsShow}
+        onClickMarker={handleClickCondoMarker}
       />
       <div className='flex gap-4'>
         <div className=' flex-1 shadow-lg p-6 rounded-lg'>

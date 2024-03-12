@@ -15,6 +15,7 @@ export default function SearchContextProvider({ children }) {
   const [initialPosts, setInitialPosts] = useState([]);
   const [sortedInitialPosts, setSortedInitialPosts] = useState([]);
   const [activePosts, setActivePosts] = useState([]);
+  const [activeCondos, setActiveCondos] = useState([]);
   const [districts, setDistricts] = useState([]);
   //   const [provinces, setProvinces] = useState([]);
   const [facilities, setFacilities] = useState([]);
@@ -23,29 +24,61 @@ export default function SearchContextProvider({ children }) {
     prices: [0, 100000],
     districts: [],
     facilities: [],
+    condoId: '',
   });
   const [minMaxPrice, setMinMaxPrice] = useState({});
   const [isPriceAscending, setIsPriceAscending] = useState(null);
   const [isDistanceAscending, setIsDistanceAscending] = useState(null);
   const [isViewAscending, setIsViewAscending] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [isShow, setIsShow] = useState(false);
+  const [activeMarker, setActiveMarker] = useState(null);
+  const [lat, setLat] = useState(13.715042359221808);
+  const [lng, setLng] = useState(100.60007182984619);
+
+  // useEffect(() => {
+  //   getActiveCondos();
+  // }, [activePosts]);
+
+  // const fetchPostInCondo = async (condoId) => {
+  //   try {
+  //     setLoadingSideBar(true);
+  //     const {
+  //       data: { posts },
+  //     } = await postApi.getPostInCondo(condoId);
+  //     setPostsInCondo(posts);
+  //   } catch (error) {
+  //     console.log(error);
+  //   } finally {
+  //     setLoadingSideBar(false);
+  //   }
+  // };
 
   const handlePriceChange = (event, newPrice) => {
     setSelected({ ...selected, prices: newPrice });
   };
 
+  const getActiveCondos = (posts) => {
+    const condoMap = {};
+    const newActiveCondos = [...posts].reduce((acc, post) => {
+      if (!condoMap.hasOwnProperty(post?.room?.condo?.id)) {
+        condoMap[post?.room?.condo?.id] = 1;
+        acc.push(post?.room?.condo);
+      }
+      return acc;
+    }, []);
+    setActiveCondos(newActiveCondos);
+  };
+
   const getCurrentLatLng = async () => {
     const promise = new Promise((resolve, reject) => {
-      console.log('navigator.geolocation', navigator.geolocation);
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
-            console.log('position', position);
             const currentLocation = [
               +position?.coords?.latitude,
               +position?.coords?.longitude,
             ];
-            console.log('first');
             resolve(currentLocation);
           },
           (error) => {
@@ -89,6 +122,7 @@ export default function SearchContextProvider({ children }) {
       setInitialPosts(postsWithFacilityMap);
       setSortedInitialPosts(postsWithFacilityMap);
       setActivePosts(postsWithFacilityMap);
+      getActiveCondos(postsWithFacilityMap);
     } catch (error) {
       console.log(error);
     } finally {
@@ -129,7 +163,8 @@ export default function SearchContextProvider({ children }) {
     setSelected({ ...selected, name: e.target.value });
   };
 
-  const handleSubmitInputName = () => {
+  const handleSubmitInputName = (e) => {
+    e.preventDefault();
     filterBySelected();
   };
 
@@ -177,26 +212,42 @@ export default function SearchContextProvider({ children }) {
     }
   };
 
+  const handleClickCondoMarker = (condo) => {
+    setSelected({
+      ...selected,
+      condoId: condo.id,
+    });
+    setLat(+condo?.lat);
+    setLng(+condo?.long);
+    setActiveMarker(condo.id);
+    setIsShow(true);
+    filterBySelected([...initialPosts], condo.id);
+  };
+
   const handleClickClearFilter = () => {
     setActivePosts(initialPosts);
+    getActiveCondos(initialPosts);
     setSelected({
       ...selected,
       prices: [0, +minMaxPrice._max.price],
       districts: [],
       facilities: [],
+      condoId: '',
     });
     setIsPriceAscending(null);
     setIsDistanceAscending(null);
     setIsViewAscending(null);
+    setActiveMarker(null);
+    setIsShow(false);
   };
 
-  const filterBySelected = (posts) => {
+  const filterBySelected = (posts, condoId = null) => {
     const clonedPost = posts
       ? posts
       : isPriceAscending
         ? [...sortedInitialPosts]
         : [...initialPosts];
-    const filterPosts = clonedPost.filter((post) => {
+    const filteredPosts = clonedPost.filter((post) => {
       const IsInSelectedName =
         post.room?.condo?.nameTh
           ?.toLowerCase()
@@ -215,12 +266,23 @@ export default function SearchContextProvider({ children }) {
       );
       return (
         (selected.name === '' || IsInSelectedName) &&
+        // (selected.condoId === '' || IsInSelectedCondoId) &&
         (selected.districts.length === 0 || IsInSelectedDistricts) &&
         (selected.facilities.length === 0 || IsInSelectedFacilities) &&
         IsInSelectedPrices
       );
     });
-    setActivePosts(filterPosts);
+    getActiveCondos(filteredPosts);
+    // const IsInSelectedCondoId = selected.condoId === post.room?.condo?.id;
+    const selectedCondoId = condoId || selected.condoId;
+    if (selectedCondoId) {
+      const filteredPostsByCondo = filteredPosts.filter(
+        (post) => selectedCondoId === post.room?.condo?.id
+      );
+      setActivePosts(filteredPostsByCondo);
+      return;
+    }
+    setActivePosts(filteredPosts);
   };
 
   const PriceSortCompareFunction = (a, b) => {
@@ -293,6 +355,7 @@ export default function SearchContextProvider({ children }) {
         handleClickFacilities,
         handleClickDistricts,
         handlePriceChange,
+        handleClickCondoMarker,
         selected,
         filterBySelected,
         handleClickClearFilter,
@@ -307,7 +370,13 @@ export default function SearchContextProvider({ children }) {
         isDistanceAscending,
         handleViewSort,
         isViewAscending,
+        activeCondos,
         loading,
+        setIsShow,
+        activeMarker,
+        setActiveMarker,
+        lat,
+        lng,
       }}
     >
       {children}
