@@ -13,10 +13,11 @@ import SubNavToPay from './component/SubNavToPay';
 import useChat from '../chat/hook/useChat';
 import { Link } from 'react-router-dom';
 import Nearest from './component/Nearest';
+import { useEffect } from 'react';
 
 export default function Container() {
   const { handleStartChat } = useChat();
-  const { loading, postDetail } = useDetail();
+  const { loading, postDetail, createViewer } = useDetail();
   const latlong = {
     lat: +postDetail?.room?.condo?.lat,
     lng: +postDetail?.room?.condo?.long,
@@ -24,6 +25,11 @@ export default function Container() {
   // commit
   // comment
   // console.log(postDetail);
+
+  useEffect(() => {
+    createViewer();
+  }, []);
+
   return (
     <>
       {loading ? (
