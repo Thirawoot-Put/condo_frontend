@@ -14,6 +14,7 @@ import useChat from '../chat/hook/useChat';
 import { Link } from 'react-router-dom';
 import Nearest from './component/Nearest';
 import { useEffect } from 'react';
+import NearestWithDistance from './component/NearestWithDistance';
 
 export default function Container() {
   const { handleStartChat } = useChat();
@@ -61,6 +62,7 @@ export default function Container() {
                   </div>
                   <div className='col-span-4'>
                     <Nearest lat={latlong?.lat} lng={latlong?.lng} />
+                    <NearestWithDistance />
                   </div>
                 </div>
                 <ProfileCard user={postDetail?.user} title='Hosted by'>
