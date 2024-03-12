@@ -12,7 +12,7 @@ function SearchMap() {
   const [loading, setLoading] = useState(false);
   const [loadingSideBar, setLoadingSideBar] = useState(false);
   const [condos, setCondos] = useState([]);
-  const [postsInCondo, setPostsInCondo] = useState([]);
+  const [postsInCondo, setPostsInCondo] = useState(null);
 
   const fetchCondo = async () => {
     try {
@@ -51,18 +51,21 @@ function SearchMap() {
       {loading ? (
         <Spinner />
       ) : (
-        <>
+        <div className='px-10'>
           <h1 className='text-center text-xl font-semibold mt-4'>
             Find your happiness home
           </h1>
-          <div className='flex h-[80vh] my-3'>
+          <div className='flex h-[80vh] my-3 w-full'>
             <div
               className={` ${isShow ? 'translate-x-0' : '-translate-x-full ml-[-2.5rem]'} ease-in-out duration-500`}
             >
               <SideBar posts={postsInCondo} loading={loadingSideBar} />
             </div>
+            {/* <div>
+              <SideBar posts={postsInCondo} loading={loadingSideBar} />
+            </div> */}
             <div
-              className={`w-[80vw]  ${isShow ? 'translate-x-0' : '-translate-x-1/3'} ease-in-out duration-500`}
+              className={`w-[100vw]  ${isShow ? 'translate-x-0' : '-translate-x-1/3'} ease-in-out duration-500`}
             >
               <MapDisplay
                 markers={condos}
@@ -70,8 +73,15 @@ function SearchMap() {
                 onClickMarker={fetchPostInCondo}
               />
             </div>
+            {/* <div className='w-full'>
+              <MapDisplay
+                markers={condos}
+                setIsShow={setIsShow}
+                onClickMarker={fetchPostInCondo}
+              />
+            </div> */}
           </div>
-        </>
+        </div>
       )}
     </>
   );

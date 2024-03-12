@@ -24,20 +24,23 @@ export default function MainContainer() {
     console.log('initialPosts', initialPosts);
     handleSubmitInputName();
     // }, 4000);
-    getActivePosts();
-    getSelected();
-    getMinMaxPrice();
     // return () => {
     //   clearTimeout(timeoutId);
     // };
   }, [selected.name]);
 
-  if (loading) {
-    return <Spinner />;
-  }
+  useEffect(() => {
+    getActivePosts();
+    getSelected();
+    getMinMaxPrice();
+  }, []);
+
+  // if (loading) {
+  //   return <Spinner />;
+  // }
 
   return (
-    <div className='w-[80vw] mx-auto py-8 flex flex-col gap-4'>
+    <div className='w-[70vw] mx-auto py-8 flex flex-col gap-4'>
       <SearchBar
         onChange={handleChangeInputName}
         onSubmit={handleSubmitInputName}
@@ -49,7 +52,7 @@ export default function MainContainer() {
         <div className=' flex-1 shadow-lg p-6 rounded-lg'>
           <FilterContainer />
         </div>
-        <div className='flex flex-col gap-4'>
+        <div className=' w-[50vw] flex flex-col gap-4'>
           <CardContainer />
         </div>
       </div>

@@ -39,7 +39,7 @@ function MapDisplay({ markers = [], setIsShow, onClickMarker }) {
 
   return (
     <>
-      <div style={{ width: '100%', height: '80vh' }}>
+      <div className='h-[80vh]'>
         {isLoaded ? (
           <GoogleMap
             mapContainerStyle={{

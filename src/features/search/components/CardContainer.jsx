@@ -1,6 +1,6 @@
 import React from 'react';
+import CardMap from '../../../components/CardMap';
 import useSearch from '../hook/useSearch';
-import CardMap from '../../search_map/components/CardMap';
 import { useEffect } from 'react';
 
 export default function CardContainer() {
@@ -9,7 +9,7 @@ export default function CardContainer() {
   if (!activePosts || activePosts.length === 0) {
     return (
       <div className='invisible'>
-        <CardMap key={0} post={{}} />;
+        <CardMap key={0} post={{}} width='w-full' />;
       </div>
     );
   }
@@ -17,7 +17,12 @@ export default function CardContainer() {
   return (
     <>
       {activePosts.map((post) => (
-        <CardMap key={post.id} post={post} distance={post.distance} />
+        <CardMap
+          key={post.id}
+          post={post}
+          width='w-full'
+          distance={post.distance}
+        />
       ))}
     </>
   );

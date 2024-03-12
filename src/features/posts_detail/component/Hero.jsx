@@ -4,6 +4,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 import useDetail from '../context/PostDetailContext';
 import { nanoid } from 'nanoid';
+import { useEffect } from 'react';
 
 export default function Hero() {
   const { postDetail } = useDetail();

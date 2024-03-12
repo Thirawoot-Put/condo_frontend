@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import * as postApi from '../../../api/post-api';
+import * as viewerApi from '../../../api/viewer-api';
 
 const PostDetailContext = createContext();
 
@@ -27,8 +28,13 @@ export function PostDetailContextProvider({ children }) {
     fetchPostId(params.postId);
   }, []);
 
+  const createViewer = async () => {
+    const viewer = await viewerApi.createPost(params.postId);
+    console.log('viewer', viewer);
+  };
+
   return (
-    <PostDetailContext.Provider value={{ postDetail, loading }}>
+    <PostDetailContext.Provider value={{ postDetail, loading, createViewer }}>
       {children}
     </PostDetailContext.Provider>
   );
