@@ -27,7 +27,7 @@ function MediumPostCard({ data, id }) {
         </div>
         <div>{data.condo.nameEn}</div>
 
-        <div className='text-gray-500 font-mono'>{data.price} THB/mont</div>
+        <div className='text-red-500 font-mono'>{data.price} THB/month</div>
       </div>
     </Link>
   );
