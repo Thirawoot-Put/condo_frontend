@@ -72,16 +72,13 @@ export default function SearchContextProvider({ children }) {
 
   const getCurrentLatLng = async () => {
     const promise = new Promise((resolve, reject) => {
-      console.log('navigator.geolocation', navigator.geolocation);
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
-            console.log('position', position);
             const currentLocation = [
               +position?.coords?.latitude,
               +position?.coords?.longitude,
             ];
-            console.log('first');
             resolve(currentLocation);
           },
           (error) => {
@@ -166,7 +163,8 @@ export default function SearchContextProvider({ children }) {
     setSelected({ ...selected, name: e.target.value });
   };
 
-  const handleSubmitInputName = () => {
+  const handleSubmitInputName = (e) => {
+    e.preventDefault();
     filterBySelected();
   };
 
