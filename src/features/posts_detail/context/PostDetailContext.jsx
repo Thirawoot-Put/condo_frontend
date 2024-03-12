@@ -9,6 +9,12 @@ const PostDetailContext = createContext();
 
 export function PostDetailContextProvider({ children }) {
   const [postDetail, setPostDetail] = useState(null);
+  const [placesNearby, setPlacesNearby] = useState({
+    subwayStation: [],
+    shoppingMall: [],
+    hospital: [],
+    university: [],
+  });
   const [loading, setLoading] = useState(false);
   const params = useParams();
 
@@ -34,7 +40,15 @@ export function PostDetailContextProvider({ children }) {
   };
 
   return (
-    <PostDetailContext.Provider value={{ postDetail, loading, createViewer }}>
+    <PostDetailContext.Provider
+      value={{
+        postDetail,
+        loading,
+        createViewer,
+        placesNearby,
+        setPlacesNearby,
+      }}
+    >
       {children}
     </PostDetailContext.Provider>
   );
