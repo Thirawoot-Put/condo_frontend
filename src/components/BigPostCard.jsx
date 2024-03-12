@@ -5,7 +5,7 @@ function BigPostCard({ data }) {
   const Imgstyle = {
     width: '100%',
     height: '100%',
-    objectFit: 'fill',
+    objectFit: 'cover',
   };
   console.log(data);
   return (
@@ -27,7 +27,7 @@ function BigPostCard({ data }) {
         <div>{data.district.district}</div> */}
       <Link
         to={`/map?lat=${data.lat}&lng=${data.long}`}
-        className='w-5/6 h-1/6 text-3xl grid grid-cols-3 items-center text-black'
+        className='w-5/6 h-1/6 text-2xl grid grid-cols-3 items-center text-black'
       >
         <div className='text-start'>{data.nameTh}</div>
         <div>{data.district.district}</div>
