@@ -25,8 +25,7 @@ export default function MainContainer() {
 
   useEffect(() => {
     // const timeoutId = setTimeout(() => {
-    console.log('initialPosts', initialPosts);
-    handleSubmitInputName();
+    filterBySelected();
     // }, 4000);
     // return () => {
     //   clearTimeout(timeoutId);

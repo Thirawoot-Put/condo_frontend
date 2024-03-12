@@ -11,12 +11,12 @@ export default function MenuList({ menu, title }) {
       <div className='flex flex-col'>
         {menu.map((el) => (
           <div key={el.id}>
-            <p
+            <div
               onClick={() => navigate(`${el.to}`)}
               className='text-gray-500 cursor-pointer hover:text-red-600'
             >
               {el.name}
-            </p>
+            </div>
           </div>
         ))}
       </div>
