@@ -1,6 +1,7 @@
 import React from 'react';
 import getDistanceFromLatLng from '../../../ultils/getDistanceFromLatLng';
 import useDetail from '../context/PostDetailContext';
+import { nanoid } from 'nanoid';
 
 export default function NearestWithDistanceItem({ children, title }) {
   const { postDetail } = useDetail();
@@ -9,7 +10,7 @@ export default function NearestWithDistanceItem({ children, title }) {
       <div className=' font-semibold'>{title}</div>
       <div>
         {children.map((place) => (
-          <small className=' flex justify-between'>
+          <small className=' flex justify-between' key={nanoid()}>
             <div>{place.name}</div>
             <div className=' w-[8rem] text-right'>
               {`${

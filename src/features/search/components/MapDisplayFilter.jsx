@@ -74,7 +74,7 @@ function MapDisplayFilter({ markers = [], setIsShow, onClickMarker }) {
                       lng: +lng,
                     }}
                   >
-                    <div className='flex items-center gap-1'>
+                    <div className='flex gap-3 items-center'>
                       <div className='h-20 flex aspect-square overflow-hidden items-center rounded-xl justify-center'>
                         <img
                           className='object-center h-36'
