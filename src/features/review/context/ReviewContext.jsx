@@ -1,6 +1,7 @@
 import { useContext, useState, createContext } from 'react';
 
 import * as reviewApi from '../../../api/review-api';
+import * as jwt from '../../../ultils/local-store';
 
 const ReviewContext = createContext();
 
@@ -21,14 +22,16 @@ export function ReviewContextProvider({ children }) {
     setAllReview(response.data.reviews);
   };
   const fetchReviewMe = async () => {
-    const response = await reviewApi.fetchReviewByUserId();
-    setInput({
-      comment: response?.data?.review?.comment,
-      rating: +response?.data?.review?.rating,
-    });
+    if (jwt.getToken()) {
+      const response = await reviewApi.fetchReviewByUserId();
+      setInput({
+        comment: response?.data?.review?.comment,
+        rating: +response?.data?.review?.rating,
+      });
 
-    if (response?.data?.review?.comment != undefined) {
-      setHave(true);
+      if (response?.data?.review?.comment != undefined) {
+        setHave(true);
+      }
     }
   };
 
