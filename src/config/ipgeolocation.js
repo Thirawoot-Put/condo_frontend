@@ -5,7 +5,6 @@ const URL =
   'https://ipgeolocation.abstractapi.com/v1/?api_key=a24ffaf9c0a24a6ea5b3098fa7fc6f29';
 
 export const sendAPIRequest = async (ipAddress) => {
-  console.log('URL', URL);
   const apiResponse = await axios.get(URL + '&ip_address=' + ipAddress);
   return apiResponse.data;
 };

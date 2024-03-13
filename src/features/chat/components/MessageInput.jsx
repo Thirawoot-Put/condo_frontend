@@ -1,6 +1,12 @@
 import React from 'react';
+import { useRef } from 'react';
+import useChat from '../hook/useChat';
+import { FaImage } from 'react-icons/fa6';
 
 export default function MessageInput({ value, onSubmit, onChange }) {
+  const { handleImageSend } = useChat();
+  const imageFileEl = useRef(null);
+
   return (
     <form
       onSubmit={onSubmit}
@@ -15,6 +21,22 @@ export default function MessageInput({ value, onSubmit, onChange }) {
       <button type='submit' className='bg-white px-6 rounded-lg font-semibold'>
         send
       </button>
+      <button
+        type='button'
+        className='bg-white px-6 rounded-lg font-semibold'
+        onClick={() => {
+          imageFileEl.current.click();
+          imageFileEl.current.value = '';
+        }}
+      >
+        <FaImage />
+      </button>
+      <input
+        type='file'
+        className='hidden'
+        ref={imageFileEl}
+        onChange={handleImageSend}
+      />
     </form>
   );
 }

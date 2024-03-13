@@ -37,7 +37,6 @@ export default function PostForm() {
   } = usePostForm();
 
   const location = useLocation();
-  console.log('location', location);
 
   const condoImageFileEl = useRef(null);
   const roomImageFileEl = useRef(null);

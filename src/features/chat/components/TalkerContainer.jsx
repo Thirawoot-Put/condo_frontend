@@ -6,7 +6,7 @@ function TalkerContainer() {
   const { lastChatsByUserId } = useChat();
   return (
     <>
-      <h1 className=' flex items-center h-9 text-xl font-bold px-4'>Chat</h1>
+      <h1 className=' flex items-center h-12 text-xl font-bold px-4'>Chat</h1>
       <div className='flex flex-col gap-2 overflow-y-scroll'>
         {lastChatsByUserId?.map((chatObj) => (
           <Talker
