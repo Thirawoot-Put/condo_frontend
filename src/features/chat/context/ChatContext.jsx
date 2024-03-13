@@ -37,17 +37,24 @@ export default function ChatContextProvider({ children }) {
     );
   };
 
-  const handleChangeMessage = (e) => {
+  const handleMessageChange = (e) => {
     setMessage(e.target.value);
   };
 
-  const handleSendMessage = (e) => {
+  const handleMessageSend = (e) => {
     e.preventDefault();
     if (message.trim()) {
       socket.emit('sendMessage', { authUser, talker, message }, () => {
         setMessage('');
       });
     }
+  };
+
+  const handleImageSend = (e) => {
+    e.preventDefault();
+    const image = e.target.files[0];
+    const url = URL.createObjectURL(image);
+    socket.emit('sendImage', { authUser, talker, image, url }, () => {});
   };
 
   const handleTalkerChange = (newTalker) => {
@@ -63,36 +70,13 @@ export default function ChatContextProvider({ children }) {
     }
   };
 
-  useEffect(() => {
-    socket.connect();
-
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
-
-  useEffect(() => {
-    socket.on('message', (message) => {
-      setMessages([...messages, message]);
-    });
-  }, [messages]);
-
-  useEffect(() => {
-    if (authUser?.id) {
-      fetchLastChatsByUserId(authUser?.id);
-    }
-  }, [authUser?.id]);
-
   const fetchChatByUserIdAndTalkerId = async (userId, talkerId) => {
     try {
-      console.log('in f');
       const { data } = await chatApi.getChatByUserIdAndTalkerId(
         userId,
         talkerId
       );
-      console.log('data', data);
       setMessages(data.chats);
-      console.log('messages in fetch', messages);
     } catch (error) {
       console.log(error);
     }
@@ -102,14 +86,18 @@ export default function ChatContextProvider({ children }) {
     <ChatContext.Provider
       value={{
         lastChatsByUserId,
+        fetchLastChatsByUserId,
         fetchChatByUserIdAndTalkerId,
-        handleSendMessage,
-        handleChangeMessage,
+        handleMessageSend,
+        handleMessageChange,
         messages,
+        setMessages,
         message,
         handleTalkerChange,
         talker,
         handleStartChat,
+        handleImageSend,
+        socket,
       }}
     >
       {children}

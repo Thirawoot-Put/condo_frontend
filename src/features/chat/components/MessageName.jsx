@@ -4,7 +4,6 @@ import useAuth from '../../auth/hook/useAuth';
 
 export default function MessageName({ messages }) {
   const { authUser } = useAuth();
-  console.log('messages', messages);
   const chatObj = messages?.[0];
   const TalkerName =
     chatObj?.senderId === authUser?.id
@@ -12,7 +11,7 @@ export default function MessageName({ messages }) {
       : `${chatObj?.sender?.firstName || ''} ${chatObj?.sender?.lastName || ''}`;
 
   return (
-    <div className='h-[40px] px-10 font-bold flex items-center'>
+    <div className='h-[60px] px-4 font-bold flex items-center'>
       {TalkerName}
     </div>
   );

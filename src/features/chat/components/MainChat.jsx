@@ -3,10 +3,24 @@ import MessageContainer from './MessageContainer';
 import MessageInput from './MessageInput';
 import MessageName from './MessageName';
 import useChat from '../hook/useChat';
+import { useEffect } from 'react';
 
 export default function MainChat() {
-  const { message, handleSendMessage, handleChangeMessage, messages, talker } =
-    useChat();
+  const {
+    message,
+    handleMessageSend,
+    handleMessageChange,
+    messages,
+    setMessages,
+    talker,
+    socket,
+  } = useChat();
+
+  useEffect(() => {
+    socket.on('message', (message) => {
+      setMessages([...messages, message]);
+    });
+  }, [messages]);
 
   return (
     <div className='h-[64vh] flex flex-col'>
@@ -15,8 +29,8 @@ export default function MainChat() {
       {talker?.talkerId && (
         <MessageInput
           value={message}
-          onSubmit={handleSendMessage}
-          onChange={handleChangeMessage}
+          onSubmit={handleMessageSend}
+          onChange={handleMessageChange}
         />
       )}
     </div>
