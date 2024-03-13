@@ -8,12 +8,13 @@ import validateEdit from '../features/auth/validator/validate-edit';
 import { useNavigate } from 'react-router-dom';
 
 import * as userApi from '../api/user-api';
+import * as authApi from '../api/auth-api';
 import { toast } from 'react-toastify';
 
 // comment
 
 export default function EditProfile() {
-  const { authUser } = useAuth();
+  const { authUser, fetchMe } = useAuth();
   const navigate = useNavigate();
   const [input, setInput] = useState({
     username: '',
@@ -43,6 +44,7 @@ export default function EditProfile() {
 
       if (!validateError) {
         await userApi.updateUer(input);
+        await fetchMe();
         toast.success('edit success');
         navigate(`/user/profile/${authUser.id}`);
       }
