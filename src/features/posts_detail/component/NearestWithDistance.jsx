@@ -5,25 +5,46 @@ import getDistanceFromLatLng from '../../../ultils/getDistanceFromLatLng';
 import NearestWithDistanceItem from './NearestWithDistanceItem';
 
 export default function NearestWithDistance() {
-  const { postDetail, placesNearby, setPlacesNearby } = useDetail();
+  const {
+    postDetail,
+    placesNearby,
+    setPlacesNearby,
+    placesNearbyHashMap,
+    addPlacesNearbyHashMap,
+  } = useDetail();
+  const [isExpanded, setisExpanded] = useState(false);
+
+  const handleLoadMoreClick = () => {
+    setisExpanded(!isExpanded);
+  };
 
   //   const [type, setType] = useState('');
-  const types = ['subway_station', 'shopping_mall', 'hospital', 'university'];
+  const types = [
+    'subway_station',
+    'shopping_mall',
+    'hospital',
+    'university',
+    'point_of_interest',
+  ];
 
   let map;
   let service;
   let infowindow;
 
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${import.meta.env.VITE_GOOGLE_MAP_API_KEY}&libraries=places`;
-    script.async = true;
-    script.onload = initialize;
-    document.body.appendChild(script);
+  //   useEffect(() => {
+  //     const script = document.createElement('script');
+  //     script.src = `https://maps.googleapis.com/maps/api/js?key=${import.meta.env.VITE_GOOGLE_MAP_API_KEY}&libraries=places`;
+  //     script.async = true;
+  //     script.onload = initialize;
+  //     document.body.appendChild(script);
 
-    return () => {
-      document.body.removeChild(script);
-    };
+  //     return () => {
+  //       document.body.removeChild(script);
+  //     };
+  //   }, []);
+
+  useEffect(() => {
+    initialize();
   }, []);
 
   function initialize() {
@@ -39,7 +60,7 @@ export default function NearestWithDistance() {
 
     const request = {
       location: pyrmont,
-      radius: '1000',
+      radius: '500',
       type: types,
     };
 
@@ -61,48 +82,72 @@ export default function NearestWithDistance() {
 
   function createMarker(place) {
     if (place.types.includes('subway_station')) {
-      setPlacesNearby((prev) => {
-        return { ...prev, subwayStation: [...prev.subwayStation, place] };
-      });
+      if (!placesNearbyHashMap.subwayStation.hasOwnProperty(place.name)) {
+        setPlacesNearby((prev) => {
+          addPlacesNearbyHashMap('subwayStation', place.name);
+          return { ...prev, subwayStation: [...prev.subwayStation, place] };
+        });
+      }
     } else if (place.types.includes('shopping_mall')) {
-      setPlacesNearby((prev) => {
-        return { ...prev, shoppingMall: [...prev.shoppingMall, place] };
-      });
+      if (!placesNearbyHashMap.shoppingMall.hasOwnProperty(place.name)) {
+        setPlacesNearby((prev) => {
+          addPlacesNearbyHashMap('shoppingMall', place.name);
+          return { ...prev, shoppingMall: [...prev.shoppingMall, place] };
+        });
+      }
     } else if (place.types.includes('hospital')) {
-      setPlacesNearby((prev) => {
-        return { ...prev, hospital: [...prev.hospital, place] };
-      });
+      if (!placesNearbyHashMap.hospital.hasOwnProperty(place.name)) {
+        setPlacesNearby((prev) => {
+          addPlacesNearbyHashMap('hospital', place.name);
+          return { ...prev, hospital: [...prev.hospital, place] };
+        });
+      }
     } else if (place.types.includes('university')) {
-      setPlacesNearby((prev) => {
-        return { ...prev, university: [...prev.university, place] };
-      });
+      if (!placesNearbyHashMap.university.hasOwnProperty(place.name)) {
+        setPlacesNearby((prev) => {
+          addPlacesNearbyHashMap('university', place.name);
+          return { ...prev, university: [...prev.university, place] };
+        });
+      }
     }
   }
 
   return (
     <>
       <div id='map' style={{ width: '100%', height: '0px' }}></div>
+      <h1 className='py-2 text-xl font-bold'>Places Nearby</h1>
       <div>
-        {placesNearby?.subwayStation?.length !== 0 && (
-          <NearestWithDistanceItem title='Subway'>
-            {placesNearby?.subwayStation}
-          </NearestWithDistanceItem>
-        )}
-        {placesNearby?.shoppingMall?.length !== 0 && (
-          <NearestWithDistanceItem title='Shopping mall'>
-            {placesNearby?.shoppingMall}
-          </NearestWithDistanceItem>
-        )}
-        {placesNearby?.hospital?.length !== 0 && (
-          <NearestWithDistanceItem title='hospital'>
-            {placesNearby?.hospital}
-          </NearestWithDistanceItem>
-        )}
-        {placesNearby?.university?.length !== 0 && (
-          <NearestWithDistanceItem title='university'>
-            {placesNearby?.university}
-          </NearestWithDistanceItem>
-        )}
+        <div
+          className={`${isExpanded ? 'h-full' : 'max-h-[24rem]'} overflow-hidden`}
+        >
+          {placesNearby?.subwayStation?.length !== 0 && (
+            <NearestWithDistanceItem title='Subway'>
+              {placesNearby?.subwayStation}
+            </NearestWithDistanceItem>
+          )}
+          {placesNearby?.shoppingMall?.length !== 0 && (
+            <NearestWithDistanceItem title='Shopping mall'>
+              {placesNearby?.shoppingMall}
+            </NearestWithDistanceItem>
+          )}
+          {placesNearby?.hospital?.length !== 0 && (
+            <NearestWithDistanceItem title='Hospital'>
+              {placesNearby?.hospital}
+            </NearestWithDistanceItem>
+          )}
+          {placesNearby?.university?.length !== 0 && (
+            <NearestWithDistanceItem title='University'>
+              {placesNearby?.university}
+            </NearestWithDistanceItem>
+          )}
+        </div>
+        <button
+          className='mt-6 py-1.5 w-full rounded-2xl border'
+          id='more'
+          onClick={handleLoadMoreClick}
+        >
+          {isExpanded ? 'Load Less' : 'Load More'}
+        </button>
       </div>
     </>
   );

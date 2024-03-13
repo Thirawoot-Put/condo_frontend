@@ -18,7 +18,7 @@ import NearestWithDistance from './component/NearestWithDistance';
 
 export default function Container() {
   const { handleStartChat } = useChat();
-  const { loading, postDetail, createViewer } = useDetail();
+  const { loading, isLoaded, postDetail, createViewer } = useDetail();
   const latlong = {
     lat: +postDetail?.room?.condo?.lat,
     lng: +postDetail?.room?.condo?.long,
@@ -33,7 +33,7 @@ export default function Container() {
 
   return (
     <>
-      {loading ? (
+      {loading || !isLoaded ? (
         <Spinner />
       ) : (
         <div>
@@ -61,7 +61,7 @@ export default function Container() {
                     </div>
                   </div>
                   <div className='col-span-4'>
-                    <Nearest lat={latlong?.lat} lng={latlong?.lng} />
+                    {/* <Nearest lat={latlong?.lat} lng={latlong?.lng} /> */}
                     <NearestWithDistance />
                   </div>
                 </div>
