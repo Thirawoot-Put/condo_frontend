@@ -4,8 +4,12 @@ import useReview from '../context/ReviewContext';
 import validateReview from '../../auth/validator/validate-review';
 
 import * as reviewApi from '../../../api/review-api';
+import useAuth from '../../auth/hook/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 export default function Review() {
+  const navigate = useNavigate();
+  const { authUser } = useAuth();
   const { handleChange, input, fetchReviewMe, have, fetchAllReview } =
     useReview();
 
@@ -88,9 +92,21 @@ export default function Review() {
         </div>
         <div>
           {!EDIT ? (
-            <Button variant='contained' type='submit'>
-              Submit
-            </Button>
+            <>
+              {authUser ? (
+                <Button variant='contained' type='submit'>
+                  Submit
+                </Button>
+              ) : (
+                <Button
+                  variant='contained'
+                  type='submit'
+                  onClick={() => navigate('/login')}
+                >
+                  Submit
+                </Button>
+              )}
+            </>
           ) : !isEdit ? (
             <Button
               variant='contained'

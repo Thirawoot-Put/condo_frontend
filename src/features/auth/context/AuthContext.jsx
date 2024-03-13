@@ -8,16 +8,18 @@ export const AuthContext = createContext();
 export default function AuthContextProvider({ children }) {
   const [authUser, setAuthUser] = useState(null);
 
+  const fetchMe = async () => {
+    try {
+      const res = await authApi.fetchMe();
+      setAuthUser(res.data.user);
+    } catch (err) {
+      toast.error(err.response?.data.message);
+    }
+  };
+
   useEffect(() => {
     if (store.getToken()) {
-      authApi
-        .fetchMe()
-        .then((res) => {
-          setAuthUser(res.data.user);
-        })
-        .catch((err) => {
-          toast.error(err.response?.data.message);
-        });
+      fetchMe();
     }
   }, []);
 
@@ -56,6 +58,7 @@ export default function AuthContextProvider({ children }) {
         authUser,
         login,
         logout,
+        fetchMe,
       }}
     >
       {children}

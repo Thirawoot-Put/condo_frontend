@@ -60,7 +60,7 @@ export default function NearestWithDistance() {
 
     const request = {
       location: pyrmont,
-      radius: '500',
+      radius: '700',
       type: types,
     };
 
