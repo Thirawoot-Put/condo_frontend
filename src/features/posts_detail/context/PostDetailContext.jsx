@@ -56,7 +56,7 @@ export function PostDetailContextProvider({ children }) {
 
   const createViewer = async () => {
     const viewer = await viewerApi.createPost(params.postId);
-    console.log('viewer', viewer);
+   
   };
 
   return (

@@ -10,7 +10,7 @@ export default function NearestWithDistanceItem({ children, title }) {
       <div className=' font-semibold'>{title}</div>
       <div>
         {children.map((place) => (
-          <small className=' flex justify-between' key={nanoid()}>
+          <small key={nanoid()} className=' flex justify-between'>
             <div>{place.name}</div>
             <div className=' w-[8rem] text-right'>
               {`${
