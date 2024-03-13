@@ -20,6 +20,7 @@ import EvStationIcon from '@mui/icons-material/EvStation';
 import SecurityIcon from '@mui/icons-material/Security';
 import PetsIcon from '@mui/icons-material/Pets';
 import useDetail from '../context/PostDetailContext';
+import { nanoid } from 'nanoid';
 
 const iconFacilitie = [
   { name: 'Kitchen', icon: <SoupKitchenIcon />, id: 1 },
@@ -46,10 +47,7 @@ const iconFacilitie = [
 
 export default function Facilities() {
   const { postDetail } = useDetail();
-//  new Comment
-//   comment hello
-  const finalIcon = postDetail?.room?.roomFacilities.map((el) => el?.id);
-
+  const finalIcon = postDetail?.room?.roomFacilities.map((el) => el.facilityId);
   return (
     <div className=' flex items-center justify-center '>
       <div className='w-[100%]  shadow-lg rounded-md p-4'>
@@ -57,83 +55,16 @@ export default function Facilities() {
           <h1 className='font-semibold text-2xl'>Facilities</h1>
         </div>
         <div className='grid grid-cols-4'>
-          {iconFacilitie.map((el) => (
-            <div key={el.id} className='font-mono'>
-              {finalIcon[el.id - 1] == el.id && (
-                <div className='text-blue-600 flex gap-4 '>
-                  {el.icon}
-                  <p className='text-gray-800'>{el.name}</p>
-                </div>
-              )}
+          {finalIcon.map((el) => (
+            <div key={nanoid()} className='font-mono'>
+              <div className='text-blue-600 flex gap-4 '>
+                {iconFacilitie[el -1].icon}
+                <p className='text-gray-800'>{iconFacilitie[el-1].name}</p>
+              </div>
             </div>
           ))}
         </div>
       </div>
     </div>
   );
-}
-
-{
-  /* <div className='flex flex-wrap'>
-<div>
-  <SoupKitchenIcon />
-</div>
-<div>
-  <BathtubIcon />
-</div>
-<div>
-  <BathroomIcon />
-</div>
-<div>
-  <KitchenIcon />
-</div>
-<div>
-  <LocalLaundryServiceIcon />
-</div>
-<div>
-  <DeckIcon />
-</div>
-<div>
-  <TvIcon />
-</div>
-<div>
-  <AirIcon />
-</div>
-<div>
-  <GiModernCity />
-</div>
-<div>
-  <ElevatorIcon />
-</div>
-<div>
-  <LocalParkingIcon />
-</div>
-<div>
-  <FitnessCenterIcon />
-</div>
-<div>
-  <MdWork />
-</div>
-<div>
-  <YardIcon />
-</div>
-<div>
-  <PoolIcon />
-</div>
-<div>
-  <FaChartArea />
-</div>
-<div>
-  <SportsEsportsIcon />
-</div>
-<div>
-  <EvStationIcon />
-</div>
-<div>
-  <SecurityIcon />
-</div>
-<div>
-  <PetsIcon />
-</div>
-</div> */
 }

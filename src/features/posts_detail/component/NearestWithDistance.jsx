@@ -60,7 +60,6 @@ export default function NearestWithDistance() {
   }
 
   function createMarker(place) {
-    console.log('place', place);
     if (place.types.includes('subway_station')) {
       setPlacesNearby((prev) => {
         return { ...prev, subwayStation: [...prev.subwayStation, place] };
