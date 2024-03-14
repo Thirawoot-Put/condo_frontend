@@ -4,14 +4,17 @@ import MessageInput from './MessageInput';
 import MessageName from './MessageName';
 import useChat from '../hook/useChat';
 import { useEffect } from 'react';
+import useAuth from '../../auth/hook/useAuth';
 
 export default function MainChat() {
+  const { authUser } = useAuth();
   const {
     message,
     handleMessageSend,
     handleMessageChange,
     messages,
     setMessages,
+    fetchChatByUserIdAndTalkerId,
     talker,
     socket,
   } = useChat();
@@ -21,6 +24,10 @@ export default function MainChat() {
       setMessages([...messages, message]);
     });
   }, [messages]);
+
+  useEffect(() => {
+    fetchChatByUserIdAndTalkerId(authUser.id, talker.talkerId);
+  }, []);
 
   return (
     <div className='h-[64vh] flex flex-col'>

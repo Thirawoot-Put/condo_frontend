@@ -5,10 +5,19 @@ import useAuth from '../../auth/hook/useAuth';
 
 export default function Message({ messageObj }) {
   const { authUser } = useAuth();
+  const { talker } = useChat();
   const isSender = messageObj.sender.id === authUser.id;
   const extendedClasses = isSender ? `self-end` : `self-start`;
 
   if (!messageObj.message || messageObj.message.trim() === '') {
+    return;
+  }
+
+  if (!isSender && messageObj.receiverId !== authUser.id) {
+    return;
+  }
+
+  if (!isSender && messageObj.senderId !== talker.talkerId) {
     return;
   }
 
