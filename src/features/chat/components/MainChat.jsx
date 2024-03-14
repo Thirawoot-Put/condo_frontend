@@ -26,7 +26,9 @@ export default function MainChat() {
   }, [messages]);
 
   useEffect(() => {
-    fetchChatByUserIdAndTalkerId(authUser.id, talker.talkerId);
+    if (authUser?.id && talker?.talkerId) {
+      fetchChatByUserIdAndTalkerId(authUser.id, talker.talkerId);
+    }
   }, []);
 
   return (
