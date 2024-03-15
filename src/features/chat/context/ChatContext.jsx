@@ -59,6 +59,7 @@ export default function ChatContextProvider({ children }) {
 
   const handleTalkerChange = (newTalker) => {
     setTalker(newTalker);
+    console.log('talker', talker);
   };
 
   const fetchLastChatsByUserId = async (userId) => {
